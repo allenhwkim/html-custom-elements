@@ -1,0 +1,27 @@
+<h2>hce-loading</h2>
+<style>
+.box {position: relative; border: 1px solid #ccc; display: flex; justify-content: center; align-items: center}
+</style>
+
+<div class="box">
+  contents
+  <hce-loading id="loading1"></hce-loading>
+</div>
+
+<button onclick="document.querySelector('#loading1').show()">show loading</button>
+<button onclick="document.querySelector('#loading1').hide()">hide loading</button>
+
+<div class="box">
+  contents
+  <hce-loading loading></hce-loading>
+</div>
+
+<div class="box" style="width: 200px; height: 100px">
+  contents
+  <hce-loading loading></hce-loading>
+</div>
+
+<div class="box" style="width: 200px; height: 100px">
+  contents
+  <hce-loading loading>CUSTOM LOADING.......</hce-loading>
+</div>

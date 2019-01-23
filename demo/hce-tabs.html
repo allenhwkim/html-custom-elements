@@ -1,0 +1,55 @@
+<h2>hce-tabs</h2>
+<style>
+  hce-tabs.custom .tabs {
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    padding: 6px 20px 0 20px;
+    display: flex;
+    justify-content: space-between;
+  }
+  hce-tabs.custom .tabs [tab-for] {
+    border-bottom: 4px solid transparent;
+    border: none;
+    background: #fff;
+    position: inherit;
+    font-size: 18px;
+  }
+  hce-tabs.custom .tabs [tab-for].selected {
+    color: red;
+    border-bottom: 4px solid red;
+  }
+  hce-tabs.custom .tab-contents {
+    height: auto;
+  }
+</style>
+
+<h3>Normal Tab</h3>
+<hce-tabs class="first" selected="css"> <!-- this makes all tab  possible -->
+  <div class="tabs"> <!-- class as 'tabs' -->
+    <div tab-for="html">html</div>
+    <div tab-for="js">js</div>
+    <div tab-for="css">css</div>
+  </div>
+  <div class="contents"> <!-- class as 'contents' -->
+    <div contents-for="html">HTML5 </div>
+    <div contents-for="js">Javascript </div>
+    <div contents-for="css">Cascading Style Sheet </div>
+  </div>
+</hce-tabs>
+
+
+<h3>Custom Tab</h3>
+<hce-tabs class="custom" selected="details">
+  <div class="tabs">
+    <div tab-for="value">Value</div>
+    <div tab-for="details">Details</div>
+    <div tab-for="how-to">How to</div>
+    <div tab-for="eligiliity">Eligibility</div>
+  </div>
+  <div class="contents">
+    <div contents-for="value">Value</div>
+    <div contents-for="details">Details </div>
+    <div contents-for="how-to">How to </div>
+    <div contents-for="eligiliity">Eligibility</div>
+  </div>
+</hce-tabs>
