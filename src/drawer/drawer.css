@@ -1,0 +1,56 @@
+:root {
+  display: block;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 13;
+}
+
+:root.visible {
+  visibility: visible;
+}
+
+:root:not(.visible) {
+  visibility: hidden;
+}
+
+:root.visible .contents {
+  left: 0;
+  transform: translateX(0);
+  transition: all .3s ease-in;
+}
+
+:root:not(.visible) .contents {
+  left: -241px;
+  transform: translateX(0);
+  transition: all .2s ease-out;
+}
+
+.page-blocker {
+  position: fixed;
+  background-color: #000;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: .5;
+  top: 0;
+  z-index: 13;
+}
+
+.contents {
+  background-color: #ffffff;
+  box-shadow: 0   3px  6px rgba(0,0,0,0.18), 0  3px  6px rgba(0,0,0,0.23);
+  color: #212121;
+  display: block;
+  height: 100%; 
+  left: 0;
+  max-width: 280px;
+  overflow: auto;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: calc(100vw - 56px);
+  z-index: 16;
+}

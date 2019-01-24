@@ -1,0 +1,19 @@
+<h2>hce-snackbar</h2>
+<div>
+  Message: <input id="message" value="my message"></div>
+</div>
+
+<script>
+  function showSnackbar() {
+    document.querySelector('#message').value = 'My message ' + Math.random();
+    window.hceSnackbar.message = document.querySelector('#message').value;
+  }
+</script>
+
+<button onclick="showSnackbar()"> Show snackbar with a message </button>
+
+<hce-snackbar>hce-snackbar</hce-snackbar>
+
+<pre>
+window.hceSnackbar.message = 'My message ' + Math.random();
+</pre>
