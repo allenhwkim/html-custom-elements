@@ -1,19 +1,21 @@
 <h2>hce-drawer</h2>
 
-<button onclick="window.hceDrawer.show()">Open Drawer</button>
+<p>
+  hce-drawer shows page-blocking drawer for desktop and mobile.
+  To show call `show` function of  `window.hceDrawer`;
+  e.g. `window.hceDrawer.show()`
+</p>
 
-<hce-drawer>
-  <ul>
-    <li>drawer item 1</li>
-    <li>drawer item 2</li>
-    <li>drawer item 3</li>
-    <li>drawer item 4</li>
-    <li>drawer item 5</li>
-    <li>drawer item 6</li>
-  </ul>
-</hce-drawer>
+<div id="x1">
+  <button onclick="window.hceDrawer.show()">Open Drawer</button>
 
-<pre>
-window.hceDrawer.show();
-window.hceDrawer.hide();
-</pre>
+  <hce-drawer>
+    <ul>
+      <li>drawer item 1</li>
+      <li>drawer item 2</li>
+      <li>drawer item 3</li>
+    </ul>
+  </hce-drawer>
+</div>
+<br/>
+<script>showCode('x1')</script>

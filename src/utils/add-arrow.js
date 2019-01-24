@@ -5,11 +5,6 @@ export function addArrow(parentEl, pos = 'top-center, vertical, outside', distan
     arrowEl = document.createElement('div');
     arrowEl.className = 'hce-arrow';
     arrowEl.innerHTML = ' ';
-    arrowEl.setAttribute(
-      'style', 
-      'color: #fff; border: 1px solid #ccc; border-width: 0 0 1px 1px; ' + 
-      'width: 12px; height: 12px; background: #fff; position: absolute;'
-    );
     parentEl.appendChild(arrowEl);
   }
 
@@ -24,16 +19,16 @@ export function addArrow(parentEl, pos = 'top-center, vertical, outside', distan
 
   arrowEl.style.transform = 'rotate(' + deg + 'deg)';
   if (hv === 'vertical') {
-    arrowEl.style[posY] = 'calc(100% - 6px)';
+    arrowEl.style[posY] = `calc(100% - ${distance/2}px)`;
     if (posX === 'center') {
-      arrowEl.style.left = 'calc(50% - 6px)';
+      arrowEl.style.left = `calc(50% - ${distance/2}px)`;
     } else {
       arrowEl.style[posX] = `${distance}px`;
     }
   } else if (hv === 'horizontal') {
-    arrowEl.style[posX] = `calc(100% - 6px)`;
+    arrowEl.style[posX] = `calc(100% - ${distance/2}px)`;
     if (posY === 'center') {
-      arrowEl.style.top = `calc(50% - 6px)`;
+      arrowEl.style.top = `calc(50% - ${distance/2}px)`;
     } else {
       arrowEl.style[posY] = `${distance}px`;
     }

@@ -4,22 +4,20 @@ import { HTMLCustomElement, createCustomEvent } from 'html-custom-element';
 const css = `
   :root {
     display: none;
-    border: 1px solid #ccc;
-    background: #fff;
+    background: #1b1f23;
     border-radius: 4px;
-    -webkit-box-shadow: 4px 4px #f2f4f6;
-    box-shadow: 4px 4px #f2f4f6;
     min-width: 120px;
-    padding: 6px;
+    padding: 6px 12px;
     z-index: 1;
+    color: #fff;
   }
   .hce-arrow {
-    color: #fff;
-    border: 1px solid #ccc;
+    background: inherit;
+    color: inherit;
+    border: inherit;
     border-width: 0 0 1px 1px;
-    width: 12px;
-    height: 12px;
-    background: #fff;
+    width: 8px;
+    height: 8px;
     position: absolute;
   }
 `;
@@ -31,6 +29,9 @@ class HCETooltip extends HTMLCustomElement {
       this.position = this.position || 'top'; 
       this.parentElement.addEventListener('mouseover', this.show.bind(this));
       this.parentElement.addEventListener('mouseout', this.hide.bind(this));
+      this.parentElement.addEventListener('focus', this.show.bind(this));
+      this.parentElement.addEventListener('blur', this.hide.bind(this));
+      (this.visible==='' || this.visible) && this.show();
     });
   }
 
@@ -42,7 +43,7 @@ class HCETooltip extends HTMLCustomElement {
       overlayPos = `center-${this.position}, horizontal, outside`;
     }
     showOverlay(this, overlayPos, this.distance);
-    addArrow(this, overlayPos, this.distance);
+    addArrow(this, overlayPos, 8);
   }
 
   hide() {

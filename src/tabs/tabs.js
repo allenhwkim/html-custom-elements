@@ -22,9 +22,6 @@ const css = `
     border-bottom: 1px solid transparent;
   }
 
-  .contents {
-    height: 100px;
-  }
   .contents [contents-for] {
     display: none;
   }

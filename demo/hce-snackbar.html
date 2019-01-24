@@ -1,19 +1,23 @@
-<h2>hce-snackbar</h2>
-<div>
-  Message: <input id="message" value="my message"></div>
-</div>
-
-<script>
+<script id="js1">
   function showSnackbar() {
     document.querySelector('#message').value = 'My message ' + Math.random();
     window.hceSnackbar.message = document.querySelector('#message').value;
   }
 </script>
 
-<button onclick="showSnackbar()"> Show snackbar with a message </button>
+<h2>hce-snackbar</h2>
+<p>
+  hce-snackbar shows a highlighted message on the bottom of your page for three seconds, and disappears.
+</p>
 
-<hce-snackbar>hce-snackbar</hce-snackbar>
+<p>
+  To show the snackbar, assign message to `window.hceSnackbar.message`;
+</p>
 
-<pre>
-window.hceSnackbar.message = 'My message ' + Math.random();
-</pre>
+<div id="x1">
+  Message: <input id="message" value="my message"><br/>
+  <button onclick="showSnackbar()"> Show snackbar with a message </button>
+  <hce-snackbar>hce-snackbar</hce-snackbar>
+</div>
+<br/>
+<script>showCode('x1','js1')</script>

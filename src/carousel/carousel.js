@@ -24,9 +24,10 @@ function __addShortcuts(shortcutsEl, listEl) {
 
     shortcut.addEventListener('click', _ => this.show(i));
     shortcut.addEventListener('keydown', event => {
-      if (event.key === 'Enter') {
-        this.show(i);
-      }
+      console.log('this', this);
+      (event.key === 'Enter') && this.show(i);
+      (event.key === 'ArrowRight') && this.show('next');
+      (event.key === 'ArrowLeft') && this.show('prev');
     });
   }
 }
@@ -72,15 +73,19 @@ export class HCECarousel extends HTMLCustomElement {
     this.selected = __getIndex(this.listEl.children, scrollToEl);
 
     const prevTabIndexedEl = this.listEl.querySelector('[tabindex]');
-    const prevActiveShortcut = this.shortcutsEl.querySelector('.active');
-    const shortcutEl = this.shortcutsEl.children[this.selected];
 
     // show it
-    scrollToEl.scrollIntoView({behavior: 'smooth'});
+    const inline = what == 'prev' ? 'end': what === 'next' ? 'start' : 'center';
+    setTimeout(_ => scrollToEl.scrollIntoView({behavior: 'smooth', inline: inline }) );
 
     // set shortcuts
-    prevActiveShortcut && prevActiveShortcut.classList.remove('active');
-    shortcutEl.classList.add('active');
+    if (this.shortcutsEl){
+      const prevActiveShortcut = this.shortcutsEl.querySelector('.active');
+      const shortcutEl = this.shortcutsEl.children[this.selected];
+      prevActiveShortcut && prevActiveShortcut.classList.remove('active');
+      shortcutEl.classList.add('active');
+      shortcutEl.focus();
+    }
 
     // set tabindex for accessibility
     prevTabIndexedEl && prevTabIndexedEl.removeAttribute('tabindex'); 

@@ -1,13 +1,53 @@
 <html>
   <head>
     <style>
-      .table-of-contents {
-        display: block; float: left; padding: 12px;
-      }
+      .table-of-contents  { margin: 0; }
+      .table-of-contents li { display: inline-block; margin: 0; padding: 0 12px; }
+      .table-of-contents li:not(:first-child) { border-left: 1px solid #ccc;  }
       hce-dyn-contents.contents {
-        display: block; float: left; border-left: 1px solid #ccc; padding: 12px; min-height: 400px;
+        display: block; padding: 12px; min-height: 400px;
       }
+      pre {margin: 0; padding: 12px; overflow: auto;}
     </style>
+    <script>
+      function showCode(htmlId, jsId, cssId) {
+        const el = document.createElement('div');
+        el.insertAdjacentHTML('beforeend', `
+          <hce-tabs class="code">
+            <div class="tabs">
+              <i tab-for="html">html</i>
+              <i tab-for="js">js</i>
+              <i tab-for="css">css</i>
+            </div>
+            <div class="contents" style="background:#f8f8f8"> 
+              <div contents-for="html"><pre></pre></div>
+              <div contents-for="js"><pre>import 'html-custom-elements';</pre></div>
+              <div contents-for="css"><pre></pre></div>
+            </div>
+          </hce-tabs>`);
+        document.currentScript.insertAdjacentElement('afterend', el);
+
+        function fillCode(id, type) {
+          let srcEl, dstEl;
+          if (id) {
+            srcEl = document.getElementById(id);
+            dstEl = el.querySelector(`[contents-for=${type}] pre`);
+            if (type === 'html') {
+              dstEl.innerHTML = srcEl.outerHTML.replace(/</g, '&lt');
+            } else {
+              dstEl.innerHTML = srcEl.innerHTML.replace(/^\n/,'');
+            }
+          } else {
+            el.querySelector(`[tab-for=${type}]`).remove();
+            el.querySelector(`[contents-for=${type}]`).remove();
+          }
+        }
+
+        fillCode(htmlId, 'html');
+        jsId && fillCode(jsId, 'js');
+        fillCode(cssId, 'css');
+      }
+    </script>
   </head>
   <body>
     <h1>Collection of custom elements</h1>
@@ -19,6 +59,7 @@
       <li><a href="#carousel">carousel</a></li>
       <li><a href="#snackbar">snackbar</a></li>
       <li><a href="#drawer">drawer</a></li>
+      <li><a href="#dialog">dialog</a></li>
     </ul>
 
     <hce-dyn-contents class="contents">
@@ -28,6 +69,7 @@
       <div url-match="carousel" import="demo/hce-carousel.html"></div>
       <div url-match="snackbar" import="demo/hce-snackbar.html"></div>
       <div url-match="drawer" import="demo/hce-drawer.html"></div>
+      <div url-match="dialog" import="demo/hce-dialog.html"></div>
     </hce-dyn-contents>
     
   </body>

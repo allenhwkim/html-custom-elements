@@ -57,7 +57,10 @@ export class HCEDynamicContents extends HTMLCustomElement {
           throw Error(`[hce-dyn-contents] import url: ${route.import}, status: ${response.statusText}`);
         }
         return response.text();
-      }).then(html => setInnerHTML(this, html));
+      }).then(html => {
+        setInnerHTML(this, html)
+        setTimeout(_ => window.scrollTo(0, 0));
+      });
     }
   }
 }

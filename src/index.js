@@ -5,3 +5,4 @@ import './loading/loading';
 import './carousel/carousel';
 import './snackbar/snackbar';
 import './drawer/drawer';
+import './dialog/dialog';

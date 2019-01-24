@@ -1,5 +1,5 @@
 <h2>hce-tabs</h2>
-<style>
+<style id="css1">
   hce-tabs.custom .tabs {
     border-top: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
@@ -21,10 +21,19 @@
   hce-tabs.custom .tab-contents {
     height: auto;
   }
+  hce-tabs.code .contents {min-height: 200px;}
 </style>
 
+<p>
+  To use hce-tabs;
+  <ul>
+    <li> Provide two sections with class 'tabs' and 'contents'
+    <li> within 'tabs' section, declare tab with attribute 'tab-for'
+    <li> within 'contents' section, declare mathing content with attribute 'contents-for'
+  </ul>
+</p>
 <h3>Normal Tab</h3>
-<hce-tabs class="first" selected="css"> <!-- this makes all tab  possible -->
+<hce-tabs id="x1" class="first" selected="css"> <!-- this makes all tab  possible -->
   <div class="tabs"> <!-- class as 'tabs' -->
     <div tab-for="html">html</div>
     <div tab-for="js">js</div>
@@ -36,10 +45,16 @@
     <div contents-for="css">Cascading Style Sheet </div>
   </div>
 </hce-tabs>
+<br/>
+<script>showCode('x1')</script>
 
 
 <h3>Custom Tab</h3>
-<hce-tabs class="custom" selected="details">
+<p>
+  This example provides you to use your own style for your own tabs.
+  Please check css tabs for detail.
+</p>
+<hce-tabs id="x2" class="custom" selected="details">
   <div class="tabs">
     <div tab-for="value">Value</div>
     <div tab-for="details">Details</div>
@@ -53,3 +68,5 @@
     <div contents-for="eligiliity">Eligibility</div>
   </div>
 </hce-tabs>
+<br/>
+<script>showCode('x1', null, 'css1')</script>

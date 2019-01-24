@@ -1,28 +1,42 @@
-<div style="position: relative">
+<h2>hce-tooltip</h2>
+
+<p>
+  hce-tooltip is shown on the top of the parent element in default when mouse is over.
+  It is also shown when the parent is focused for accessibility.
+</p>
+
+<p>
+  Set attribute 'visible' to show the tooltip without user actions; mouseover or focus.
+  You can also set any html inside tooltip.
+</p>
+
+<style>
+  .box { position: relative; padding: 12px; width: 200px; border: 1px solid #ccc; }
+</style>
+
+<div class="box" id="x1">
   This has a tooltip on top
-  <hce-tooltip>This is tooltop contentes</hce-tooltip>
+  <hce-tooltip visible>tooltip on top</hce-tooltip>
 </div>
-<br/>
-<br/>
-<br/>
+<script>showCode('x1')</script>
 
-<div style="position: relative">
+<div class="box" id="x2">
   This has a tooltip on bottom
-  <hce-tooltip position="bottom">This is tooltop contentes </hce-tooltip>
+  <hce-tooltip position="bottom" visible>tooltop on bottom </hce-tooltip>
 </div>
-<br/>
-<br/>
-<br/>
+<script>showCode('x2')</script>
 
-<div style="position: relative">
-  This has a tooltip on left
-  <hce-tooltip position="left">This is tooltop contentes </hce-tooltip>
+<div class="box" tabindex="0" style="margin-left: 128px" id="x3">
+  This has a tooltip on left. Use tab to focus here.
+  <hce-tooltip position="left">tooltop on left </hce-tooltip>
 </div>
+<script>showCode('x3')</script>
 
-<br/>
-<br/>
-<br/>
-<div style="position: relative">
+<div class="box" id="x4">
   This has a tooltip on right
-  <hce-tooltip position="right">This is tooltop contentes </hce-tooltip>
+  <hce-tooltip style="background: #fff; border: 1px solid #ccc; color: #333" position="right" visible>
+    tooltop on right with html
+    <img class="img1" src="//picsum.photos/100/100?1">
+  </hce-tooltip>
 </div>
+<script>showCode('x4')</script>
