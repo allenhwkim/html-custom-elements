@@ -46,10 +46,6 @@ let config = {
       {
         test: /\.css$/,
         use: ['raw-loader'],
-      },
-      {
-        test:/\.scss$/,
-        use:['to-string-loader', 'css-loader', 'sass-loader']
       }
     ]
   },

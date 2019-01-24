@@ -1,27 +1,33 @@
 <html>
   <head>
     <style>
-      .index {disply: block; float: left; padding: 12px;}
+      .table-of-contents {
+        display: block; float: left; padding: 12px;
+      }
       hce-dyn-contents.contents {
-        disply: block; float: left; border-left: 1px solid #ccc; padding: 12px; min-height: 400px;
+        display: block; float: left; border-left: 1px solid #ccc; padding: 12px; min-height: 400px;
       }
     </style>
   </head>
   <body>
     <h1>Collection of custom elements</h1>
 
-    <ul class="index">
-      <li><a href="#hce-tooltip">hce-tooltip</a></li>
-      <li><a href="#hce-tabs">hce-tabs</a></li>
-      <li><a href="#hce-loading">hce-loading</a></li>
-      <li><a href="#hce-carousel">hce-carousel</a></li>
+    <ul class="table-of-contents">
+      <li><a href="#tooltip">tooltip</a></li>
+      <li><a href="#tabs">tabs</a></li>
+      <li><a href="#loading">loading</a></li>
+      <li><a href="#carousel">carousel</a></li>
+      <li><a href="#snackbar">snackbar</a></li>
+      <li><a href="#drawer">drawer</a></li>
     </ul>
 
     <hce-dyn-contents class="contents">
-      <div url-match="hce-tooltip" import="demo/hce-tooltip.html" default></div>
-      <div url-match="hce-tabs" import="demo/hce-tabs.html"></div>
-      <div url-match="hce-loading" import="demo/hce-loading.html"></div>
-      <div url-match="hce-carousel" import="demo/hce-carousel.html"></div>
+      <div url-match="tooltip" import="demo/hce-tooltip.html" default></div>
+      <div url-match="tabs" import="demo/hce-tabs.html"></div>
+      <div url-match="loading" import="demo/hce-loading.html"></div>
+      <div url-match="carousel" import="demo/hce-carousel.html"></div>
+      <div url-match="snackbar" import="demo/hce-snackbar.html"></div>
+      <div url-match="drawer" import="demo/hce-drawer.html"></div>
     </hce-dyn-contents>
     
   </body>

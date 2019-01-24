@@ -1,5 +1,7 @@
-import './hce-dyn-contents/hce-dyn-contents';
-import './hce-tooltip/hce-tooltip';
-import './hce-tabs/hce-tabs';
-import './hce-loading/hce-loading';
-import './hce-carousel/hce-carousel';
+import './dyn-contents/dyn-contents';
+import './tooltip/tooltip';
+import './tabs/tabs';
+import './loading/loading';
+import './carousel/carousel';
+import './snackbar/snackbar';
+import './drawer/drawer';
