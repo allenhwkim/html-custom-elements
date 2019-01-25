@@ -1,0 +1,42 @@
+<style>
+pre { background-color: #eee; padding: 12px; }
+</style>
+
+html-custom-elements is a collection of simple and useful custom elements.
+It is a lightweight(12KB), framework-independent, and works on all modern browsers including IE11.
+
+<h2>Dead simple</h2>
+Just include html-custom-element.js. Done!
+
+<h2>Light as a feather</h2>
+12KB minified & gzipped.
+
+<h2>Blazing fast</h2>
+No framework loading, or any dependence. It's based on built-in web standard, custom elements.
+
+<h2>Basic Usage</h2>
+<pre>
+&lt;!DOCTYPE html>
+&lt;html lang="en">
+&lt;head>
+  <b>&lt;script src="https://unpkg.com/html-custom-elements/dist/html-custom-elements.umd.js">&lt;/script></b>
+&lt;/head>
+&lt;body>
+  &lt;<b>hce-carousel</b> id="x1" selected="3">
+    &lt;ul>
+      &lt;li>&lt;img class="img1" src="//picsum.photos/300/200?1">&lt;/li>
+      &lt;li>&lt;img class="img2" src="//picsum.photos/300/200?2">&lt;/li>
+      &lt;li>&lt;img class="img3" src="//picsum.photos/300/200?3">&lt;/li>
+    &lt;/ul>
+  &lt;/<b>hce-carousel</b>>
+&lt;/body>
+&lt;/html>
+</pre>
+
+<h3>Usage with Webpack, Browserify, & Other Bundlers</h3>
+If you want to use it with a bundler, install `html-custom-elements` with npm:
+
+<pre>$ npm install html-custom-elements --save-dev</pre>
+You can then import into your bundle:
+
+<pre>import 'html-custom-elements';</pre>

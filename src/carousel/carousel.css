@@ -46,7 +46,7 @@
   opacity: .9;
 }
 
-.list {
+.carousel-list {
   display: flex;
   margin: 0;
   position: absolute;
@@ -56,11 +56,19 @@
   width: 100%;
 }
 
-.list > * {
+.carousel-list > * {
   display: block;
   margin: 0;
   padding: 0;
   list-style: none;
+  opacity: 0.6;
+}
+
+.carousel-list > li[tabindex] {
+  opacity: 1;
+  outline: none;
+  border-color: #9ecaed;
+  box-shadow: 0 0 10px #9ecaed;
 }
 
 .shortcuts {
