@@ -40,9 +40,10 @@ export class HCEDynList extends HTMLCustomElement {
   connectedCallback() {
     const templateEl = this.children[0];
     this.template = templateEl && templateEl.outerHTML;
+    this.overlayClicked = false;
     templateEl.remove();
     this.renderWith(html, css).then(_ => {
-      this.setBehaviourOfVisibleBy(this.visibleBy, this);
+      this.visibleBy && this.setBehaviourOfVisibleBy(this.visibleBy, this);
     });
   }
 
@@ -51,27 +52,27 @@ export class HCEDynList extends HTMLCustomElement {
       console.error('[hce-dyn-list] element not found by selector', visibleBy);
       return false;
     }
-    
-    let overlayClicked = false;
+
     const inputEl = document.querySelector(visibleBy);
     const blockerEl = document.createElement('div');
     const listEl = overlayEl.querySelector('.list');
     blockerEl.className = 'blocker';
+
     inputEl.parentElement.style.position = 'relative';
     listEl.style.position = 'absolute';
     overlayEl.appendChild(blockerEl);
     overlayEl.style.display = 'none';
 
-    overlayEl.addEventListener('click', _ => overlayClicked = true);
-    blockerEl.addEventListener('click', _ =>  overlayEl.style.display = 'none');
+    overlayEl.addEventListener('click', _ => this.overlayClicked = true);
+    blockerEl.addEventListener('click', _ => overlayEl.style.display = 'none');
 
     inputEl.setAttribute('autocomplete', 'off');
     inputEl.addEventListener('blur', _ => {
       setTimeout(_ => {
-        if (!overlayClicked) {
-          overlayEl.style.display = 'none';
+        if (!this.overlayClicked) {
+          this.overlayEl.style.display = 'none';
         }
-        overlayClicked = false;
+        this.overlayClicked = false;
       }, 500);
     })
 
@@ -106,8 +107,10 @@ export class HCEDynList extends HTMLCustomElement {
         const listSelected = event => {
           const custEvent = createCustomEvent('selected', {detail: item});
           this.dispatchEvent(custEvent);
+          this.visibleBy && (this.style.display = 'none');
         } 
         itemEl.addEventListener('click', listSelected);
+        this.visibleBy && itemEl.addEventListener('focus', _ => this.overlayClicked = true);
         itemEl.addEventListener('keydown', event => event.key === 'Enter' && listSelected(event));
         itemEl.setAttribute('tabindex', 0);
         this.querySelector('.list').appendChild(itemEl);
