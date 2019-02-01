@@ -19,7 +19,6 @@ const css = `
     top: 0; left: 0; right: 0; bottom: 0;
     background: #333;
     opacity: 0.3;
-    display: none; /* only shows when it is overlay */
     z-index: 0;
   }
   .list {           /* overlay contents on thetop of blocker */
@@ -48,45 +47,48 @@ export class HCEDynList extends HTMLCustomElement {
   }
 
   setBehaviourOfVisibleBy(visibleBy, overlayEl) {
+    if (visibleBy && !document.querySelector(visibleBy)) {
+      console.error('[hce-dyn-list] element not found by selector', visibleBy);
+      return false;
+    }
+    
+    let overlayClicked = false;
     const inputEl = document.querySelector(visibleBy);
     const blockerEl = document.createElement('div');
     const listEl = overlayEl.querySelector('.list');
     blockerEl.className = 'blocker';
-    blockerEl.addEventListener('click', _ => {
-      overlayEl.style.display = 'none';
+    inputEl.parentElement.style.position = 'relative';
+    listEl.style.position = 'absolute';
+    overlayEl.appendChild(blockerEl);
+    overlayEl.style.display = 'none';
+
+    overlayEl.addEventListener('click', _ => overlayClicked = true);
+    blockerEl.addEventListener('click', _ =>  overlayEl.style.display = 'none');
+
+    inputEl.setAttribute('autocomplete', 'off');
+    inputEl.addEventListener('blur', _ => {
+      setTimeout(_ => {
+        if (!overlayClicked) {
+          overlayEl.style.display = 'none';
+        }
+        overlayClicked = false;
+      }, 500);
+    })
+
+    let timeout = null;
+    inputEl.addEventListener('keyup', _ => {
+      const result = this.sourceFunc();
+      if (result) {
+        clearTimeout(timeout);
+        timeout = setTimeout(_ => {
+          result.then(src => {
+            this.source = src;
+            overlayEl.style.display = 'block';
+          })
+        }, 500); // keyboard delay for .5 second
+      }
     });
 
-    let overlayClicked = false;
-    if (inputEl) {
-      inputEl.setAttribute('autocomplete', 'off');
-      inputEl.parentElement.style.position = 'relative';
-      inputEl.addEventListener('blur', _ => {
-        setTimeout(_ => {
-          if (!overlayClicked) {
-            overlayEl.style.display = 'none';
-          }
-          overlayClicked = false;
-        }, 500);
-      })
-      let timeout = null;
-      inputEl.addEventListener('keyup', _ => {
-        const result = this.sourceFunc();
-        if (result) {
-          clearTimeout(timeout);
-          timeout = setTimeout(_ => {
-            result.then(src => {
-              this.source = src;
-              overlayEl.style.display = 'block';
-              listEl.style.position = 'absolute';
-              blockerEl.style.display = 'block';
-            })
-          }, 500); // keyboard delay for .5 second
-        }
-      });
-
-      overlayEl.appendChild(blockerEl);
-      overlayEl.addEventListener('click', _ => overlayClicked = true);
-    }
   }
 
   __setList() {
