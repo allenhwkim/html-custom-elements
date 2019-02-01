@@ -76,7 +76,7 @@ export function time(argDate) {
 
     format: function(argMask) {
       let mask = masks[argMask] || argMask || masks.default;
-      if (argMask.slice(0, 4) == 'UTC:') { // Allow setting the utc argument via the mask
+      if (argMask && argMask.slice(0, 4) == 'UTC:') { // Allow setting the utc argument via the mask
         mask = mask.slice(4);
         this.utc = true;
       }

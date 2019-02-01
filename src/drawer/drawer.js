@@ -9,7 +9,7 @@ const html = `
 export class HCEDrawer extends HTMLCustomElement {
   connectedCallback() {
     this.renderWith(html, css).then(_ => {
-      window.hceDrawer = this;
+      window.hce.drawer = this;
       this.querySelector('.page-blocker').addEventListener('click', _ => this.hide());
     });
   }

@@ -25,6 +25,7 @@ window.showCode = function(htmlId, jsId, cssId) {
       dstEl = el.querySelector(`[contents-for=${type}] pre`);
       const lang = type === 'js' ? 'javascript': type;
       html = Prism.highlight(srcEl.outerHTML, Prism.languages[lang], lang);
+      html = html.replace(/hce-[\w]+/g, $0 => `<b>${$0}</b>`)
       dstEl.innerHTML = html;
     } else {
       el.querySelector(`[tab-for=${type}]`).remove();

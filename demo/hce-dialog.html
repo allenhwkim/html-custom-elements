@@ -1,16 +1,16 @@
 <script id="js1">
   function showDefault() {
-    window.hceDialog.open();
+    window.hce.dialog.open();
   }
   function showCustom() {
-    window.hceDialog.open({
+    window.hce.dialog.open({
       title: 'Custim Title', 
       contents:'This is custom contents',
       actions: [{
         text: 'Custom Button',
         handler: event => {
           alert('My custom button is clicked');
-          window.hceDialog.close();
+          window.hce.dialog.close();
         }
       }]
     })
@@ -21,25 +21,25 @@
 
 <p>
   hce-dialog provides users to show page-blocking modal dialog with title, contents, and buttons.
-  To show call `open` function of  `window.hceDialog` with data; title, contents, actions.
+  To show call `open` function of  `window.hce.dialog` with data; title, contents, actions.
   Here is the example.
 </p>
 
 <pre>
-  window.hceDialog.open({
+  window.hce.Dialog.open({
     title: 'Custim Title', 
     contents:'This is custom contents',
     actions: [{
       text: 'Custom Button',
       handler: event => {
         alert('My custom button is clicked');
-        window.hceDialog.close();
+        window.hce.dialog.close();
       }
     }]
   })
 </pre><script>highlight()</script>
 
-<p>To show the previous dialog, run `window.hceDialog.open()` without any data.</p>
+<p>To show the previous dialog, run `window.hce.dialog.open()` without any data.</p>
 
 <div id="x1">
   <button onclick="showDefault()">Open Existing Dialog</button>

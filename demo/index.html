@@ -10,6 +10,7 @@
         display: block; padding: 12px; min-height: 400px;
       }
       hce-tabs .contents pre {margin: 0; padding: 12px;}
+      div[contents-for] b {background: yellow; padding: 0 4px;}
     </style>
     <script>
     </script>
@@ -27,6 +28,7 @@
       <li><a href="#drawer">drawer</a></li>
       <li><a href="#dialog">dialog</a></li>
       <li><a href="#calendar">calenear</a></li>
+      <li><a href="#dyn-list">dyn-list</a></li>
     </ul>
 
     <hce-dyn-contents class="contents">
@@ -39,6 +41,7 @@
       <div url-match="drawer" import="demo/hce-drawer.html"></div>
       <div url-match="dialog" import="demo/hce-dialog.html"></div>
       <div url-match="calendar" import="demo/hce-calendar.html"></div>
+      <div url-match="dyn-list" import="demo/hce-dyn-list.html"></div>
     </hce-dyn-contents>
     
   </body>

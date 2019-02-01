@@ -1,9 +1,45 @@
+<style>
+hce-calendar .calendar {
+  display: block;
+  width: 150px;
+  border: 1px solid #ccc;
+  padding: 8px;
+}
+#x2 hce-calendar .calendar{
+  width: 200px; 
+  z-index: 1;
+}
+</style>
 <h2>hce-calendar</h2>
 
 <p>
   hce-calendar shows month calendar
 </p>
 
+<h3> Calendar as a section </h3>
 <div id="x1">
-  <hce-calendar></hce-calendar>
+  <hce-calendar
+    selected="2019-06-15"
+    min-date="2019-05-15"
+    max-date="2019-07-15"
+    date-format="yyyy-mm-dd"
+    weekday-format="2-letter"></hce-calendar>
+  DateSelected: <span class="date-selected"></span>
+  <script id="s1">
+    document.querySelector('#x1 hce-calendar').addEventListener('date-selected', function(event) {
+      document.querySelector('#x1 .date-selected').innerHTML = event.detail;
+    })
+  </script>
 </div>
+<hr/>
+
+<h3> Calendar as an overlay </h3>
+<div id="x2">
+  <div>
+    <input placeholder="Click to see date selector" size="30" />
+    <hce-calendar weekday-format="3-letter" visible-by="#x2 input"></hce-calendar>
+    <br/>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    <br/>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  </div>
+</div>
+<hr/>

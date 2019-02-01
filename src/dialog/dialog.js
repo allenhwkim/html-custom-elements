@@ -15,14 +15,14 @@ const html = `
 `;
 
 /**
-  window.hceDialog.open({
+  window.hce.dialog.open({
     title: 'Custim Title', 
     contents:'This is custom contents',
     actions: [{
       text: 'Custom Button',
       handler: event => {
         alert('My custom button is clicked');
-        window.hceDialog.close();
+        window.hce.dialog.close();
       }
     }]
   });
@@ -30,7 +30,7 @@ const html = `
 export class HCEDialog extends HTMLCustomElement {
   connectedCallback() {
     this.renderWith(html, css).then(_ => {
-      window.hceDialog = this;
+      window.hce.dialog = this;
     });
   }
 
