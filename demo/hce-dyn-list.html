@@ -89,7 +89,7 @@ Types of source are:
 <h3>Auto Complete</h3>
 <div id="x4">
   <input id="keyword" />
-  <hce-dyn-list [source-func]="getAutoComplete" visible-by="#keyword">
+  <hce-dyn-list [source]="getAutoComplete()" visible-by="#keyword">
     <li>{{name.first}} {{name.last}}</li>
   </hce-dyn-list>
   <script id="s4">

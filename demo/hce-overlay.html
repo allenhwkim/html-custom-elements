@@ -1,0 +1,81 @@
+<style>
+button {font-size: 16px;}
+</style>
+<h2>hce-overlay</h2>
+
+<p>
+  hce-overlay opens layer on the top of existing element
+</p>
+
+<div id="x1" style="display: inline-block">
+  <button>show overlay on top</button>
+  <hce-overlay visible-by="#x1 button">
+    overlay contents<br/> overlay contents<br/> overlay contents<br/> overlay contents<br/>
+  </hce-overlay>
+</div>
+<hr/>
+
+<div id="x2" style="display: inline-block">
+  <button>show overlay on bottom</button>
+  <hce-overlay visible-by="#x2 button" position="bottom">
+    overlay contents<br/> overlay contents<br/> overlay contents<br/> overlay contents<br/>
+  </hce-overlay>
+</div>
+<hr/>
+
+<div id="x3" style=" margin-left: 200px; display: inline-block">
+  <button>show overlay on left</button>
+  <hce-overlay visible-by="#x3 button" position="left">
+    overlay contents<br/> overlay contents<br/> overlay contents<br/> overlay contents<br/>
+  </hce-overlay>
+</div>
+<hr/>
+
+<div id="x4" style="display: inline-block">
+  <button>show overlay on right</button>
+  <hce-overlay visible-by="#x4 button" position="right">
+    overlay contents<br/> overlay contents<br/> overlay contents<br/> overlay contents<br/>
+  </hce-overlay>
+</div>
+<hr/>
+
+<div id="x5">
+  <div>
+    position: 
+      <select id="p-y" onchange="so()">
+        <option selected>top<option>bottom<option>center
+      </select>-
+      <select id="p-x" onchange="so()">
+        <option>left<option>right<option selected>center
+      </select>
+      &nbsp;
+      <select id="p-vh" onchange="so()"><option selected>vertical<option>horizontal</select>
+      &nbsp;
+      <select id="p-io" onchange="so()"><option>inside<option selected>outside</select>
+      <br/>
+    distance:
+      <input onchange="so()" id="distance" type="number" value="12" style="width: 48px" /> <br/>
+    arrow
+      <select onchange="so()" id="arrow"><option value="true">true<option value="false">false</select>
+  </div>
+  <div style="position: relative; background: #ccc; margin: 0 auto; width: 400px; height: 100px">
+    <hce-overlay>
+      overlay contents<br/> overlay contents<br/> overlay contents<br/> overlay contents<br/>
+    </hce-overlay>
+  </div>
+</div>
+<script>
+  function so() { //show overlay
+    const overlay = document.querySelector('#x5 hce-overlay');
+    const position = document.querySelector('#x5 #p-y').value + '-' +
+      document.querySelector('#x5 #p-x').value + ', ' +
+      document.querySelector('#x5 #p-vh').value + ', ' +
+      document.querySelector('#x5 #p-io').value;
+    overlay.setAttribute('position', position);
+    overlay.setAttribute('distance', document.querySelector('#x5 #distance').value);
+    overlay.setAttribute('arrow', document.querySelector('#x5 #arrow').value);
+    overlay.style.display = 'none';
+    overlay.show();
+  }
+  so();
+</script>

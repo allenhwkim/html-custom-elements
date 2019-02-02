@@ -1,4 +1,4 @@
-import { showOverlay, addArrow } from '../utils';
+import { showOverlay } from '../utils/show-overlay';
 import { HTMLCustomElement, createCustomEvent } from 'html-custom-element';
 
 const css = `
@@ -10,15 +10,6 @@ const css = `
     padding: 6px 12px;
     z-index: 1;
     color: #fff;
-  }
-  .hce-arrow {
-    background: inherit;
-    color: inherit;
-    border: inherit;
-    border-width: 0 0 1px 1px;
-    width: 8px;
-    height: 8px;
-    position: absolute;
   }
 `;
 
@@ -36,14 +27,7 @@ class HCETooltip extends HTMLCustomElement {
   }
 
   show() {
-    let overlayPos;
-    if (this.position === 'top' || this.position == 'bottom') {
-      overlayPos = `${this.position}-center, vertical, outside`;
-    } else if (this.position === 'left' || this.position == 'right') {
-      overlayPos = `center-${this.position}, horizontal, outside`;
-    }
-    showOverlay(this, overlayPos, this.distance);
-    addArrow(this, overlayPos, 8);
+    showOverlay(this, this.position, {distance: this.distance, arrow: true});
   }
 
   hide() {

@@ -8,10 +8,9 @@ import './drawer/drawer';
 import './dialog/dialog';
 import './calendar/calendar';
 import './dyn-list/dyn-list';
-import {addArrow} from './utils/add-arrow';
+import './overlay/overlay';
 import {showOverlay} from './utils/show-overlay';
 
 window.hce = {};
 window.hce.showOverlay = showOverlay;
-window.hce.addArrow = addArrow;
 export {time} from './utils/time'; // time formatter e.g. time().format('yyyy-mm-dd')

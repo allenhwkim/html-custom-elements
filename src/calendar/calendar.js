@@ -94,17 +94,20 @@ const html = `
 `;
 
 const css =`
-  .blocker {            /* Needed to check click outside of overlay */
+  :root.overlay:before {            /* Needed to check click outside of overlay */
+    content: ' ';
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
-    opacity: 0.3;
-    display: none; /* only shows when it is overlay */
-    z-index: 0;
+    background: transparent;
   }
   .calendar {           /* overlay contents on thetop of blocker */
     position: relative;
     background: #fff;
-    z-index: 1;
+  }
+  .calendar.shadow {
+    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.14),
+      0px 1px 1px 0px rgba(0, 0, 0, 0.12), 
+      0px 2px 1px -1px rgba(0, 0, 0, .4) ;
   }
 
   .title {              /* e.g. '< Mar 2019 >' */
@@ -158,28 +161,20 @@ export class HCECalendar extends HTMLCustomElement {
 
   setBehaviourOfVisibleBy() {
     const inputEl = document.querySelector(this.visibleBy);
-    let calendarClicked = false;
     if (inputEl) {
       inputEl.parentElement.style.position = 'relative';
-      this.querySelector('.blocker').style.display = 'block';
+      this.classList.add('overlay');
+      this.querySelector('.calendar').classList.add('shadow');
       this.style.position = 'absolute';
       this.style.display = 'none';
 
-      this.querySelector('.blocker').addEventListener('click', _ => {
-        this.style.display = 'none';
-      })
-      this.querySelector('.prev').addEventListener('focus', _ => calendarClicked = true);
+      this.addEventListener('click', event => {
+        this.isEqualNode(event.target) && (this.style.display = 'none');
+      });
       inputEl.addEventListener('focus', _ => this.style.display = 'block')
-      this.addEventListener('click', _ => calendarClicked = true);
       this.addEventListener('date-selected', e => {
         inputEl.value = e.detail;
         this.style.display = 'none';
-      })
-      inputEl.addEventListener('blur', _ => {
-        setTimeout(_ => {
-          !calendarClicked && (this.style.display = 'none');
-          calendarClicked = false;
-        }, 500);
       })
     }
   }

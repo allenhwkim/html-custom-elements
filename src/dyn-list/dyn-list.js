@@ -1,4 +1,5 @@
 import { HTMLCustomElement, createCustomEvent } from 'html-custom-element';
+
 function __objectToArray(obj) {
   const ret = [];
   for (var key in obj) {
@@ -14,16 +15,18 @@ const html = `
 `;
 
 const css = `
-  .blocker {            /* Needed to check click outside of overlay */
+  :root.overlay:before {            /* Needed to check click outside of overlay */
+    content: ' ';
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
-    background: #333;
-    opacity: 0.3;
-    z-index: 0;
+    background: transparent;
   }
-  .list {           /* overlay contents on thetop of blocker */
+  :root.overlay .list {
     background: #fff;
-    z-index: 1;
+    position: absolute;
+    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, .14),
+      0px 1px 1px 0px rgba(0, 0, 0, .12), 
+      0px 2px 1px -1px rgba(0, 0, 0, .4);
   }
 `;
 
@@ -34,66 +37,60 @@ export class HCEDynList extends HTMLCustomElement {
 
   set source(source) {
     this.__source = source;
-    source && this.__setList();
+    this.querySelector('.list') && (this.querySelector('.list').innerHTML = '');
+    if (source) {
+      this.__setList();
+    }
   }
 
   connectedCallback() {
     const templateEl = this.children[0];
     this.template = templateEl && templateEl.outerHTML;
-    this.overlayClicked = false;
     templateEl.remove();
     this.renderWith(html, css).then(_ => {
+      if (this.visibleBy) {
+        const source = this.getAttribute('[source]') || this.getAttribute('source');
+        const expression = source.match(/[^\(]+/)[0];
+        this.sourceFunc = new Function(`return ${expression};`);
+      }
       this.visibleBy && this.setBehaviourOfVisibleBy(this.visibleBy, this);
     });
   }
 
-  setBehaviourOfVisibleBy(visibleBy, overlayEl) {
+  setBehaviourOfVisibleBy(visibleBy) {
     if (visibleBy && !document.querySelector(visibleBy)) {
       console.error('[hce-dyn-list] element not found by selector', visibleBy);
       return false;
     }
-
     const inputEl = document.querySelector(visibleBy);
-    const blockerEl = document.createElement('div');
-    const listEl = overlayEl.querySelector('.list');
-    blockerEl.className = 'blocker';
-
-    inputEl.parentElement.style.position = 'relative';
-    listEl.style.position = 'absolute';
-    overlayEl.appendChild(blockerEl);
-    overlayEl.style.display = 'none';
-
-    overlayEl.addEventListener('click', _ => this.overlayClicked = true);
-    blockerEl.addEventListener('click', _ => overlayEl.style.display = 'none');
-
     inputEl.setAttribute('autocomplete', 'off');
-    inputEl.addEventListener('blur', _ => {
-      setTimeout(_ => {
-        if (!this.overlayClicked) {
-          this.overlayEl.style.display = 'none';
-        }
-        this.overlayClicked = false;
-      }, 500);
-    })
+    inputEl.parentElement.style.position = 'relative';
 
     let timeout = null;
     inputEl.addEventListener('keyup', _ => {
-      const result = this.sourceFunc();
+      const result = this.sourceFunc()();
       if (result) {
         clearTimeout(timeout);
         timeout = setTimeout(_ => {
+          this.classList.add('overlay');
           result.then(src => {
             this.source = src;
-            overlayEl.style.display = 'block';
+            this.style.display = 'block';
           })
         }, 500); // keyboard delay for .5 second
+      } else {
+        this.source = [];
       }
     });
 
+    this.addEventListener('click', _ => {
+      if (this.isEqualNode(event.target)) {
+        this.style.display = 'none';
+      }
+    });
   }
 
   __setList() {
-    this.querySelector('.list') && (this.querySelector('.list').innerHTML = '');
     const promise = this.source.then ? this.source : Promise.resolve(this.source);
     promise.then(src => {
       src = src instanceof Array ? src : __objectToArray(src);
@@ -110,7 +107,6 @@ export class HCEDynList extends HTMLCustomElement {
           this.visibleBy && (this.style.display = 'none');
         } 
         itemEl.addEventListener('click', listSelected);
-        this.visibleBy && itemEl.addEventListener('focus', _ => this.overlayClicked = true);
         itemEl.addEventListener('keydown', event => event.key === 'Enter' && listSelected(event));
         itemEl.setAttribute('tabindex', 0);
         this.querySelector('.list').appendChild(itemEl);
