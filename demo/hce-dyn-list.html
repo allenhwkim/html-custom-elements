@@ -1,4 +1,5 @@
 <style>
+hce-dyn-list {z-index: 1;}
 hce-dyn-list li {list-style: none; margin: 0; padding: 0;}
 hce-dyn-list li {min-width: 200px; max-width: 400px;}
 hce-dyn-list li:hover { background: #ccc; }
@@ -15,31 +16,38 @@ Types of source are:
 </ul>
 
 <h3>Auto Complete</h3>
+<script id="s0">
+  function getAutoComplete() {
+    const keyword = document.querySelector('#x0 #keyword').value;
+    if (keyword.length >= 2) {
+      return new Promise(function (resolve, reject) {
+        setTimeout( _ => {
+          return resolve({
+            1: {name: {first: keyword + ' John', last: 'Doe'} },
+            2: {name: {first: keyword + ' Jane', last: 'Dorothy'} },
+            3: {name: {first: keyword + 'Third', last: 'Man'} }
+          });
+        }, 1000);
+      });
+    }
+  }
+</script>
 <div id="x0">
   <input id="keyword" placeholder="Type more than 2 chars"/>
   <hce-dyn-list [source]="getAutoComplete()" visible-by="#keyword">
     <li>{{name.first}} {{name.last}}</li>
   </hce-dyn-list>
-  <script id="s4">
-    function getAutoComplete() {
-      const keyword = document.querySelector('#x0 #keyword').value;
-      if (keyword.length >= 2) {
-        return new Promise(function (resolve, reject) {
-          setTimeout( _ => {
-            return resolve({
-              1: {name: {first: keyword + ' John', last: 'Doe'} },
-              2: {name: {first: keyword + ' Jane', last: 'Dorothy'} },
-              3: {name: {first: keyword + 'Third', last: 'Man'} }
-            });
-          }, 1000);
-        });
-      }
-    }
-  </script>
-</div>
+</div><script>showCode('x0', 's0')</script>
 <hr/>
 
 <h3>Source In Array</h3>
+<script id="s1">
+  var srcInArray1 = [{name: {first: 'John', last: 'Doe'}}, {name: {first: 'Jane', last: 'Dorothy'}}];
+  var srcInArray2 = [{name: {first: 'xxx John', last: 'xxx Doe'}}, {name: {first: 'xxx Jane', last: 'xxx Dorothy'}}];
+  function selected1(event) {
+    document.querySelector('#x1 .data-selected').innerHTML = event.detail.name.first;
+  }
+</script>
 <div id="x1">
   <hce-dyn-list class="hdl" [source]="srcInArray1" (selected)="selected1(event)">
     <li>{{name.first}} {{name.last}}</li>
@@ -48,23 +56,17 @@ Types of source are:
   <br/>
   <button onclick="document.querySelector('#x1 .hdl').source=srcInArray1">set source1</button>
   <button onclick="document.querySelector('#x1 .hdl').source=srcInArray2">set source2</button>
-  <script id="s1">
-    var srcInArray1 = [
-      {name: {first: 'John', last: 'Doe'}},
-      {name: {first: 'Jane', last: 'Dorothy'}}
-    ];
-    var srcInArray2 = [
-      {name: {first: 'xxx John', last: 'xxx Doe'}},
-      {name: {first: 'xxx Jane', last: 'xxx Dorothy'}},
-    ];
-    function selected1(event) {
-      document.querySelector('#x1 .data-selected').innerHTML = event.detail.name.first;
-    }
-  </script>
-</div>
+</div><script>showCode('x1', 's1')</script>
 <hr/>
 
 <h3>Source In Object</h3>
+<script id="s2">
+  var srcInObject1 = {1: {name: {first: 'Obj XXX', last: 'Doe'} }, 2: {name: {first: 'Obj YYY', last: 'Dorothy'}}};
+  var srcInObject2 = {1: {name: {first: 'Obj John', last: 'Doe'}}, 2: {name: {first: 'Obj Jane', last: 'Dorothy'}}};
+  function selected2(event) {
+    document.querySelector('#x2 .data-selected').innerHTML = event.detail.name.first;
+  }
+</script>
 <div id="x2">
   <hce-dyn-list class="hdl" [source]="srcInObject1" (selected)="selected2(event)">
     <li>{{key}} {{name.first}} {{name.last}}</li>
@@ -73,23 +75,22 @@ Types of source are:
   <br/>
   <button onclick="document.querySelector('#x2 .hdl').source=srcInObject1">set source1</button>
   <button onclick="document.querySelector('#x2 .hdl').source=srcInObject2">set source2</button>
-  <script id="s2">
-    var srcInObject1 = {
-      1: {name: {first: 'Obj xxx John', last: 'Doe'} },
-      2: {name: {first: 'Obj xxx Jane', last: 'Dorothy'} },
-      3: {name: {first: 'Obj xxx Third', last: 'Man'} }
-    };
-    var srcInObject2 = {
-      1: {name: {first: 'Obj John', last: 'Doe'}},
-      2: {name: {first: 'Obj Jane', last: 'Dorothy'}}
-    };
-    function selected2(event) {
-      document.querySelector('#x2 .data-selected').innerHTML = event.detail.name.first;
-    }
-  </script>
-</div>
+</div><script>showCode('x2', 's2')</script>
 <hr/>
 
+<script id="s3">
+  var srcInPromiseArray = Promise.resolve({
+    1: {name: {first: 'Promise John', last: 'Doe'} },
+    2: {name: {first: 'Promise Jane', last: 'Dorothy'} }
+  });
+  var srcInPromiseObject = Promise.resolve([
+    {name: {first: 'Promise xxx John', last: 'xxx Doe'}},
+    {name: {first: 'Promise xxx Jane', last: 'xxx Dorothy'}}
+  ]);
+  function selectedx3(event) {
+    document.querySelector('#x3 .data-selected').innerHTML = event.detail.name.first;
+  }
+</script>
 <h3>Source In Promise</h3>
 <div id="x3">
   <hce-dyn-list class="hdl" [source]="srcInPromiseArray" (selected)="selectedx3(event)">
@@ -99,20 +100,6 @@ Types of source are:
   <br/>
   <button onclick="document.querySelector('#x3 .hdl').source=srcInPromiseArray">set source1</button>
   <button onclick="document.querySelector('#x3 .hdl').source=srcInPromiseObject">set source2</button>
-  <script id="s2">
-    var srcInPromiseArray = Promise.resolve({
-      1: {name: {first: 'Promise John', last: 'Doe'} },
-      2: {name: {first: 'Promise Jane', last: 'Dorothy'} },
-      3: {name: {first: 'Promise Third', last: 'Man'} }
-    });
-    var srcInPromiseObject = Promise.resolve([
-      {name: {first: 'Promise xxx John', last: 'xxx Doe'}},
-      {name: {first: 'Promise xxx Jane', last: 'xxx Dorothy'}}
-    ]);
-    function selectedx3(event) {
-      document.querySelector('#x3 .data-selected').innerHTML = event.detail.name.first;
-    }
-  </script>
-</div>
+</div><script>showCode('x3', 's3')</script>
 <hr/>
 

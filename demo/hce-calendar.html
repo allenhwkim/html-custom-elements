@@ -1,4 +1,7 @@
 <style>
+hce-calendar {
+  z-index: 1;
+}
 hce-calendar .calendar {
   display: block;
   width: 150px;
@@ -16,6 +19,11 @@ hce-calendar .calendar {
 </p>
 
 <h3> Calendar as a section </h3>
+<script id="s1">
+  document.querySelector('#x1 hce-calendar').addEventListener('date-selected', function(event) {
+    document.querySelector('#x1 .date-selected').innerHTML = event.detail;
+  })
+</script>
 <div id="x1">
   <hce-calendar
     selected="2019-06-15"
@@ -24,12 +32,7 @@ hce-calendar .calendar {
     date-format="yyyy-mm-dd"
     weekday-format="2-letter"></hce-calendar>
   DateSelected: <span class="date-selected"></span>
-  <script id="s1">
-    document.querySelector('#x1 hce-calendar').addEventListener('date-selected', function(event) {
-      document.querySelector('#x1 .date-selected').innerHTML = event.detail;
-    })
-  </script>
-</div>
+</div><script>showCode('x1', 's1')</script>
 <hr/>
 
 <h3> Calendar as an overlay </h3>
@@ -40,5 +43,5 @@ hce-calendar .calendar {
     <br/>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
     <br/>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
   </div>
-</div>
+</div><script>showCode('x2')</script>
 <hr/>
