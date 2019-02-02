@@ -1,3 +1,8 @@
+<style>
+hce-dyn-list li {list-style: none; margin: 0; padding: 0;}
+hce-dyn-list li {min-width: 200px; max-width: 400px;}
+hce-dyn-list li:hover { background: #ccc; }
+</style>
 <h2>hce-dyn-list</h2>
 
 <p>
@@ -8,6 +13,31 @@ Types of source are:
   <li>Array or Object
   <li>A Promise that returns array or object
 </ul>
+
+<h3>Auto Complete</h3>
+<div id="x0">
+  <input id="keyword" placeholder="Type more than 2 chars"/>
+  <hce-dyn-list [source]="getAutoComplete()" visible-by="#keyword">
+    <li>{{name.first}} {{name.last}}</li>
+  </hce-dyn-list>
+  <script id="s4">
+    function getAutoComplete() {
+      const keyword = document.querySelector('#x0 #keyword').value;
+      if (keyword.length >= 2) {
+        return new Promise(function (resolve, reject) {
+          setTimeout( _ => {
+            return resolve({
+              1: {name: {first: keyword + ' John', last: 'Doe'} },
+              2: {name: {first: keyword + ' Jane', last: 'Dorothy'} },
+              3: {name: {first: keyword + 'Third', last: 'Man'} }
+            });
+          }, 1000);
+        });
+      }
+    }
+  </script>
+</div>
+<hr/>
 
 <h3>Source In Array</h3>
 <div id="x1">
@@ -86,27 +116,3 @@ Types of source are:
 </div>
 <hr/>
 
-<h3>Auto Complete</h3>
-<div id="x4">
-  <input id="keyword" />
-  <hce-dyn-list [source]="getAutoComplete()" visible-by="#keyword">
-    <li>{{name.first}} {{name.last}}</li>
-  </hce-dyn-list>
-  <script id="s4">
-    function getAutoComplete() {
-      const keyword = document.querySelector('#x4 #keyword').value;
-      if (keyword.length >= 2) {
-        return new Promise(function (resolve, reject) {
-          setTimeout( _ => {
-            return resolve({
-              1: {name: {first: keyword + ' John', last: 'Doe'} },
-              2: {name: {first: keyword + ' Jane', last: 'Dorothy'} },
-              3: {name: {first: keyword + 'Third', last: 'Man'} }
-            });
-          }, 1000);
-        });
-      }
-    }
-  </script>
-</div>
-<hr/>

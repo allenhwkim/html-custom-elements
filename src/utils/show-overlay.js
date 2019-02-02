@@ -84,7 +84,8 @@ export function showOverlay(el, pos='top-center, vertical, outside', options) {
     olcss.top = posY === 'top' ? '0' : 'inherit';
     olcss.bottom = posY === 'bottom' ? '0' : 'inherit';
     olcss.left = posX === 'left' ? '0' : 'inherit';
-    olcss.right = posX === 'right' ? '0' : 'inheritt';
+    olcss.right = posX === 'right' ? '0' : 'inherit';
+    console.log(olcss.top, olcss.bottom, olcss.left, olcss.right);
     if (posY === 'center') {
       olcss.top = '50%';
       olcss.transform =  posX === 'center' ? 'translate(-50%, -50%)' : 'translate(0, -50%)';
