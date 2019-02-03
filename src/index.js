@@ -9,6 +9,7 @@ import './dialog/dialog';
 import './calendar/calendar';
 import './dyn-list/dyn-list';
 import './overlay/overlay';
+import './menu/menu';
 import {showOverlay} from './utils/show-overlay';
 
 window.hce = {};

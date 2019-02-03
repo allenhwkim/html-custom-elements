@@ -1,7 +1,7 @@
 import '../src';
 import Prism from 'prismjs';
 
-window.showCode = function(htmlId, jsId, cssId) {
+window.showCode = function(htmlId, jsId, cssId, highlight) {
   const el = document.createElement('div');
   el.insertAdjacentHTML('beforeend', `
     <hce-tabs class="code">
@@ -26,6 +26,10 @@ window.showCode = function(htmlId, jsId, cssId) {
       const lang = type === 'js' ? 'javascript': type;
       html = Prism.highlight(srcEl.outerHTML, Prism.languages[lang], lang);
       html = html.replace(/hce-[\w]+/g, $0 => `<b>${$0}</b>`)
+      if (highlight) {
+        console.log('......................................', highlight)
+        html = html.replace(highlight, $0 => `<b>${$0}</b>`)
+      }
       dstEl.innerHTML = html;
     } else {
       el.querySelector(`[tab-for=${type}]`).remove();
