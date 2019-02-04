@@ -1,0 +1,29 @@
+<style>
+hce-file.ready {
+  background: rgba(255, 255, 0, 0.3);
+}
+</style>
+<h2>hce-file</h2>
+
+<p>
+  hce-file allows you to accept a file from user
+</p>
+
+<div id="x1">
+  <hce-file (files-change)="filesChanged(event)">
+  </hce-file>
+</div>
+
+<script>
+function filesChanged(event) {
+  console.log('xxxxxxxxxxxx fileChanged', event.detail)
+}
+</script>
+
+How to upload file?
+<pre>let formData = new FormData();
+
+formData.append("photo", files[0]);
+window.fetch('/upload/image', {method: "POST", body: formData});
+</pre>
+

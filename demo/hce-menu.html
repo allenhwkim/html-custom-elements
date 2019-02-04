@@ -19,7 +19,7 @@ hce-menu.left {position: absolute; left: 0;}
 hce-menu.right {position: absolute; right: 0;}
 </style>
 <div id="x1" style="position: relative;">
-  <hce-menu id="menu" class="top basic">
+  <hce-menu id="menu" class="top basic" selected-index="2">
     <ul>
       <li><a href="#/home">Home</a></li>
       <li><a href="#/shop">Shop</a></li>
@@ -52,4 +52,4 @@ hce-menu.right {position: absolute; right: 0;}
     <button onclick="setMenuPos('right')">right positioned</button>
   </div>
   <br/> <br/> <br/> <br/>
-</div><script>showCode('x1', 's1', 'css1', /(top|left|bottom|right)/g)</script>
+</div><script>showCode('x1', 's1', 'css1', /(top|selected-index)/g)</script>
