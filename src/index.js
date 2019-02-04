@@ -11,6 +11,7 @@ import './dyn-list/dyn-list';
 import './overlay/overlay';
 import './menu/menu';
 import './file/file';
+import './sticky/sticky';
 import {showOverlay} from './utils/show-overlay';
 
 window.hce = {};
