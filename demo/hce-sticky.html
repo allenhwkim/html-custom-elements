@@ -1,0 +1,36 @@
+<h2>hce-sticky</h2>
+
+<style id="s1">
+  .container {
+    position: relative;
+    border: 1px solid #333;
+    background-image: linear-gradient(rgba(255, 255, 255, 1) 50%, transparent 50%, transparent);
+    background-color: rgba(0,255,0, .2);
+    background-size: 50px 50px;
+    height: 200px;
+  }
+  .left, .right, .middle { width: 50%; background: #333; color: #fff; padding: 10px; }
+  .left  {left: 0;}
+  .right {right: 0;}
+  .middle {left: 25%;}
+</style>
+
+<div id="x1">
+  <div class="container">
+    <hce-sticky class="left">left</hce-sticky>
+  </div>
+
+  <br/>
+  <div class="container">
+    <hce-sticky class="right">right</hce-sticky>
+  </div>
+
+  <br/>
+  <div class="container">
+    <hce-sticky class="middle">middle</hce-sticky>
+  </div>
+  <br/>
+</div><script>showCode('x1', null, 's1')</script>
+<div style="height: 400px; background: #eee">
+  This section is left blank intentionally for scrolling
+</div>
