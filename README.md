@@ -17,7 +17,7 @@ No framework loading, or any dependence. It's based on built-in web standard, cu
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <b><script src="dist/html-custom-elements.umd.js"></script></b>
+  <b><script src="http://unpkg.com/html-custom-elements/dist/html-custom-elements.umd.js"></script></b>
 </head>
 <body>
   <hce-carousel id="x1" selected="1">
