@@ -52,7 +52,7 @@
   position: absolute;
   padding: 0;
   overflow: hidden;
-  overflow-x: auto;
+  /*overflow-x: auto;*/
   width: 100%;
 }
 

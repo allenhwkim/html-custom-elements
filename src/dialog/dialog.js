@@ -6,49 +6,30 @@ const html = `
 
   <div class="dialog">
     <button class="close" (click)="close()">&times;</button>
-    <div class="title">Dialog Title</div>
-
-    <div class="content">Dialog Content</div>
-
+    <div class="title">{{title}}</div>
+    <hce-content></hce-content>
     <div class="actions"></div>
   </div>
 `;
 
-/**
-  window.hce.dialog.open({
-    title: 'Custim Title', 
-    contents:'This is custom contents',
-    actions: [{
-      text: 'Custom Button',
-      handler: event => {
-        alert('My custom button is clicked');
-        window.hce.dialog.close();
-      }
-    }]
-  });
-*/
 export class HCEDialog extends HTMLCustomElement {
   connectedCallback() {
     this.renderWith(html, css).then(_ => {
-      window.hce.dialog = this;
+      // console.log(this.title, this.options);
     });
   }
 
-  open(data) {
-    if (data) {
-      this.querySelector('.title').innerHTL = data.title;
-      this.querySelector('.content').innerHTL = data.contents;
-
-      if (data.actions !== undefined) {
-        const actionsEl = this.querySelector('.actions');
-        actionsEl.innerHTML = '';
-        data.actions.forEach(action => {
-          let buttonEl = document.createElement('mce-button');
-          buttonEl.innerHTML = action.text;
-          buttonEl.addEventListener('click', action.handler);
-          actionsEl.appendChild(buttonEl);
-        });
-      }
+  open() {
+    this.querySelector('.title').innerHTML = this.dialogTitle || '';
+    if (this.actions !== undefined) {
+      const actionsEl = this.querySelector('.actions');
+      actionsEl.innerHTML = '';
+      this.actions.forEach(action => {
+        let buttonEl = document.createElement('button');
+        buttonEl.innerHTML = action.text;
+        buttonEl.addEventListener('click', action.handler.bind(this));
+        actionsEl.appendChild(buttonEl);
+      });
     }
     this.classList.add('visible');
   }

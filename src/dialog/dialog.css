@@ -8,12 +8,12 @@
 }
 
 :root.visible {
-  visibility: visible;
+  display: block;
   z-index: 24;
 }
 
 :root:not(.visible) {
-  visibility: hidden;
+  display: none;
 }
 
 > .page-blocker {
@@ -85,14 +85,6 @@
 }
 
 > .dialog > .actions > * {
-  display: inline-block;
-  margin-left: 8px;
-  padding: 8px 0px;
-  min-width: 64px;
-  height: 36px;
-  line-height: 36px;
-  font-size: 14px;
-  text-transform: uppercase;
-  text-align: center;
+  height: 32px;
 }
   

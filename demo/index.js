@@ -1,5 +1,11 @@
 import '../src';
 import Prism from 'prismjs';
+window.prettify = function(selector, type, highlight) {
+  const el = document.querySelector(selector);
+  const html = type === 'html' ? el.innerHTML.replace(/&lt;/g, '<').replace(/&gt;/g, '>') : el.innerHTML;
+  const prettyOne = Prism.highlight(html, Prism.languages[type], type);
+  el.innerHTML = prettyOne.replace(highlight, _ => `<b>${_}</b>`);
+}
 
 window.showCode = function(htmlId, jsId, cssId, highlight) {
   const el = document.createElement('div');
@@ -25,7 +31,7 @@ window.showCode = function(htmlId, jsId, cssId, highlight) {
       dstEl = el.querySelector(`[contents-for=${type}] pre`);
       const lang = type === 'js' ? 'javascript': type;
       html = Prism.highlight(srcEl.outerHTML, Prism.languages[lang], lang);
-      html = html.replace(/hce-[\w]+/g, $0 => `<b>${$0}</b>`)
+      html = html.replace(/hce-[\w-]+/g, $0 => `<b>${$0}</b>`)
       highlight && ( html = html.replace(highlight, $0 => `<b>${$0}</b>`) )
       dstEl.innerHTML = html;
     } else {

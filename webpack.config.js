@@ -51,8 +51,7 @@ let config = {
   },
   devtool: '#source-map',
   plugins: [
-    new CleanWebpackPlugin(['dist/*']),
-    new CopyWebpackPlugin([{ from: 'typings/*', to: '', flatten: true}])
+    new CleanWebpackPlugin(['dist/*'])
   ]
 }
 
@@ -63,10 +62,11 @@ if (process.env.NODE_ENV === 'development') {
       app: './demo'
     },
     output: {
-      path: path.resolve(__dirname, './dist'),
+      path: path.resolve(__dirname, './docs'),
       filename: '[name].js'
     },
     plugins: [
+      new CleanWebpackPlugin(['docs/*']),
       new webpack.HotModuleReplacementPlugin(),
       new webpack.NamedModulesPlugin(),
       new webpack.NoEmitOnErrorsPlugin(),

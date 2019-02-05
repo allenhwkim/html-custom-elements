@@ -59,7 +59,8 @@ export class HCECarousel extends HTMLCustomElement {
       this.shortcutsEl = this.querySelector('ul.shortcuts');
       __addShortcuts.bind(this)(this.shortcutsEl, this.listEl);
 
-      this.listEl && this.show(this.selected || 0);
+      this.listEl && 
+        setTimeout(_ => this.show(this.selected || 0), 1000);
     });
   }
 
@@ -83,7 +84,6 @@ export class HCECarousel extends HTMLCustomElement {
     }
 
     // set tabindex for accessibility
-    console.log('prevTabIndexedEl', prevTabIndexedEl)
     prevTabIndexedEl && prevTabIndexedEl.removeAttribute('tabindex'); 
     scrollToEl.setAttribute('tabindex', 0);
 

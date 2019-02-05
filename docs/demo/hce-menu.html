@@ -1,0 +1,55 @@
+<h2>hce-menu</h2>
+
+<p>
+  hce-menu shows hierarchical navigation links. Set position; left, right, top or bottom, to its class to control menu showing behaviour.
+  You should use 'ul' and 'li' tag to list menu items, and use 'a' tag to customize your menu items.
+</p>
+
+<script id="s1">
+  function setMenuPos(pos) {
+    document.querySelector('#menu').className = 
+      document.querySelector('#menu').className.replace(/(top|left|bottom|right)/, pos);
+  }
+</script>
+<style id="css1">
+.buttons {width: 200px; text-align: center; padding: 8px; border: 1px solid #ccc; margin: 0 auto}
+hce-menu.bottom {width: 100%; position: absolute; bottom: 0;}
+hce-menu.top {width: 100%; position: absolute; top: 0;}
+hce-menu.left {position: absolute; left: 0;}
+hce-menu.right {position: absolute; right: 0;}
+</style>
+<div id="x1" style="position: relative;">
+  <hce-menu id="menu" class="top basic" selected-index="2">
+    <ul>
+      <li><a href="#/home">Home</a></li>
+      <li><a href="#/shop">Shop</a></li>
+      <li><a href="#/about"> More</a>
+          <ul>
+              <li><a href="#/about">About</a></li>
+              <li><a href="#/more">More 1</a>
+                <ul>
+                    <li><a href="#/more 11">For more 11</a></li>
+                    <li><a href="#/more 12">For more 12</a></li>
+                </ul>
+              </li>
+              <li><a href="#/more">More 2</a>
+                <ul>
+                    <li><a href="#/more 21">For more 21</a></li>
+                    <li><a href="#/more 21">For more 22</a></li>
+                </ul>
+              </li>
+          </ul>
+      </li>
+      <li><a href="#/cars">Mars Cars</a></li>
+      <li><a href="#/contact">About</a></li>
+    </ul>
+  </hce-menu>
+  <br/> <br/> <br/> <br/>
+  <div class="buttons">
+    <button onclick="setMenuPos('top')">top positioned</button><br/>
+    <button onclick="setMenuPos('bottom')">bottom positioned</button><br/>
+    <button onclick="setMenuPos('left')">left positioned</button><br/>
+    <button onclick="setMenuPos('right')">right positioned</button>
+  </div>
+  <br/> <br/> <br/> <br/>
+</div><script>showCode('x1', 's1', 'css1', /(top|selected-index)/g)</script>

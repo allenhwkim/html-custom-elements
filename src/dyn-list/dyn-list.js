@@ -24,6 +24,7 @@ const css = `
   :root.overlay .list {
     background: #fff;
     position: absolute;
+    padding: 4px;
     box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, .14),
       0px 1px 1px 0px rgba(0, 0, 0, .12), 
       0px 2px 1px -1px rgba(0, 0, 0, .4);
@@ -78,12 +79,13 @@ export class HCEDynList extends HTMLCustomElement {
             this.source = src;
             this.style.display = 'block';
           })
-        }, 500); // keyboard delay for .5 second
+        }, 100); // keyboard delay for .5 second
       } else {
         this.source = [];
       }
     });
 
+    this.style.display = 'none';
     this.addEventListener('click', _ => {
       if (this.isEqualNode(event.target)) {
         this.style.display = 'none';

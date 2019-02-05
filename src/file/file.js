@@ -18,11 +18,19 @@ const html = `
 `;
 
 const css = `
-  :root {text-align: center}
+  :root {
+    text-align: center;
+    display: inline-block;
+    margin: 24px;
+    padding: 24px;
+    background: #ccc;
+  }
+  :root:hover { background: #eee; }
   :root.ready {background: rgba(255, 255, 0, 0.5)}
   .file-zone {cursor: pointer; padding: 4px}
   .file-zone input {display: none;}
   .preview { display: flex; align-items: center; justify-content: center; }
+  .preview:empty { display: none;}
 `;
 
 
