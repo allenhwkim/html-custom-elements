@@ -12,8 +12,8 @@ import './overlay/overlay';
 import './menu/menu';
 import './file/file';
 import './sticky/sticky';
-import {showOverlay} from './utils/show-overlay';
+import './draggable/draggable';
+import './collapsible/collapsible';
 
-window.hce = {};
-window.hce.showOverlay = showOverlay;
+import {showOverlay} from './utils/show-overlay';
 export {time} from './utils/time'; // time formatter e.g. time().format('yyyy-mm-dd')

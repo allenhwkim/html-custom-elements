@@ -28,24 +28,12 @@ let config = {
     umdNamedDefine: true
   },
   module: {
-    rules: [
-      {
-        test: /\.html$/,
-        loader: 'raw-loader'
-      },
-      {
-        test: /\.js$/,
-        exclude: /(node_modules|or_any)/,
-        use: {
-          loader: "babel-loader",
-          options: {
-            presets: ["@babel/preset-env"]
-          }
-        }
-      },
-      {
-        test: /\.css$/,
-        use: ['raw-loader'],
+    rules: [ 
+      { test: /\.html$/, loader: 'raw-loader' },
+      { test: /\.css$/, loader: 'raw-loader' },
+      { test: /\.js$/,  
+         exclude: /(node_modules|or_any)/,
+         use: { loader: "babel-loader", options: { presets: ["@babel/preset-env"] } }
       }
     ]
   },

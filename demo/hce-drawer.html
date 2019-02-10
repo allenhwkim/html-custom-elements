@@ -2,12 +2,11 @@
 
 <p>
   hce-drawer shows page-blocking drawer for desktop and mobile.
-  To show call `show` function of  `window.hce.drawer`;
-  e.g. `window.hce.drawer.show()`
+  To open a draser, call `show` function of the element;
 </p>
 
 <div id="x1">
-  <button onclick="window.hce.drawer.show()">Open Drawer</button>
+  <button onclick="document.querySelector('hce-drawer').show()">Open Drawer</button>
 
   <hce-drawer>
     <ul>

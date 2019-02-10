@@ -14,7 +14,6 @@ const customCss = `
 export class HCESnackbar extends HTMLCustomElement {
   connectedCallback() {
     this.renderWith(null, css, customCss);
-    window.hce.snackbar = this;
   }
 
   set message(msg) {

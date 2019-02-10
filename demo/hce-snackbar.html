@@ -1,9 +1,3 @@
-<script id="js1">
-  function showSnackbar() {
-    document.querySelector('#message').value = 'My message ' + Math.random();
-    window.hce.snackbar.message = document.querySelector('#message').value;
-  }
-</script>
 
 <h2>hce-snackbar</h2>
 <p>
@@ -11,13 +5,15 @@
 </p>
 
 <p>
-  To show the snackbar, assign message to `window.hce.snackbar.message`;
+  To show the snackbar, assign message to the `&lt;hce-snackbar>`;
 </p>
 
 <div id="x1">
-  Message: <input id="message" value="my message"><br/>
-  <button onclick="showSnackbar()"> Show snackbar with a message </button>
+  <input
+    size="30"
+    onkeyup="document.querySelector('hce-snackbar').message=this.value" 
+    placeholder="Change this to see the snackbar">
   <hce-snackbar></hce-snackbar>
 </div>
 <br/>
-<script>showCode('x1','js1')</script>
+<script>showCode('x1')</script>

@@ -1,0 +1,61 @@
+:root {
+  border: 1px solid #ccc;
+  display: block;
+}
+:root * {
+  box-sizing: border-box;
+}
+.hce-header {
+  padding: 12px;
+  cursor: pointer;
+  color: #FFF;
+  background: #333;
+}
+:not(.expanded) .hce-body {
+  max-height: 1px; 
+  overflow: hidden;
+}
+.expanded .hce-body {
+  transition: max-width .25s ease-in-out, max-height .25s ease-in-out;
+  max-height: 2000px; 
+  padding: 12px;
+}
+
+:root.horizontal {
+  display: flex;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  overflow: hidden;
+}
+:root.horizontal > * {
+  display: flex;
+}
+:root.horizontal .hce-header {
+  word-wrap: break-word;
+  height: 100%;
+  padding: 12px;
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+}
+:root.horizontal .hce-header:empty {
+  padding: 4px;
+}
+:root.horizontal :not(.expanded) .hce-body {
+  height: 100%;
+  max-width: 1px;
+}
+:root.horizontal .expanded {
+  width: 100%;
+}
+:root.horizontal .expanded .hce-body {
+  width: 100%;
+  max-width: 2000px;
+  flex: 1;
+}
+
+:root.horizontal :not(.expanded).sidebar {
+  max-width: 10px;
+}
+:root.horizontal .expanded.sidebar {
+  max-width: 280px;
+}

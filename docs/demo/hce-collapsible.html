@@ -1,0 +1,62 @@
+<h2>hce-collapsible</h2>
+
+<p>
+  hce-collapsible is a accordion element that expand when clicked on. It allows you to hide content that is not immediately relevant to the user.
+</p>
+
+<div id="x1">
+  <hce-collapsible>
+    <div>
+      <div class="hce-header">HEADER 1</div>
+      <div class="hce-body">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat
+      </div>
+    </div>
+    <div class="expanded">
+      <div class="hce-header">HEADER 2</div>
+      <div class="hce-body">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat
+      </div>
+    </div>
+  </hce-collapsible>
+</div>
+<br/>
+<script>showCode('x1', 0, 0, /horizontal|expanded/g)</script>
+
+<div id="x2">
+  <hce-collapsible class="horizontal">
+    <div>
+      <div class="hce-header">HEADER 1</div>
+      <div class="hce-body">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat
+      </div>
+    </div>
+    <div class="expanded">
+      <div class="hce-header">HEADER 2</div>
+      <div class="hce-body">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat
+      </div>
+    </div>
+  </hce-collapsible>
+</div>
+<br/>
+<script>showCode('x2', 0, 0, /horizontal|expanded/g)</script>
+
+<style>
+.contents {padding: 12px;}
+</style>
+<div id="x3">
+  <hce-collapsible class="horizontal">
+    <div class="expanded sidebar">
+      <div class="hce-body">
+        <ul><li>Side Bar Menu 1<li>Side Bar Menu 2<li>Side Bar Menu 3<li>Side Bar Menu 4<li>Side Bar Menu 5</ul>
+      </div>
+      <div class="hce-header"></div>
+    </div>
+    <div class="contents">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat
+    </div>
+  </hce-collapsible>
+</div>
+<br/>
+<script>showCode('x3', 0, 0, /horizontal|expanded/g)</script>

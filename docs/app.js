@@ -63,7 +63,7 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "1fe07ac87625e086bd99";
+/******/ 	var hotCurrentHash = "602c68323833dfc341bd";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -2932,6 +2932,94 @@ HCECarousel.define('hce-carousel', HCECarousel);
 
 /***/ }),
 
+/***/ "./src/collapsible/collapsible.css":
+/*!*****************************************!*\
+  !*** ./src/collapsible/collapsible.css ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ":root {\n  border: 1px solid #ccc;\n  display: block;\n}\n:root * {\n  box-sizing: border-box;\n}\n.hce-header {\n  padding: 12px;\n  cursor: pointer;\n  color: #FFF;\n  background: #333;\n}\n:not(.expanded) .hce-body {\n  max-height: 1px; \n  overflow: hidden;\n}\n.expanded .hce-body {\n  transition: max-width .25s ease-in-out, max-height .25s ease-in-out;\n  max-height: 2000px; \n  padding: 12px;\n}\n\n:root.horizontal {\n  display: flex;\n  border-radius: 4px;\n  border: 1px solid #ccc;\n  overflow: hidden;\n}\n:root.horizontal > * {\n  display: flex;\n}\n:root.horizontal .hce-header {\n  word-wrap: break-word;\n  height: 100%;\n  padding: 12px;\n  writing-mode: vertical-rl;\n  text-orientation: upright;\n}\n:root.horizontal .hce-header:empty {\n  padding: 4px;\n}\n:root.horizontal :not(.expanded) .hce-body {\n  height: 100%;\n  max-width: 1px;\n}\n:root.horizontal .expanded {\n  width: 100%;\n}\n:root.horizontal .expanded .hce-body {\n  width: 100%;\n  max-width: 2000px;\n  flex: 1;\n}\n\n:root.horizontal :not(.expanded).sidebar {\n  max-width: 10px;\n}\n:root.horizontal .expanded.sidebar {\n  max-width: 280px;\n}\n"
+
+/***/ }),
+
+/***/ "./src/collapsible/collapsible.js":
+/*!****************************************!*\
+  !*** ./src/collapsible/collapsible.js ***!
+  \****************************************/
+/*! exports provided: HCECollapsible */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HCECollapsible", function() { return HCECollapsible; });
+/* harmony import */ var html_custom_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! html-custom-element */ "../html-custom-element/src/index.js");
+/* harmony import */ var _collapsible_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./collapsible.css */ "./src/collapsible/collapsible.css");
+/* harmony import */ var _collapsible_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_collapsible_css__WEBPACK_IMPORTED_MODULE_1__);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+var HCECollapsible =
+/*#__PURE__*/
+function (_HTMLCustomElement) {
+  _inherits(HCECollapsible, _HTMLCustomElement);
+
+  function HCECollapsible() {
+    _classCallCheck(this, HCECollapsible);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(HCECollapsible).apply(this, arguments));
+  }
+
+  _createClass(HCECollapsible, [{
+    key: "connectedCallback",
+    value: function connectedCallback() {
+      var _this = this;
+
+      this.renderWith(null, _collapsible_css__WEBPACK_IMPORTED_MODULE_1___default.a).then(function (_) {
+        _this.init();
+      });
+    }
+  }, {
+    key: "init",
+    value: function init() {
+      Array.from(this.querySelectorAll('.hce-header')).forEach(function (header) {
+        header.setAttribute('tabindex', 0);
+        header.addEventListener('click', function (_) {
+          header.parentElement.classList.toggle('expanded');
+        });
+        header.addEventListener('keydown', function (event) {
+          if (event.keyCode === 32) {
+            header.parentElement.classList.toggle('expanded');
+            event.preventDefault();
+          }
+        });
+      });
+    }
+  }]);
+
+  return HCECollapsible;
+}(html_custom_element__WEBPACK_IMPORTED_MODULE_0__["HTMLCustomElement"]);
+HCECollapsible.define('hce-collapsible', HCECollapsible);
+
+/***/ }),
+
 /***/ "./src/dialog/dialog.css":
 /*!*******************************!*\
   !*** ./src/dialog/dialog.css ***!
@@ -3027,6 +3115,148 @@ HCEDialog.define('hce-dialog', HCEDialog);
 
 /***/ }),
 
+/***/ "./src/draggable/draggable.js":
+/*!************************************!*\
+  !*** ./src/draggable/draggable.js ***!
+  \************************************/
+/*! exports provided: HCEDraggable */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HCEDraggable", function() { return HCEDraggable; });
+/* harmony import */ var html_custom_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! html-custom-element */ "../html-custom-element/src/index.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _get(target, property, receiver) { if (typeof Reflect !== "undefined" && Reflect.get) { _get = Reflect.get; } else { _get = function _get(target, property, receiver) { var base = _superPropBase(target, property); if (!base) return; var desc = Object.getOwnPropertyDescriptor(base, property); if (desc.get) { return desc.get.call(receiver); } return desc.value; }; } return _get(target, property, receiver || target); }
+
+function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = _getPrototypeOf(object); if (object === null) break; } return object; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+var HCEDraggable =
+/*#__PURE__*/
+function (_HTMLCustomElement) {
+  _inherits(HCEDraggable, _HTMLCustomElement);
+
+  function HCEDraggable() {
+    _classCallCheck(this, HCEDraggable);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(HCEDraggable).apply(this, arguments));
+  }
+
+  _createClass(HCEDraggable, [{
+    key: "connectedCallback",
+    value: function connectedCallback() {
+      var _this = this;
+
+      this.dragStart; // properties when drag started e.g. {el, el, x: 120, y: 80} in pixel
+
+      this.dropTo; // dropaable element selector. e.g. #drop-to
+
+      this.dropEl; // drop enabled element. default document.body
+
+      this.setAttribute('draggable', 'true'); // this allows to drag
+
+      this._dragoverHandler = this.onDragover.bind(this);
+      this._dragleaveHandler = this.onDragleave.bind(this);
+      this._dropHandler = this.onDrop.bind(this);
+      this.renderWith().then(function (_) {
+        // set user-given properties
+        _this.addEventListener('dragstart', _this.onDragstart.bind(_this));
+
+        _this.dropTo = _this.dropTo || _this.parentElement.getAttribute('drop-to');
+        _this.dropEl = _this.dropTo ? document.querySelector(_this.dropTo) : document.body;
+
+        _this.dropEl.addEventListener('drop', _this._dropHandler);
+
+        _this.dropEl.addEventListener('dragover', _this._dragoverHandler);
+
+        _this.dropEl.addEventListener('dragleave', _this._dragleaveHandler);
+      });
+    }
+  }, {
+    key: "disconnectedCallback",
+    value: function disconnectedCallback() {
+      _get(_getPrototypeOf(HCEDraggable.prototype), "disconnectedCallback", this).call(this);
+
+      this.dropEl.removeEventListener('drop', this._dropHandler);
+      this.dropEl.removeEventListener('dragover', this._dragoverHandler);
+      this.dropEl.removeEventListener('dragleave', this._dragleaveHandler);
+    }
+  }, {
+    key: "onDragstart",
+    value: function onDragstart(event) {
+      event.dataTransfer.setData('Text', event.target.id); // id of dropping element
+
+      this.dragStart = {
+        el: this,
+        x: event.clientX,
+        y: event.clientY
+      };
+      var bcr = this.getBoundingClientRect();
+      this.dispatchEvent(Object(html_custom_element__WEBPACK_IMPORTED_MODULE_0__["createCustomEvent"])('drag-start'));
+    }
+  }, {
+    key: "onDragover",
+    value: function onDragover(event) {
+      event.preventDefault ? event.preventDefault() : event.returnValue = false; // MUST! allows it to drop
+
+      this.dropTo && this.dropEl.classList.add('on-dragover');
+    }
+  }, {
+    key: "onDragleave",
+    value: function onDragleave(event) {
+      this.dropTo && this.dropEl.classList.remove('on-dragover');
+    }
+  }, {
+    key: "onDrop",
+    value: function onDrop(event) {
+      // this happens on body
+      if (this.dropTo) {
+        this.dropEl.classList.remove('on-dragover');
+      } else if (this.dragStart && this.dragStart.el.isEqualNode(this)) {
+        // in case of multiple draggables
+        this.move(event);
+      }
+
+      this.dragStart = undefined;
+    }
+  }, {
+    key: "move",
+    value: function move(event) {
+      var move = {
+        x: event.clientX - this.dragStart.x,
+        y: event.clientY - this.dragStart.y
+      };
+      var bcr = this.getBoundingClientRect();
+      this.style.position = 'absolute';
+      this.style.top = window.scrollY + parseInt(bcr.top) + move.y + 'px';
+      this.style.left = window.scrollX + parseInt(bcr.left) + move.x + 'px';
+    }
+  }]);
+
+  return HCEDraggable;
+}(html_custom_element__WEBPACK_IMPORTED_MODULE_0__["HTMLCustomElement"]);
+HCEDraggable.define('hce-draggable', HCEDraggable);
+
+/***/ }),
+
 /***/ "./src/drawer/drawer.css":
 /*!*******************************!*\
   !*** ./src/drawer/drawer.css ***!
@@ -3089,8 +3319,6 @@ function (_HTMLCustomElement) {
       var _this = this;
 
       this.renderWith(html, _drawer_css__WEBPACK_IMPORTED_MODULE_1___default.a).then(function (_) {
-        window.hce.drawer = _this;
-
         _this.querySelector('.page-blocker').addEventListener('click', function (_) {
           return _this.hide();
         });
@@ -3592,9 +3820,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _menu_menu__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./menu/menu */ "./src/menu/menu.js");
 /* harmony import */ var _file_file__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./file/file */ "./src/file/file.js");
 /* harmony import */ var _sticky_sticky__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./sticky/sticky */ "./src/sticky/sticky.js");
-/* harmony import */ var _utils_show_overlay__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./utils/show-overlay */ "./src/utils/show-overlay.js");
-/* harmony import */ var _utils_time__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./utils/time */ "./src/utils/time.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "time", function() { return _utils_time__WEBPACK_IMPORTED_MODULE_15__["time"]; });
+/* harmony import */ var _draggable_draggable__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./draggable/draggable */ "./src/draggable/draggable.js");
+/* harmony import */ var _collapsible_collapsible__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./collapsible/collapsible */ "./src/collapsible/collapsible.js");
+/* harmony import */ var _utils_show_overlay__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./utils/show-overlay */ "./src/utils/show-overlay.js");
+/* harmony import */ var _utils_time__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./utils/time */ "./src/utils/time.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "time", function() { return _utils_time__WEBPACK_IMPORTED_MODULE_17__["time"]; });
 
 
 
@@ -3611,8 +3841,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-window.hce = {};
-window.hce.showOverlay = _utils_show_overlay__WEBPACK_IMPORTED_MODULE_14__["showOverlay"];
+
+
  // time formatter e.g. time().format('yyyy-mm-dd')
 
 /***/ }),
@@ -3963,7 +4193,6 @@ function (_HTMLCustomElement) {
     key: "connectedCallback",
     value: function connectedCallback() {
       this.renderWith(null, _snackbar_css__WEBPACK_IMPORTED_MODULE_1___default.a, customCss);
-      window.hce.snackbar = this;
     }
   }, {
     key: "message",

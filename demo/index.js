@@ -1,5 +1,6 @@
 import '../src';
 import Prism from 'prismjs';
+
 window.prettify = function(selector, type, highlight) {
   const el = document.querySelector(selector);
   const html = type === 'html' ? el.innerHTML.replace(/&lt;/g, '<').replace(/&gt;/g, '>') : el.innerHTML;
