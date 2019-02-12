@@ -18,12 +18,28 @@
   To show loading sign initially, simply set attribute 'loading'.
 </p>
 
+<h3>Attributes</h3>
+<ul>
+  <li><b>loading</b>: If defined loading sign will be displayed covering the parent element.</li>
+  <li><b>timeout</b>: Timeout seconds. If given, after this passed, `timedout` event will fire.</li>
+</ul>
+
+<h3>Events</h3>
+<ul>
+  <li><b>timeout</b>: Fired after 10 seconds from loading sign is shown.</li>
+</ul>
+
 <div class="box" id="x2">
-  contents
-  <hce-loading loading></hce-loading>
+  <div id="message">Loading. It will be timeout after 10 seconds.</div>
+  <hce-loading loading timeout="10"></hce-loading>
 </div>
+<script id="s1">
+  document.querySelector('#x2 hce-loading').addEventListener('timedout', _ => {
+    document.querySelector('#x2 #message').innerHTML = 'Timedout after 10 seconds';
+  })
+</script>
 <br/>
-<script>showCode('x2')</script>
+<script>showCode('x2', 's1')</script>
 
 <div id="x1">
   <div class="box">

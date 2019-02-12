@@ -1,5 +1,9 @@
 <h2>hce-tooltip</h2>
 
+<style>
+  .box { position: relative; padding: 12px; width: 200px; border: 1px solid #ccc; }
+</style>
+
 <p>
   hce-tooltip is shown on the top of the parent element in default when mouse is over.
   It is also shown when the parent is focused for accessibility.
@@ -10,31 +14,34 @@
   You can also set any html inside tooltip.
 </p>
 
-<style>
-  .box { position: relative; padding: 12px; width: 200px; border: 1px solid #ccc; }
-</style>
+<h3>Attributes</h3>
+<ul>
+  <li><b>visible</b>: Default false. Indicates to show the tooltip when initialized.</li>
+  <li><b>position</b>: Default top.Where to show the tooltip; left, right, bottom, or top.</li>
+</ul>
 
+<h3>Tooltip on top</h3>
 <div class="box" id="x1">
   This has a tooltip on top
   <hce-tooltip visible>tooltip on top</hce-tooltip>
 </div>
 <script>showCode('x1', 0, 0, /visible|position/g)</script>
 
-<br/>
+<h3>Tooltip on bottom</h3>
 <div class="box" id="x2">
   This has a tooltip on bottom
   <hce-tooltip position="bottom" visible>tooltop on bottom </hce-tooltip>
 </div>
 <script>showCode('x2', 0, 0, /visible|position/g)</script>
 
-<br/>
+<h3>Tooltip on left</h3>
 <div class="box" tabindex="0" style="margin-left: 128px" id="x3">
   This has a tooltip on left. Use tab to focus here.
   <hce-tooltip position="left">tooltop on left </hce-tooltip>
 </div>
 <script>showCode('x3', 0, 0, /visible|position/g)</script>
 
-<br/>
+<h3>Tooltip on right</h3>
 <div class="box" id="x4">
   This has a tooltip on right
   <hce-tooltip style="background: #fff; border: 1px solid #ccc; color: #333" position="right" visible>

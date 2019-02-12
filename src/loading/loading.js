@@ -13,7 +13,7 @@ const svg = `
     </animateTransform>
   </g></svg>`;
 
-  const css =`
+const css =`
   :root {
     display: flex; 
     position: absolute;
@@ -32,18 +32,32 @@ const svg = `
 `
 
 class HCELoading extends HTMLCustomElement {
+  static get observedAttributes() { return ['loading']; }
+
   connectedCallback() {
+    this.timer;
     this.renderWith(null, css).then( _ => {
       (!this.innerHTML.trim()) && (this.innerHTML = svg);
-      this.style.display = this.loading === '' || this.loading ? 'flex' : 'none';
+      typeof this.loading === 'string' ? this.show() : this.hide();
+console.log('....................', this.timeout)
     });
   }
 
+  attributeChangedCallback(name, oldValue, newValue) {
+    name === 'loading' && typeof newValue === 'string' ? this.show() : this.hide();
+  } 
+
   show() {
     this.style.display = 'flex';
+    this.timer = this.timeout && setTimeout(_ => {
+      this.dispatchEvent(createCustomEvent('timedout'));
+      this.hide();
+    }, this.timeout * 1000);
   }
 
   hide() {
+    this.removeAttribute('loading');
+    clearTimeout(this.timer);
     this.style.display = 'none';
   }
 }

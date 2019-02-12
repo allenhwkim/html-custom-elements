@@ -5,6 +5,12 @@
   hce-dialog provides users to show page-blocking modal dialog with title, contents, and buttons.
 </p>
 
+<h3>Attributes</h3>
+<ul>
+  <li><b>dialog-title</b>: String, Dialog title</li>
+  <li><b>[actions]</b>: Optional. If not given, no buttons will be rendered.</li>
+</ul>
+
 <script id="js1">
   const actions = [
     {
@@ -38,8 +44,7 @@
 
 <div id="x3">
   <button onclick="openDialog('dialog-3')">Open Dialog With Your Own Button</button>
-  <hce-dialog id="dialog-3"
-    dialog-title="Dialog 3 Title">
+  <hce-dialog id="dialog-3" dialog-title="Dialog 3 Title">
     <b>This is dialog 3</b>
     <div class="actions">
       <button>Custom Button</button>

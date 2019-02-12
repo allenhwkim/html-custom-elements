@@ -1,8 +1,17 @@
 <h2>hce-overlay</h2>
 
 <p>
-  hce-overlay opens layer on the top of existing element
+  hce-overlay opens layer on the top of existing element relatively positioned(default top)
 </p>
+
+<h3>Attributes</h3>
+ <ul>
+  <li><b>position</b>: Default "top". Indicates where to show the overlay.</li>
+  <li><b>visible-by</b>:
+   Css selector to show the overlay. When the given element is focused or clicked,
+   the overlay is displayed.
+  </li>
+</ul> 
 
 <div id="x1" style="display: inline-block">
   <button>show overlay on top</button>

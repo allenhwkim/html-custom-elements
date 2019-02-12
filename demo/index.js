@@ -31,7 +31,7 @@ window.showCode = function(htmlId, jsId, cssId, highlight) {
       srcEl = document.getElementById(id);
       dstEl = el.querySelector(`[contents-for=${type}] pre`);
       const lang = type === 'js' ? 'javascript': type;
-      html = Prism.highlight(srcEl.outerHTML, Prism.languages[lang], lang);
+      html = Prism.highlight(srcEl.innerHTML.replace(/^\n(\s+)/,'$1'), Prism.languages[lang], lang);
       html = html.replace(/hce-[\w-]+/g, $0 => `<b>${$0}</b>`)
       highlight && ( html = html.replace(highlight, $0 => `<b>${$0}</b>`) )
       dstEl.innerHTML = html;

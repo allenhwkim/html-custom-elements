@@ -1,34 +1,5 @@
 import { HTMLCustomElement, createCustomEvent } from 'html-custom-element';
-
-const css = `
-  :root {
-    display: block
-  }
-  .tabs {
-    border-bottom: 1px solid #999;
-  }
-  .tabs [tab-for] {
-    display: inline-block;
-    margin: 0 2px;
-    border: 1px solid #999;
-    background: #EEE;
-    padding: 5px 10px;
-    border-radius: 2px 2px 0 0;
-    position: relative;
-    top: 1px;
-  }
-  .tabs [tab-for].selected {
-    background: #FFF;
-    border-bottom: 1px solid transparent;
-  }
-
-  .contents [contents-for] {
-    display: none;
-  }
-  .contents [contents-for].selected {
-    display: block;
-  }
-`;
+import * as css from './tabs.css';
 
 function __select(listEls, indexEl) {
   Array.from(listEls)
@@ -46,7 +17,21 @@ function __keydownHandler(e) {
   const propName =
     e.key === 'ArrowRight' ? 'nextElementSibling' :
     e.key === 'ArrowLeft' ? 'previousElementSibling' : 'N/A';
-  const nextEl = e.target[propName];
+
+  // let nextEl = e.target[propName];
+  // while (nextEl) {
+  //   if (nextEl.getAttribute('disabled')) {
+  //     nextEl = nextEl[propName];
+  //   } else {
+  //     break;
+  //   }
+  // }
+
+  let nextEl = e.target[propName];
+  while (nextEl) {
+    if (nextEl.getAttribute('disabled') === null) break;
+    nextEl = nextEl[propName];
+  }
 
   if (nextEl) {
     const tabId = nextEl.getAttribute('tab-for');
@@ -83,10 +68,12 @@ class HCETabs extends HTMLCustomElement {
     } 
 
     const tabEl = this.querySelector(`[tab-for=${tabId}]`);
-    const contentEl = this.querySelector(`[contents-for=${tabId}]`);
-    __select(this.tabEls, tabEl);
-    tabEl.focus();
-    __select(this.contentEls, contentEl);
+    if (tabEl.getAttribute('disabled') === null) {
+      const contentEl = this.querySelector(`[contents-for=${tabId}]`);
+      __select(this.tabEls, tabEl);
+      tabEl.focus();
+      __select(this.contentEls, contentEl);
+    }
   }
 
 }

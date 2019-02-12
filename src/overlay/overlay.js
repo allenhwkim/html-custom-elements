@@ -29,9 +29,9 @@ class HCEOverlay extends HTMLCustomElement {
     this.renderWith(html, css).then( _ => {
       this.visibleBy && this.setBehaviourOfVisibleBy();
 
-      this.addEventListener('click', event => 
-        this.isEqualNode(event.target) && (this.style.display = 'none')
-      );
+      this.addEventListener('click', event => {
+        this.isEqualNode(event.target) && (this.style.display = 'none');
+      });
     });
   }
 
@@ -42,6 +42,7 @@ class HCEOverlay extends HTMLCustomElement {
 
       actorEl.addEventListener('click', this.show.bind(this));
       actorEl.addEventListener('focus', this.show.bind(this));
+      actorEl.addEventListener('blur', this.hide.bind(this));
     }
   }
 
@@ -61,6 +62,11 @@ class HCEOverlay extends HTMLCustomElement {
         {distance: this.distance, arrow: this.arrow}
       );
     })
+  }
+
+  hide() {
+    console.log('xxxxxxxxxxxxxxxxxx');
+    this.style.display = 'none;'
   }
 
 }

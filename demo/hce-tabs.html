@@ -25,6 +25,30 @@
 </style>
 
 <p>
+  When you click on tab, only contents to matching is visible:w.
+</p>
+
+<h3>Attributes</h3>
+<ul>
+  <li><b>selected</b>: Default ''. What tab contents to be display.</li>
+</ul>
+
+<h3>Child Elements</h3>
+<ul>
+  <li><b>"tabs" class</b> in any element: Tab indicator section. 
+    <ul>
+      <li><b>"tab-for" attribute</b>: Tab identifier. String value. e.g., "tab1"</li>
+      <li><b>"disabled" attribute</b>: If defined, this won't be selected</li>
+    </ul>
+  </li>
+  <li><b>"contents" class</b> in any element: Contents section
+    <ul>
+      <li><b>"contents-for" attribute</b>: Contents identifier. String value. e.g., "tab1"</li>
+    </ul>
+  </li>
+</ul>
+
+<p>
   To use hce-tabs;
   <ul>
     <li> Provide two sections with class 'tabs' and 'contents'
@@ -36,8 +60,11 @@
 <hce-tabs id="x1" class="first" selected="css"> <!-- this makes all tab  possible -->
   <div class="tabs"> <!-- class as 'tabs' -->
     <div tab-for="html">html</div>
+    <div tab-for="na1" disabled>disabled</div>
+    <div tab-for="na2" disabled>disabled</div>
     <div tab-for="js">js</div>
     <div tab-for="css">css</div>
+    <div tab-for="na3" disabled>disabled</div>
   </div>
   <div class="contents"> <!-- class as 'contents' -->
     <div contents-for="html">HTML5 </div>
@@ -46,7 +73,7 @@
   </div>
 </hce-tabs>
 <br/>
-<script>showCode('x1', 0, 0, /selected|tab-for|contents-for/g)</script>
+<script>showCode('x1', 0, 0, /selected|tab-for|contents-for|tabs|contents/g)</script>
 
 
 <h3>Custom Tab</h3>
@@ -69,4 +96,4 @@
   </div>
 </hce-tabs>
 <br/>
-<script>showCode('x1', null, 'css1', /selected|tab-for|contents-for/g)</script>
+<script>showCode('x1', null, 'css1', /selected|tab-for|contents-for|tabs|contents/g)</script>

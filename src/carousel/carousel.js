@@ -72,7 +72,10 @@ export class HCECarousel extends HTMLCustomElement {
       scrollToEl = this.listEl.children[this.index];
     }
     this.index = __getIndex(this.listEl.children, scrollToEl);
-    setTimeout(_ => scrollToEl.scrollIntoView({behavior: 'smooth'}) );
+    // setTimeout(_ => scrollToEl.scrollIntoView({behavior: 'smooth'}) ); // this moves page to scroll
+    this.listEl.scrollLeft = Math.max(0, 
+      scrollToEl.offsetLeft - ((this.listEl.offsetWidth - scrollToEl.offsetWidth) / 2)
+    );
 
     // set shortcuts
     if (this.shortcutsEl.offsetParent){ // if visible
@@ -80,7 +83,7 @@ export class HCECarousel extends HTMLCustomElement {
       const shortcutEl = this.shortcutsEl.children[this.index];
       prevActiveShortcut && prevActiveShortcut.classList.remove('active');
       shortcutEl.classList.add('active');
-      shortcutEl.focus();
+      // shortcutEl.focus();
     }
 
     // set tabindex for accessibility
