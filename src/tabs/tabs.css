@@ -1,0 +1,29 @@
+  :root {
+    display: block
+  }
+  .tabs {
+    border-bottom: 1px solid #999;
+    display: flex;
+  }
+  .tabs [tab-for] {
+    border: 1px solid #999;
+    background: #EEE;
+    padding: 4px 12px;
+    border-radius: 4px 4px 0 0;
+    position: relative;
+    top: 1px;
+  }
+  .tabs [tab-for].selected {
+    background: #FFF;
+    border-bottom: 1px solid transparent;
+  }
+  .tabs [tab-for][disabled] {
+    opacity: 0.5;
+  }
+
+  .contents [contents-for] {
+    display: none;
+  }
+  .contents [contents-for].selected {
+    display: block;
+  }
