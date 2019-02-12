@@ -54,7 +54,6 @@ if (process.env.NODE_ENV === 'development') {
       filename: '[name].js'
     },
     plugins: [
-      new CleanWebpackPlugin(['docs/*']),
       new webpack.HotModuleReplacementPlugin(),
       new webpack.NamedModulesPlugin(),
       new webpack.NoEmitOnErrorsPlugin(),
@@ -63,7 +62,7 @@ if (process.env.NODE_ENV === 'development') {
         template: 'demo/index.html',
         inject: true
       }),
-      new CopyWebpackPlugin(['demo/*.html', '!demo/index.html'])
+      new CopyWebpackPlugin(['demo/*.html', 'demo/*.css', '!demo/index.html'])
     ]
   });
 }
