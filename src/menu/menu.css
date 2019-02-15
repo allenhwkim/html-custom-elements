@@ -18,7 +18,8 @@
     content: ' '; display: block; position: absolute; bottom: 4px; left: 0;
     width: 100%; height: 2px; opacity: 0; background: #0FF; 
   }
-  :root.basic > ul > li:hover:after, :root.basic > ul > li:focus:after { 
+  :root.basic > ul > li:not([disabled]):hover:after, 
+  :root.basic > ul > li:focus:after { 
     opacity: 1; transition:all .5s;
   }
   :root.basic > ul > li.selected  { color: #fff; }

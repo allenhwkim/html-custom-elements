@@ -5,6 +5,22 @@
   You should use 'ul' and 'li' tag to list menu items, and use 'a' tag to customize your menu items.
 </p>
 
+<h3>Attributes</h3>
+ <ul>
+  <li><b>selected-index</b>: Index of selected menu when initialized. It starts from 0.</li>
+  <li><b>disabled</b>: If given, it won't be able to click.</li>
+</ul> 
+
+<h3>Child Elements</h3>
+<ul>
+  <li><b>ul</b> element:  Menu. 
+    <ul>
+      <li><b>li</b> element: Menu item element</li>
+    </ul>
+  </li>
+</ul>
+
+<h3>Example</h3>
 <script id="s1">
   function setMenuPos(pos) {
     document.querySelector('#menu').className = 
@@ -18,6 +34,7 @@ hce-menu.top {width: 100%; position: absolute; top: 0;}
 hce-menu.left {position: absolute; left: 0;}
 hce-menu.right {position: absolute; right: 0;}
 </style>
+
 <div id="x1" style="position: relative;">
   <hce-menu id="menu" class="top basic" selected-index="2">
     <ul>
@@ -40,7 +57,7 @@ hce-menu.right {position: absolute; right: 0;}
               </li>
           </ul>
       </li>
-      <li><a href="#/cars">Mars Cars</a></li>
+      <li disabled><a href="#/cars">Mars Cars</a></li>
       <li><a href="#/contact">About</a></li>
     </ul>
   </hce-menu>
@@ -52,4 +69,4 @@ hce-menu.right {position: absolute; right: 0;}
     <button onclick="setMenuPos('right')">right positioned</button>
   </div>
   <br/> <br/> <br/> <br/>
-</div><script>showCode('x1', 's1', 'css1', /(top|selected-index)/g)</script>
+</div><script>showCode('x1', 's1', 'css1', /(top|selected-index|disabled)/g)</script>

@@ -11,11 +11,11 @@
   color: #FFF;
   background: #333;
 }
-:not(.expanded) .hce-body {
+:not(.expanded) > .hce-body {
   max-height: 1px; 
   overflow: hidden;
 }
-.expanded .hce-body {
+.expanded > .hce-body {
   transition: max-width .25s ease-in-out, max-height .25s ease-in-out;
   max-height: 2000px; 
   padding: 12px;
@@ -30,32 +30,33 @@
 :root.horizontal > * {
   display: flex;
 }
-:root.horizontal .hce-header {
+:root.horizontal > * > .hce-header {
   word-wrap: break-word;
   height: 100%;
   padding: 12px;
   writing-mode: vertical-rl;
   text-orientation: upright;
 }
-:root.horizontal .hce-header:empty {
+:root.horizontal > * > .hce-header:empty {
   padding: 4px;
+  height: 100%;
 }
-:root.horizontal :not(.expanded) .hce-body {
+:root.horizontal > :not(.expanded) > .hce-body {
   height: 100%;
   max-width: 1px;
 }
-:root.horizontal .expanded {
+:root.horizontal > .expanded {
   width: 100%;
 }
-:root.horizontal .expanded .hce-body {
+:root.horizontal > .expanded > .hce-body {
   width: 100%;
   max-width: 2000px;
   flex: 1;
 }
 
-:root.horizontal :not(.expanded).sidebar {
+:root.horizontal > :not(.expanded).sidebar {
   max-width: 10px;
 }
-:root.horizontal .expanded.sidebar {
+:root.horizontal > .expanded.sidebar {
   max-width: 280px;
 }

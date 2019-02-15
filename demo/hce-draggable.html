@@ -4,6 +4,18 @@
   hce-overlay let it draggable and movable
 </p>
 
+
+<h3>Attributes</h3>
+ <ul>
+  <li><b>drop-to</b>: CSS selector that this draggable can be dropped. 
+    <br/> If not given, dragging item will be dropped on the document body.
+    <br/> If given, you need to handle drop event.
+    <br/> The specified element will be set with class 'on-dragover', when any dragging element enters.
+  </li>
+</ul> 
+
+<h3>Example</h3>
+
 <style id="s1">
 .draggables, #dropzone1, #dropzone2 {
   width: 45%; 

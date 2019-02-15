@@ -1,28 +1,51 @@
 import { HTMLCustomElement, createCustomEvent } from 'html-custom-element';
 
-function computedStyle(el, prop) {
-  return window.getComputedStyle(el).getPropertyValue(prop);
-}
-
-const css = `
-  :root {position: absolute; box-sizing: border-box;}
-`;
-
 function __setParentPositioned(el) {
-  let parentElPosition = computedStyle(el.parentElement, 'position');
+  let parentElPosition = 
+    window.getComputedStyle(el.parentElement).getPropertyValue('position')
   if (!['absolute', 'fixed', 'relative'].includes(parentElPosition)) {
     el.parentElement.style.position = 'relative';
   }
 }
 
+function __isInView(el) {
+  const bcr = el.getBoundingClientRect();
+  const top =  bcr.top >= 0,
+    bottom = bcr.bottom <= window.innerHeight,
+    left = bcr.left >= 0,
+    right =  bcr.right <= window.innerWidth;
+  console.log(top, right, bottom, left)
+  return (top && bottom && left && right);
+}
+
+function __createSpacer(stickyEl) {
+  const elStyle = window.getComputedStyle(stickyEl);
+  const elProp = prop => elStyle.getPropertyValue(prop);
+  const spacerEl = document.createElement('div');
+  spacerEl.setAttribute('style', 
+    `display: ${elProp('display')}; background: #CCC;` +
+    `width: ${elProp('width')}; height:${elProp('height')};` +
+    `float: ${elProp('float')};` +
+    `margin: ${elProp('margin-top')} ${elProp('margin-right')}` +
+    `  ${elProp('margin-bottom')} ${elProp('margin-left')};`);
+  stickyEl.insertAdjacentElement('beforebegin', spacerEl);
+  return spacerEl;
+}
+
 export class HCESticky extends HTMLCustomElement {
+  // isScrolling; 
+
   connectedCallback() {
     __setParentPositioned(this);
-    this.renderWith(null, css).then(_ => {
-      this.bcr = this.getBoundingClientRect();
-      window.addEventListener('scroll', this.windowScrollHandler.bind(this));
-      window.addEventListener('resize', this.windowScrollHandler.bind(this));
-    });
+    this.style.boxSizing = 'border-box';
+    this.style.margin='0';   // ignore margin, which makes it complicated
+    this.spacer = __createSpacer(this);
+    this.style.top = this.spacer.offsetTop + 'px';
+    this.style.left = this.spacer.offsetLeft + 'px';
+    this.style.position = 'absolute';
+    window.addEventListener('scroll', this.windowScrollHandler.bind(this));
+    window.addEventListener('resize', this.windowScrollHandler.bind(this));
+    // this.renderWith().then(_ => {});
   }
 
   disconnectedCallback() {
@@ -30,20 +53,18 @@ export class HCESticky extends HTMLCustomElement {
     window.removeEventListener('resize', this.windowScrollHandler.bind(this));
   }
 
-  // this is the one
   windowScrollHandler(event) {
-    const parentBCR = this.parentElement.getBoundingClientRect();
-    const top =  parentBCR.top >= 0;
-    // const left = parentBCR.left >= 0;
-    // const bottom = parentBCR.bottom <=  window.innerHeight;
-    // const right =  parentBCR.right <= window.innerWidth;
-    // const visible = (top && bottom && left && right);
-
-    if (!top) {
-      const max = parentBCR.height - this.bcr.height;
-      this.style.top =  Math.min(parentBCR.top * -1, max) + 'px';
+    if (__isInView(this.spacer)) {
+      this.style.top = this.spacer.offsetTop + 'px';
+      this.style.left = this.spacer.offsetLeft + 'px';
+      this.classList.remove('detached');
     } else {
-      this.style.top = 0;
+      const pBcr = this.parentElement.getBoundingClientRect();
+      const maxTop = pBcr.height - this.spacer.offsetHeight;
+      if (pBcr.top + this.spacer.offsetTop < 0) {
+        this.style.top = Math.min((pBcr.top * -1), maxTop) + 'px';
+      }
+      this.classList.add('detached');
     }
   }
 }

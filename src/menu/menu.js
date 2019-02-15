@@ -33,7 +33,11 @@ class HCEMenu extends HTMLCustomElement {
   setAccessibility() {
     const liEls = this.querySelectorAll('li');
     Array.from(liEls).forEach(liEl => {
-      if (liEl.querySelector('ul')) { // if submenu exists
+      if (typeof liEl.getAttribute('disabled') === 'string') { // disabled
+        const aEl = liEl.querySelector('a');
+        aEl.setAttribute('href-disabled', aEl.getAttribute('href'));
+        aEl.removeAttribute('href');
+      } else if (liEl.querySelector('ul')) { // if submenu exists
         liEl.classList.add('has-submenu');
         liEl.setAttribute('tabindex', 0);       // make it as an action item
         const aEls = liEl.querySelectorAll('a');

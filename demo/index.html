@@ -1,13 +1,15 @@
 <html>
   <head>
+    <link rel="stylesheet" href="demo/normalize.css" />
     <link rel="stylesheet" href="demo/prism.css" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <style>
-      html, body {font-size: 16px; margin: 16px;}
-      input, textarea, select, button {font-size: 0.9em;}
-      .table-of-contents  { margin: 0; }
+      body {padding: 24px;}
+      .header {background: #fff; z-index: 20;}
+      .table-of-contents  { margin: 0;}
       .table-of-contents li { display: inline-block; margin: 0; padding: 0 12px; }
-      .table-of-contents li:not(:first-child) { border-left: 1px solid #ccc;  }
+      .table-of-contents li:not(:last-child) { border-right: 1px solid #ccc;  }
+      hce-sticky.toc { background: #fff; padding: 12px;}
+      hce-sticky.toc.detached { box-shadow: 0 4px 4px -2px #000000;  z-index: 10;}
       hce-dyn-contents.contents {
         display: block; padding: 12px; min-height: 400px;
       }
@@ -19,27 +21,28 @@
     </script>
   </head>
   <body>
-    <h1>Collection of custom elements</h1>
-
-    <ul class="table-of-contents">
-      <li><a href="#home">home</a></li>
-      <li><a href="#tooltip">tooltip</a></li>
-      <li><a href="#tabs">tabs</a></li>
-      <li><a href="#loading">loading</a></li>
-      <li><a href="#carousel">carousel</a></li>
-      <li><a href="#snackbar">snackbar</a></li>
-      <li><a href="#drawer">drawer</a></li>
-      <li><a href="#dialog">dialog</a></li>
-      <li><a href="#calendar">calendar</a></li>
-      <li><a href="#dyn-list">dyn-list</a></li>
-      <li><a href="#overlay">overlay</a></li>
-      <li><a href="#menu">menu</a></li>
-      <li><a href="#file">file</a></li>
-      <li><a href="#sticky">sticky</a></li>
-      <li><a href="#dyn-contents">dyn-contents</a></li>
-      <li><a href="#draggable">draggable</a></li>
-      <li><a href="#collapsible">collapsible</a></li>
-    </ul>
+    <h1>HTML Custom Elements <sub>Collection of custom elements</sub></h1>
+    <hce-sticky class="toc">
+      <ul class="table-of-contents">
+        <li><a href="#home">home</a></li>
+        <li><a href="#tooltip">tooltip</a></li>
+        <li><a href="#tabs">tabs</a></li>
+        <li><a href="#loading">loading</a></li>
+        <li><a href="#carousel">carousel</a></li>
+        <li><a href="#snackbar">snackbar</a></li>
+        <li><a href="#drawer">drawer</a></li>
+        <li><a href="#dialog">dialog</a></li>
+        <li><a href="#calendar">calendar</a></li>
+        <li><a href="#dyn-list">dyn-list</a></li>
+        <li><a href="#overlay">overlay</a></li>
+        <li><a href="#menu">menu</a></li>
+        <li><a href="#file">file</a></li>
+        <li><a href="#sticky">sticky</a></li>
+        <li><a href="#dyn-contents">dyn-contents</a></li>
+        <li><a href="#draggable">draggable</a></li>
+        <li><a href="#collapsible">collapsible</a></li>
+      </ul>
+    </hce-sticky>
 
     <hce-dyn-contents class="contents">
       <div url-match="home" import="demo/home.html" default></div>
