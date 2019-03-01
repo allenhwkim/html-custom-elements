@@ -1,4 +1,4 @@
-import { HTMLCustomElement, createCustomEvent } from 'html-custom-element';
+import {HTMLCustomElement, createCustomEvent} from 'html-custom-element';
 import css from './drawer.css';
 
 const html = `
@@ -8,8 +8,8 @@ const html = `
 
 export class HCEDrawer extends HTMLCustomElement {
   connectedCallback() {
-    this.renderWith(html, css).then(_ => {
-      this.querySelector('.page-blocker').addEventListener('click', _ => this.hide());
+    this.renderWith(html, css).then((_) => {
+      this.querySelector('.page-blocker').addEventListener('click', (_) => this.hide());
     });
   }
 
@@ -20,7 +20,6 @@ export class HCEDrawer extends HTMLCustomElement {
   hide() {
     this.classList.remove('visible');
   }
-
 }
 
 HCEDrawer.define('hce-drawer', HCEDrawer);

@@ -1,4 +1,4 @@
-import { HTMLCustomElement, createCustomEvent } from 'html-custom-element';
+import {HTMLCustomElement, createCustomEvent} from 'html-custom-element';
 import css from './carousel.css';
 
 
@@ -17,15 +17,15 @@ const html = `
 function __addShortcuts(shortcutsEl, listEl) {
   for (let i=0; i < listEl.children.length; i++) {
     const liEl = listEl.children[i];
-    liEl.addEventListener('click', _ => this.show(liEl));
+    liEl.addEventListener('click', (_) => this.show(liEl));
 
     const shortcut = document.createElement('li');
     shortcut.innerHTML = '&nbsp;';
     shortcut.setAttribute('tabindex', 0);
     shortcutsEl.appendChild(shortcut);
 
-    shortcut.addEventListener('click', _ => this.show(i));
-    shortcut.addEventListener('keydown', event => {
+    shortcut.addEventListener('click', (_) => this.show(i));
+    shortcut.addEventListener('keydown', (event) => {
       (event.key === 'Enter') && this.show(i);
       (event.key === 'ArrowRight') && this.show(this.index+1);
       (event.key === 'ArrowLeft') && this.show(this.index-1);
@@ -52,15 +52,15 @@ export class HCECarousel extends HTMLCustomElement {
   // index: number             // currently selected index
 
   connectedCallback() {
-    this.renderWith(html, css).then(_ => {
+    this.renderWith(html, css).then((_) => {
       this.listEl = this.querySelector('ul:not(.shortcuts), ol, .list');
       this.listEl.classList.add('carousel-list');
 
       this.shortcutsEl = this.querySelector('ul.shortcuts');
       __addShortcuts.bind(this)(this.shortcutsEl, this.listEl);
 
-      this.listEl && 
-        setTimeout(_ => this.show(this.selected || 0), 1000);
+      this.listEl &&
+        setTimeout((_) => this.show(this.selected || 0), 1000);
     });
   }
 
@@ -73,12 +73,12 @@ export class HCECarousel extends HTMLCustomElement {
     }
     this.index = __getIndex(this.listEl.children, scrollToEl);
     // setTimeout(_ => scrollToEl.scrollIntoView({behavior: 'smooth'}) ); // this moves page to scroll
-    this.listEl.scrollLeft = Math.max(0, 
-      scrollToEl.offsetLeft - ((this.listEl.offsetWidth - scrollToEl.offsetWidth) / 2)
+    this.listEl.scrollLeft = Math.max(0,
+        scrollToEl.offsetLeft - ((this.listEl.offsetWidth - scrollToEl.offsetWidth) / 2)
     );
 
     // set shortcuts
-    if (this.shortcutsEl.offsetParent){ // if visible
+    if (this.shortcutsEl.offsetParent) { // if visible
       const prevActiveShortcut = this.shortcutsEl.querySelector('.active');
       const shortcutEl = this.shortcutsEl.children[this.index];
       prevActiveShortcut && prevActiveShortcut.classList.remove('active');
@@ -87,12 +87,11 @@ export class HCECarousel extends HTMLCustomElement {
     }
 
     // set tabindex for accessibility
-    prevTabIndexedEl && prevTabIndexedEl.removeAttribute('tabindex'); 
+    prevTabIndexedEl && prevTabIndexedEl.removeAttribute('tabindex');
     scrollToEl.setAttribute('tabindex', 0);
 
     this.inviewEl = scrollToEl;
   }
-
 }
 
 HCECarousel.define('hce-carousel', HCECarousel);

@@ -1,5 +1,5 @@
-import { showOverlay } from '../utils/show-overlay';
-import { HTMLCustomElement, createCustomEvent } from 'html-custom-element';
+import {showOverlay} from '../utils/show-overlay';
+import {HTMLCustomElement, createCustomEvent} from 'html-custom-element';
 
 const css = `
   :root {
@@ -14,10 +14,9 @@ const css = `
 `;
 
 class HCETooltip extends HTMLCustomElement {
-
   connectedCallback() {
     this.renderWith(null, css).then(() => {
-      this.position = this.position || 'top'; 
+      this.position = this.position || 'top';
       this.parentElement.addEventListener('mouseover', this.show.bind(this));
       this.parentElement.addEventListener('mouseout', this.hide.bind(this));
       this.parentElement.addEventListener('focus', this.show.bind(this));
@@ -33,7 +32,6 @@ class HCETooltip extends HTMLCustomElement {
   hide() {
     this.style.display = 'none';
   }
-
 }
 
 HTMLCustomElement.define('hce-tooltip', HCETooltip);

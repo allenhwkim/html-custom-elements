@@ -1,18 +1,18 @@
-import { HTMLCustomElement, createCustomEvent } from 'html-custom-element';
+import {HTMLCustomElement, createCustomEvent} from 'html-custom-element';
 import {time} from '../utils/time';
 
 function __getWeekdays(firstDayOfWeek = 0) {
   const ret = [];
-  for(var i = firstDayOfWeek; i < firstDayOfWeek + 7; i++) ret.push(i % 7);
+  for (let i = firstDayOfWeek; i < firstDayOfWeek + 7; i++) ret.push(i % 7);
   return ret;
 }
 
 function __getLeadingDays(curDate, staDay = 0) {
   const ret = [];
-  const year = curDate.getFullYear(), month = curDate.getMonth();
+  const year = curDate.getFullYear(); const month = curDate.getMonth();
   const firstWeekday = new Date(year, month, 1).getDay();
   const days = (firstWeekday + 7) - (staDay +7) - 1; // 2 days become 1 for [1, 0]
-  for(var i = days * -1; i <= 0; i++) {
+  for (let i = days * -1; i <= 0; i++) {
     ret.push(new Date(year, month, i).getDate());
   }
   return ret;
@@ -20,16 +20,16 @@ function __getLeadingDays(curDate, staDay = 0) {
 
 function __getMonthDays(curDate) {
   const ret = [];
-  const year = curDate.getFullYear(), month = curDate.getMonth();
+  const year = curDate.getFullYear(); const month = curDate.getMonth();
   const lastDay = new Date(year, month+1, 0).getDate();
-  for(var i = 1; i <= lastDay; i++) ret.push(i);
+  for (let i = 1; i <= lastDay; i++) ret.push(i);
   return ret;
 }
 
 function __getTrailingDays(leadingDays, monthDays) {
   const ret = [];
   const days = 42 - (leadingDays.length + monthDays.length);
-  for(var i = 1; i <= days; i++) ret.push(i);
+  for (let i = 1; i <= days; i++) ret.push(i);
   return ret;
 }
 
@@ -44,10 +44,10 @@ function __addDate(parent, date, klass) {
   parent.appendChild(el);
 }
 
-function __getI18n(lang, key, indexes) { //type:week, wk, month, mon
+function __getI18n(lang, key, indexes) { // type:week, wk, month, mon
   indexes = indexes instanceof Array ? indexes : [indexes];
   const t = time();
-  const ret = indexes.map( ndx => t.i18n[lang][key][ndx] );
+  const ret = indexes.map( (ndx) => t.i18n[lang][key][ndx] );
   return ret.length === 1 ? ret[0] : ret;
 }
 
@@ -60,14 +60,14 @@ function __getMonthEls(lang, monthNum) {
     optEl.innerHTML = month;
     (monthNum === ndx) && (optEl.selected = true);
     return optEl;
-  })
+  });
 }
 
 function __getYearEls(lang, year, minYear, maxYear) {
-  minYear = Math.max(minYear, year - 10); 
+  minYear = Math.max(minYear, year - 10);
   maxYear = Math.min(maxYear, year + 10);
   const years = [];
-  for (var i = minYear; i<= maxYear; i++) {
+  for (let i = minYear; i<= maxYear; i++) {
     const optEl = document.createElement('option');
     optEl.value = i;
     optEl.innerHTML = i;
@@ -145,7 +145,7 @@ export class HCECalendar extends HTMLCustomElement {
   // language, firstDayOfWeek
   // weekdayFormat e.g. 2-letter, full, default 3-letter
   connectedCallback() {
-    this.renderWith(html, css).then( _ => {
+    this.renderWith(html, css).then( (_) => {
       this.curDate = this.selected ? new Date(this.selected) : new Date();
       this.minDate = this.minDate ? new Date(this.minDate) : new Date(null);
       this.maxDate = new Date(this.maxDate || '2099-12-31');
@@ -156,7 +156,7 @@ export class HCECalendar extends HTMLCustomElement {
       this.setBehaviourOfVisibleBy();
       this.setWeekdays();
       this.setCalendar();
-    })
+    });
   }
 
   setBehaviourOfVisibleBy() {
@@ -168,22 +168,22 @@ export class HCECalendar extends HTMLCustomElement {
       this.style.position = 'absolute';
       this.style.display = 'none';
 
-      this.addEventListener('click', event => {
+      this.addEventListener('click', (event) => {
         this.isEqualNode(event.target) && (this.style.display = 'none');
       });
-      inputEl.addEventListener('focus', _ => this.style.display = 'block')
-      this.addEventListener('date-selected', e => {
+      inputEl.addEventListener('focus', (_) => this.style.display = 'block');
+      this.addEventListener('date-selected', (e) => {
         inputEl.value = e.detail;
         this.style.display = 'none';
-      })
+      });
     }
   }
 
   setWeekdays() {
     const weekdays = __getWeekdays(this.firstDayOfWeek);
     const format = this.weekdayFormat === 'full' ? 'dayNames': 'dayNamesShort';
-    __getI18n(this.language, format, weekdays).forEach(str => {
-      str = this.weekdayFormat === '2-letter' ? str.substr(0,2) : str;
+    __getI18n(this.language, format, weekdays).forEach((str) => {
+      str = this.weekdayFormat === '2-letter' ? str.substr(0, 2) : str;
       const spanEl = document.createElement('span');
       spanEl.innerHTML = str;
       spanEl.className = 'wk';
@@ -208,21 +208,21 @@ export class HCECalendar extends HTMLCustomElement {
     this.setCalendar();
   }
 
-  setCalendar() { 
+  setCalendar() {
     const leadingDays = __getLeadingDays(this.curDate, this.firstDayOfWeek);
     const monthDays = __getMonthDays(this.curDate);
     const trailingDays = __getTrailingDays(leadingDays, monthDays);
 
     const monthEls = __getMonthEls(this.language, this.curDate.getMonth());
-    const yearEls = __getYearEls(this.language, this.curDate.getFullYear(), 
-      this.minDate.getFullYear(), 
-      this.maxDate && this.maxDate.getFullYear()
+    const yearEls = __getYearEls(this.language, this.curDate.getFullYear(),
+        this.minDate.getFullYear(),
+        this.maxDate && this.maxDate.getFullYear()
     );
 
     this.querySelector('.title .month').innerHTML = '';
     this.querySelector('.title .year').innerHTML = '';
-    monthEls.forEach(el => this.querySelector('.title .month').appendChild(el));
-    yearEls.forEach(el => this.querySelector('.title .year').appendChild(el));
+    monthEls.forEach((el) => this.querySelector('.title .month').appendChild(el));
+    yearEls.forEach((el) => this.querySelector('.title .year').appendChild(el));
 
     const prevMonLastDay = new Date(this.curDate.getFullYear(), this.curDate.getMonth(), 0);
     const nextMon1stDay = new Date(this.curDate.getFullYear(), this.curDate.getMonth()+1, 1);
@@ -231,16 +231,16 @@ export class HCECalendar extends HTMLCustomElement {
 
     const datesEl = this.querySelector('.dates');
     datesEl.innerHTML = '';
-    leadingDays.forEach(num => __addDate.bind(this)(datesEl, num, 'leading'));
-    monthDays.forEach(num => __addDate.bind(this)(datesEl, num, 'day'));
-    trailingDays.forEach(num => __addDate.bind(this)(datesEl, num, 'trailing'));
+    leadingDays.forEach((num) => __addDate.bind(this)(datesEl, num, 'leading'));
+    monthDays.forEach((num) => __addDate.bind(this)(datesEl, num, 'day'));
+    trailingDays.forEach((num) => __addDate.bind(this)(datesEl, num, 'trailing'));
     Array.from(this.querySelector('.dates').children).forEach( (el, ndx) => {
-      (ndx % 7 === 0 && ndx !== 0)  && datesEl.insertBefore(document.createElement('br'), el);
-    })
+      (ndx % 7 === 0 && ndx !== 0) && datesEl.insertBefore(document.createElement('br'), el);
+    });
   }
 
   fireDateSelected(event) {
-    const map = {leading: -1, day: 0 , trailing: 1};
+    const map = {leading: -1, day: 0, trailing: 1};
     const month = this.curDate.getMonth() + map[event.target.className];
     const day = parseInt(event.target.innerHTML, 0);
     const selectedDate = new Date(this.curDate.getFullYear(), month, day);

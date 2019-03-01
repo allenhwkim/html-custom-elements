@@ -15,7 +15,7 @@ function addArrow(parentEl, pos = 'top-center, vertical, outside') {
     parentEl.appendChild(arrowEl);
   }
 
-  const [posYX, hv, inOut] = pos.split(',').map(el => (el || '').trim());
+  const [posYX, hv, inOut] = pos.split(',').map((el) => (el || '').trim());
   const [posY, posX] = posYX.split('-');
   const deg =
     hv === 'vertical' && posY === 'top' ? '-45' :
@@ -48,10 +48,10 @@ function addArrow(parentEl, pos = 'top-center, vertical, outside') {
 
 export function showOverlay(el, pos='top-center, vertical, outside', options) {
   console.log('xxxxxxxxxxxxxxx', el);
-  pos = 
-    (pos === 'top' || pos == 'bottom') ? `${pos}-center, vertical, outside` : 
+  pos =
+    (pos === 'top' || pos == 'bottom') ? `${pos}-center, vertical, outside` :
     (pos === 'left' || pos == 'right') ? `center-${pos}, horizontal, outside` : pos;
-  const [posYX, hv, inOut] = pos.split(',').map(el => (el || '').trim());
+  const [posYX, hv, inOut] = pos.split(',').map((el) => (el || '').trim());
   const [posY, posX] = posYX.split('-');
   const olcss = el.style;
   const distance =( options && options.distance ) || '12';
@@ -88,11 +88,11 @@ export function showOverlay(el, pos='top-center, vertical, outside', options) {
     console.log(olcss.top, olcss.bottom, olcss.left, olcss.right);
     if (posY === 'center') {
       olcss.top = '50%';
-      olcss.transform =  posX === 'center' ? 'translate(-50%, -50%)' : 'translate(0, -50%)';
+      olcss.transform = posX === 'center' ? 'translate(-50%, -50%)' : 'translate(0, -50%)';
     }
     if (posX === 'center') {
       olcss.left = '50%';
-      olcss.transform =  posY === 'center' ? 'translate(-50%, -50%)' : 'translate(-50%, 0)';
+      olcss.transform = posY === 'center' ? 'translate(-50%, -50%)' : 'translate(-50%, 0)';
     }
   }
 

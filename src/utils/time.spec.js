@@ -31,7 +31,7 @@ describe('time formatter', () => {
     expect(t.format('isoTime')).toBe('01:30:59');
     expect(t.format('isoDateTime')).toBe('2019-01-01T01:30:59');
     expect(t.format('yyyy-mm-dd')).toBe('2019-01-01');
-  })
+  });
 
   test('can format from the default value with UTC as true', () => {
     mockDate('2019-01-01 1:30:59');

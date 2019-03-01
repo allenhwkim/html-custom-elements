@@ -1,8 +1,8 @@
-import { HTMLCustomElement, createCustomEvent } from 'html-custom-element';
+import {HTMLCustomElement, createCustomEvent} from 'html-custom-element';
 
 function __setParentPositioned(el) {
-  let parentElPosition = 
-    window.getComputedStyle(el.parentElement).getPropertyValue('position')
+  const parentElPosition =
+    window.getComputedStyle(el.parentElement).getPropertyValue('position');
   if (!['absolute', 'fixed', 'relative'].includes(parentElPosition)) {
     el.parentElement.style.position = 'relative';
   }
@@ -10,20 +10,20 @@ function __setParentPositioned(el) {
 
 function __isInView(el) {
   const bcr = el.getBoundingClientRect();
-  const top =  bcr.top >= 0,
-    bottom = bcr.bottom <= window.innerHeight,
-    left = bcr.left >= 0,
-    right =  bcr.right <= window.innerWidth;
-  console.log(top, right, bottom, left)
+  const top = bcr.top >= 0;
+  const bottom = bcr.bottom <= window.innerHeight;
+  const left = bcr.left >= 0;
+  const right = bcr.right <= window.innerWidth;
+  console.log(top, right, bottom, left);
   return (top && bottom && left && right);
 }
 
 function __createSpacer(stickyEl) {
   const elStyle = window.getComputedStyle(stickyEl);
-  const elProp = prop => elStyle.getPropertyValue(prop);
+  const elProp = (prop) => elStyle.getPropertyValue(prop);
   const spacerEl = document.createElement('div');
-  spacerEl.setAttribute('style', 
-    `display: ${elProp('display')}; background: #CCC;` +
+  spacerEl.setAttribute('style',
+      `display: ${elProp('display')}; background: #CCC;` +
     `width: ${elProp('width')}; height:${elProp('height')};` +
     `float: ${elProp('float')};` +
     `margin: ${elProp('margin-top')} ${elProp('margin-right')}` +
@@ -33,12 +33,12 @@ function __createSpacer(stickyEl) {
 }
 
 export class HCESticky extends HTMLCustomElement {
-  // isScrolling; 
+  // isScrolling;
 
   connectedCallback() {
     __setParentPositioned(this);
     this.style.boxSizing = 'border-box';
-    this.style.margin='0';   // ignore margin, which makes it complicated
+    this.style.margin='0'; // ignore margin, which makes it complicated
     this.spacer = __createSpacer(this);
     this.style.top = this.spacer.offsetTop + 'px';
     this.style.left = this.spacer.offsetLeft + 'px';

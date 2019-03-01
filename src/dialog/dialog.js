@@ -1,4 +1,4 @@
-import { HTMLCustomElement, createCustomEvent } from 'html-custom-element';
+import {HTMLCustomElement, createCustomEvent} from 'html-custom-element';
 import css from './dialog.css';
 
 const html = `
@@ -14,7 +14,7 @@ const html = `
 
 export class HCEDialog extends HTMLCustomElement {
   connectedCallback() {
-    this.renderWith(html, css).then(_ => {
+    this.renderWith(html, css).then((_) => {
       // console.log(this.title, this.options);
     });
   }
@@ -24,8 +24,8 @@ export class HCEDialog extends HTMLCustomElement {
     if (this.actions !== undefined) {
       const actionsEl = this.querySelector('.actions');
       actionsEl.innerHTML = '';
-      this.actions.forEach(action => {
-        let buttonEl = document.createElement('button');
+      this.actions.forEach((action) => {
+        const buttonEl = document.createElement('button');
         buttonEl.innerHTML = action.text;
         buttonEl.addEventListener('click', action.handler.bind(this));
         actionsEl.appendChild(buttonEl);

@@ -1,4 +1,4 @@
-import { HTMLCustomElement, createCustomEvent } from 'html-custom-element';
+import {HTMLCustomElement, createCustomEvent} from 'html-custom-element';
 
 const fileSVG = `data:image/svg+xml;utf8,
   <svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52">
@@ -38,7 +38,7 @@ function __setReady(ready) {
   return function(event) {
     event.preventDefault();
     this.classList[ready ? 'add': 'remove']('ready');
-  }
+  };
 };
 
 export class HCEFile extends HTMLCustomElement {
@@ -58,9 +58,9 @@ export class HCEFile extends HTMLCustomElement {
   connectedCallback() {
     this.placeholder = 'Drag, Paste, or Select a File Here';
     this.fileTypes;
-    this.renderWith(html, css).then(_ => {
+    this.renderWith(html, css).then((_) => {
       this.setEventListener();
-    }); 
+    });
   }
 
   setEventListener() {
@@ -69,7 +69,7 @@ export class HCEFile extends HTMLCustomElement {
     this.addEventListener('drop', this.onFilesChange);
     this.addEventListener('paste', this.onFilesChange);
     this.querySelector('.file-zone input')
-      .addEventListener('change', this.onFilesChange.bind(this));
+        .addEventListener('change', this.onFilesChange.bind(this));
   }
 
   onFilesChange(event) {
@@ -77,8 +77,8 @@ export class HCEFile extends HTMLCustomElement {
     this.classList.remove('ready');
 
     if (event.clipboardData) {
-      let files = [];
-      for (var i = 0; i < event.clipboardData.items.length; i++) {
+      const files = [];
+      for (let i = 0; i < event.clipboardData.items.length; i++) {
         const file = event.clipboardData.items[i].getAsFile();
         file && files.push(file);
       }
@@ -95,29 +95,28 @@ export class HCEFile extends HTMLCustomElement {
     preview.innerHTML = '';
     for (let i = 0; i < this.files.length; i++) {
       const file = this.files[i];
-      const li = document.createElement("li");
-      
-      const img = document.createElement("img");
+      const li = document.createElement('li');
+
+      const img = document.createElement('img');
       if (file.type.match(/image/)) {
         img.src = window.URL.createObjectURL(file);
         img.onload = function() {
           img.width = this.width;
           img.height = this.height;
           window.URL.revokeObjectURL(this.src);
-        }
+        };
       } else {
         img.src = fileSVG.replace('SVG', file.name.match(/\.(.*)$/)[1].toUpperCase());
       }
 
       li.appendChild(img);
-      const info = document.createElement("span");
-      info.innerHTML = file.name + ": " + file.size + " bytes";
+      const info = document.createElement('span');
+      info.innerHTML = file.name + ': ' + file.size + ' bytes';
       li.appendChild(info);
 
       preview.appendChild(li);
     }
   }
-
 }
 
 HCEFile.define('hce-file', HCEFile);

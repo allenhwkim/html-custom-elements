@@ -1,35 +1,34 @@
-import { HTMLCustomElement, createCustomEvent } from 'html-custom-element';
+import {HTMLCustomElement, createCustomEvent} from 'html-custom-element';
 
 function getRoutesFromChildren(el) {
   const routes = [];
-  Array.from(el.children).forEach(child => {
+  Array.from(el.children).forEach((child) => {
     const match = child.getAttribute('url-match');
     const url = child.getAttribute('import');
     const isDefault = child.getAttribute('default') !== null;
     if (match && url) {
-      routes.push({ match:new RegExp(match), import: url, default: isDefault });
+      routes.push({match: new RegExp(match), import: url, default: isDefault});
     }
   });
   return routes;
 }
 
 function getRoute(routes, url) {
-  for(var i=0; i < routes.length; i++) {
-    let route = routes[i];
+  for (let i=0; i < routes.length; i++) {
+    const route = routes[i];
     if (url.match(route.match)) {
       return route;
     }
   }
-  const defaultRoute = routes.filter(el => el.default)[0] || routes[0];
+  const defaultRoute = routes.filter((el) => el.default)[0] || routes[0];
   return defaultRoute;
 }
 
 function setInnerHTML(elm, html) {
   elm.innerHTML = html;
-  Array.from(elm.querySelectorAll("script")).forEach(function(el) {
-
-    let newEl = document.createElement("script");
-    Array.from(el.attributes).forEach(function(el) { 
+  Array.from(elm.querySelectorAll('script')).forEach(function(el) {
+    const newEl = document.createElement('script');
+    Array.from(el.attributes).forEach(function(el) {
       newEl.setAttribute(el.name, el.value);
     });
 
@@ -50,16 +49,16 @@ export class HCEDynamicContents extends HTMLCustomElement {
   }
 
   popStateHandler(event) {
-    let route = getRoute(this.routes, window.location.href);
+    const route = getRoute(this.routes, window.location.href);
     if (route) {
-      window.fetch(route.import).then(response => {
+      window.fetch(route.import).then((response) => {
         if (!response.ok) {
           throw Error(`[hce-dyn-contents] import url: ${route.import}, status: ${response.statusText}`);
         }
         return response.text();
-      }).then(html => {
-        setInnerHTML(this, html)
-        setTimeout(_ => window.scrollTo(0, 0));
+      }).then((html) => {
+        setInnerHTML(this, html);
+        setTimeout((_) => window.scrollTo(0, 0));
       });
     }
   }

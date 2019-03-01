@@ -1,13 +1,13 @@
-import { HTMLCustomElement, createCustomEvent } from 'html-custom-element';
+import {HTMLCustomElement, createCustomEvent} from 'html-custom-element';
 import * as css from './tabs.css';
 
 function __select(listEls, indexEl) {
   Array.from(listEls)
-    .filter(el => !el.isEqualNode(indexEl))
-    .forEach(el => {
-      el.classList.remove('selected');
-      el.removeAttribute('tabindex');
-    });
+      .filter((el) => !el.isEqualNode(indexEl))
+      .forEach((el) => {
+        el.classList.remove('selected');
+        el.removeAttribute('tabindex');
+      });
 
   indexEl.classList.add('selected');
   indexEl.setAttribute('tabindex', '0');
@@ -54,7 +54,7 @@ class HCETabs extends HTMLCustomElement {
 
     this.renderWith(null, css).then(() => {
       this.select();
-      Array.from(this.tabEls).forEach(el => {
+      Array.from(this.tabEls).forEach((el) => {
         el.addEventListener('click', __clickHandler.bind(this));
         el.addEventListener('keydown', __keydownHandler.bind(this));
       });
@@ -65,7 +65,7 @@ class HCETabs extends HTMLCustomElement {
     if (!tabId) {
       const tabEl = this.querySelector('[tab-for].selected') || this.tabEls[0];
       tabId = tabEl.getAttribute('tab-for');
-    } 
+    }
 
     const tabEl = this.querySelector(`[tab-for=${tabId}]`);
     if (tabEl.getAttribute('disabled') === null) {
@@ -75,7 +75,6 @@ class HCETabs extends HTMLCustomElement {
       __select(this.contentEls, contentEl);
     }
   }
-
 }
 
 HTMLCustomElement.define('hce-tabs', HCETabs);

@@ -1,18 +1,17 @@
 import {HTMLCustomElement, createCustomEvent} from 'html-custom-element';
 
 export class HCEDraggable extends HTMLCustomElement {
-
   connectedCallback() {
-    this.dragStart;  // properties when drag started e.g. {el, el, x: 120, y: 80} in pixel
-    this.dropTo;     // dropaable element selector. e.g. #drop-to
-    this.dropEl;     // drop enabled element. default document.body
-    this.setAttribute('draggable', 'true');  // this allows to drag
+    this.dragStart; // properties when drag started e.g. {el, el, x: 120, y: 80} in pixel
+    this.dropTo; // dropaable element selector. e.g. #drop-to
+    this.dropEl; // drop enabled element. default document.body
+    this.setAttribute('draggable', 'true'); // this allows to drag
     this._dragoverHandler = this.onDragover.bind(this);
     this._dragleaveHandler = this.onDragleave.bind(this);
     this._dropHandler = this.onDrop.bind(this);
 
-    this.renderWith().then(_ => { // set user-given properties
-      this.addEventListener('dragstart', this.onDragstart.bind(this)); 
+    this.renderWith().then((_) => { // set user-given properties
+      this.addEventListener('dragstart', this.onDragstart.bind(this));
       this.dropTo = this.dropTo || this.parentElement.getAttribute('drop-to');
 
       this.dropEl = this.dropTo ? document.querySelector(this.dropTo) : document.body;
@@ -57,15 +56,14 @@ export class HCEDraggable extends HTMLCustomElement {
 
   move(event) {
     const move = {
-      x: event.clientX - this.dragStart.x, 
-      y: event.clientY - this.dragStart.y
+      x: event.clientX - this.dragStart.x,
+      y: event.clientY - this.dragStart.y,
     };
     const bcr = this.getBoundingClientRect();
     this.style.position = 'absolute';
     this.style.top = window.scrollY + parseInt(bcr.top) + move.y + 'px';
     this.style.left = window.scrollX + parseInt(bcr.left) + move.x + 'px';
   }
-
 }
 
-HCEDraggable.define('hce-draggable',  HCEDraggable);
+HCEDraggable.define('hce-draggable', HCEDraggable);

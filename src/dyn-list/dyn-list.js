@@ -1,10 +1,10 @@
-import { HTMLCustomElement, createCustomEvent } from 'html-custom-element';
+import {HTMLCustomElement, createCustomEvent} from 'html-custom-element';
 
 function __objectToArray(obj) {
   const ret = [];
-  for (var key in obj) {
+  for (const key in obj) {
     const item = typeof obj[key] === 'object' ?
-      Object.assign(obj[key], {key}) : {key, value: obj[key]} ;
+      Object.assign(obj[key], {key}) : {key, value: obj[key]};
     ret.push(item);
   }
   return ret;
@@ -49,7 +49,7 @@ export class HCEDynList extends HTMLCustomElement {
     const templateEl = this.children[0];
     this.template = templateEl && templateEl.outerHTML;
     templateEl.style.display = 'none';
-    this.renderWith(html, css).then(_ => {
+    this.renderWith(html, css).then((_) => {
       if (this.visibleBy) {
         const source = this.getAttribute('[source]') || this.getAttribute('source');
         const expression = source.match(/[^\(]+/)[0];
@@ -69,16 +69,16 @@ export class HCEDynList extends HTMLCustomElement {
     inputEl.parentElement.style.position = 'relative';
 
     let timeout = null;
-    inputEl.addEventListener('keyup', _ => {
+    inputEl.addEventListener('keyup', (_) => {
       const result = this.sourceFunc()();
       if (result) {
         clearTimeout(timeout);
-        timeout = setTimeout(_ => {
+        timeout = setTimeout((_) => {
           this.classList.add('overlay');
-          result.then(src => {
+          result.then((src) => {
             this.source = src;
             this.style.display = 'block';
-          })
+          });
         }, 100); // keyboard delay for .5 second
       } else {
         this.source = [];
@@ -86,7 +86,7 @@ export class HCEDynList extends HTMLCustomElement {
     });
 
     this.style.display = 'none';
-    this.addEventListener('click', _ => {
+    this.addEventListener('click', (_) => {
       if (this.isEqualNode(event.target)) {
         this.style.display = 'none';
       }
@@ -95,28 +95,27 @@ export class HCEDynList extends HTMLCustomElement {
 
   __setList() {
     const promise = this.source.then ? this.source : Promise.resolve(this.source);
-    promise.then(src => {
+    promise.then((src) => {
       src = src instanceof Array ? src : __objectToArray(src);
-      src.forEach(item => {
+      src.forEach((item) => {
         const html = this.template.replace(/{{(.*?)}}/g, ($0, expr) => {
           const func = (new Function(`return this.${expr}`)).bind(item);
           return func();
-        })
+        });
         const frag = document.createRange().createContextualFragment(html);
         const itemEl = frag.querySelector('*');
-        const listSelected = event => {
+        const listSelected = (event) => {
           const custEvent = createCustomEvent('selected', {detail: item});
           this.dispatchEvent(custEvent);
           this.visibleBy && (this.style.display = 'none');
-        } 
+        };
         itemEl.addEventListener('click', listSelected);
-        itemEl.addEventListener('keydown', event => event.key === 'Enter' && listSelected(event));
+        itemEl.addEventListener('keydown', (event) => event.key === 'Enter' && listSelected(event));
         itemEl.setAttribute('tabindex', 0);
         this.querySelector('.list').appendChild(itemEl);
       });
     });
   }
-
 }
 
 HCEDynList.define('hce-dyn-list', HCEDynList);

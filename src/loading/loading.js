@@ -1,4 +1,4 @@
-import { HTMLCustomElement, createCustomEvent } from 'html-custom-element';
+import {HTMLCustomElement, createCustomEvent} from 'html-custom-element';
 
 // from https://icons8.com/preloaders/
 const svg = `
@@ -29,27 +29,29 @@ const css =`
     height: 100%;
     max-width: 64px;
   }
-`
+`;
 
 class HCELoading extends HTMLCustomElement {
-  static get observedAttributes() { return ['loading']; }
+  static get observedAttributes() {
+    return ['loading'];
+  }
 
   connectedCallback() {
     this.timer;
-    this.renderWith(null, css).then( _ => {
+    this.renderWith(null, css).then( (_) => {
       (!this.innerHTML.trim()) && (this.innerHTML = svg);
       typeof this.loading === 'string' ? this.show() : this.hide();
-console.log('....................', this.timeout)
+      console.log('....................', this.timeout);
     });
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
     name === 'loading' && typeof newValue === 'string' ? this.show() : this.hide();
-  } 
+  }
 
   show() {
     this.style.display = 'flex';
-    this.timer = this.timeout && setTimeout(_ => {
+    this.timer = this.timeout && setTimeout((_) => {
       this.dispatchEvent(createCustomEvent('timedout'));
       this.hide();
     }, this.timeout * 1000);

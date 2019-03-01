@@ -1,4 +1,4 @@
-import { HTMLCustomElement, createCustomEvent } from 'html-custom-element';
+import {HTMLCustomElement, createCustomEvent} from 'html-custom-element';
 import css from './snackbar.css';
 
 const customCss = `
@@ -21,12 +21,11 @@ export class HCESnackbar extends HTMLCustomElement {
     this.style.visibility = 'visible';
     this.style.animation = 'slideInUp 0.5s, slideOutDown 0.5s 2.5s';
 
-    setTimeout(_ => {
+    setTimeout((_) => {
       this.style.visibility = 'hidden';
       this.style.animation = 'none';
     }, 3000);
   }
-
 }
 
 HCESnackbar.define('hce-snackbar', HCESnackbar);
