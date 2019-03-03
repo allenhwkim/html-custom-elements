@@ -2,7 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const pkgJson = require('./package.json');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
@@ -13,10 +13,10 @@ let config = {
     './src/index.js'
   ],
   optimization: {
-    minimizer: [ new UglifyJsPlugin({
+    minimizer: [new UglifyJsPlugin({
       sourceMap: true,
       uglifyOptions: {
-        compress: { warnings: false }
+        compress: {warnings: false}
       }
     })],
   },
@@ -28,12 +28,12 @@ let config = {
     umdNamedDefine: true
   },
   module: {
-    rules: [ 
-      { test: /\.html$/, loader: 'raw-loader' },
-      { test: /\.css$/, loader: 'raw-loader' },
-      { test: /\.js$/,  
-         exclude: /(node_modules|or_any)/,
-         use: { loader: "babel-loader", options: { presets: ["@babel/preset-env"] } }
+    rules: [
+      {test: /\.html$/, loader: 'raw-loader'},
+      {test: /\.css$/, loader: 'raw-loader'},
+      {test: /\.js$/,
+        exclude: /(node_modules|or_any)/,
+        use: {loader: 'babel-loader', options: {presets: ['@babel/preset-env']}}
       }
     ]
   },
@@ -41,7 +41,7 @@ let config = {
   plugins: [
     new CleanWebpackPlugin(['dist/*'])
   ]
-}
+};
 
 if (process.env.NODE_ENV === 'development') {
   config = Object.assign(config, {
