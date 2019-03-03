@@ -5,10 +5,10 @@
     <style>
       body {padding: 24px;}
       .header {background: #fff; z-index: 20;}
-      .table-of-contents  { margin: 0;}
+      .table-of-contents  { margin: 0; padding: 0;}
       .table-of-contents li { display: inline-block; margin: 0; padding: 0 12px; }
       .table-of-contents li:not(:last-child) { border-right: 1px solid #ccc;  }
-      hce-sticky.toc { background: #fff; padding: 12px;}
+      hce-sticky.toc { display: block; background: #fff; padding: 12px;}
       hce-sticky.toc.detached { box-shadow: 0 4px 4px -2px #000000;  z-index: 10;}
       hce-dyn-contents.contents {
         display: block; padding: 12px; min-height: 400px;
@@ -44,7 +44,7 @@
       </ul>
     </hce-sticky>
 
-    <hce-dyn-contents class="contents">
+    <hce-dyn-contents class="contents" move-to-top="true">
       <div url-match="home" import="demo/home.html" default></div>
       <div url-match="tooltip" import="demo/hce-tooltip.html"></div>
       <div url-match="tabs" import="demo/hce-tabs.html"></div>

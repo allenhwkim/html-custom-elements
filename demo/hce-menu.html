@@ -22,10 +22,10 @@
 
 <h3>Example</h3>
 <script id="s1">
-  function setMenuPos(pos) {
-    document.querySelector('#menu').className = 
-      document.querySelector('#menu').className.replace(/(top|left|bottom|right)/, pos);
-  }
+function setMenuPos(pos) {
+  document.querySelector('#menu').className =
+    document.querySelector('#menu').className.replace(/(top|left|bottom|right)/, pos);
+}
 </script>
 <style id="css1">
 .buttons {width: 200px; text-align: center; padding: 8px; border: 1px solid #ccc; margin: 0 auto}
@@ -69,4 +69,7 @@ hce-menu.right {position: absolute; right: 0;}
     <button onclick="setMenuPos('right')">right positioned</button>
   </div>
   <br/> <br/> <br/> <br/>
-</div><script>showCode('x1', 's1', 'css1', /(top|selected-index|disabled)/g)</script>
+</div>
+<script>
+  showCode('x1', 's1', 'css1', /(top|selected-index|disabled)/g);
+</script>

@@ -36,12 +36,14 @@
   <hce-loading loading timeout="10"></hce-loading>
 </div>
 <script id="s1">
-  document.querySelector('#x2 hce-loading').addEventListener('timedout', _ => {
-    document.querySelector('#x2 #message').innerHTML = 'Timedout after 10 seconds';
-  })
+document.querySelector('#x2 hce-loading').addEventListener('timedout', _ => {
+  document.querySelector('#x2 #message').innerHTML = 'Timedout after 10 seconds';
+});
 </script>
 <br/>
-<script>showCode('x2', 's1')</script>
+<script>
+  showCode('x2', 's1');
+</script>
 
 <div id="x1">
   <div class="box">
@@ -57,7 +59,9 @@
   </button>
 </div>
 <br/>
-<script>showCode('x1')</script>
+<script>
+  showCode('x1');
+</script>
 
 <br/>
 <br/>
@@ -84,4 +88,6 @@
   </hce-loading>
 </div>
 <br/>
-<script>showCode('x4')</script>
+<script>
+  showCode('x4');
+</script>

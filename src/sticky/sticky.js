@@ -8,13 +8,13 @@ function __setParentPositioned(el) {
   }
 }
 
-function __isInView(el) {
+function __isInView(el, offset = 0) {
   const bcr = el.getBoundingClientRect();
-  const top = bcr.top >= 0;
+  const top = bcr.top - offset >= 0;
   const bottom = bcr.bottom <= window.innerHeight;
   const left = bcr.left >= 0;
   const right = bcr.right <= window.innerWidth;
-  console.log(top, right, bottom, left);
+  // console.log(offset, top, right, bottom, left);
   return (top && bottom && left && right);
 }
 
@@ -33,19 +33,21 @@ function __createSpacer(stickyEl) {
 }
 
 export class HCESticky extends HTMLCustomElement {
-  // isScrolling;
+  // offset;
 
   connectedCallback() {
     __setParentPositioned(this);
     this.style.boxSizing = 'border-box';
     this.style.margin='0'; // ignore margin, which makes it complicated
     this.spacer = __createSpacer(this);
+    this.style.display= this.spacer.style.display; // ignore margin, which makes it complicated
     this.style.top = this.spacer.offsetTop + 'px';
     this.style.left = this.spacer.offsetLeft + 'px';
     this.style.position = 'absolute';
-    window.addEventListener('scroll', this.windowScrollHandler.bind(this));
-    window.addEventListener('resize', this.windowScrollHandler.bind(this));
-    // this.renderWith().then(_ => {});
+    this.renderWith().then(_ => {
+      window.addEventListener('scroll', this.windowScrollHandler.bind(this));
+      window.addEventListener('resize', this.windowScrollHandler.bind(this));
+    });
   }
 
   disconnectedCallback() {
@@ -54,15 +56,19 @@ export class HCESticky extends HTMLCustomElement {
   }
 
   windowScrollHandler(event) {
-    if (__isInView(this.spacer)) {
+    if (__isInView(this.spacer, this.offset)) {
       this.style.top = this.spacer.offsetTop + 'px';
       this.style.left = this.spacer.offsetLeft + 'px';
+      this.style.width= this.spacer.offsetWidth + 'px';
       this.classList.remove('detached');
     } else {
+      const marginTop = this.offset || 0;
       const pBcr = this.parentElement.getBoundingClientRect();
       const maxTop = pBcr.height - this.spacer.offsetHeight;
-      if (pBcr.top + this.spacer.offsetTop < 0) {
-        this.style.top = Math.min((pBcr.top * -1), maxTop) + 'px';
+      // console.log('pBcr.top', pBcr.top, 'this.apacer.offsetTop', 'marginTop', this.spacer.offsetTop, marginTop);
+      // console.log('pBcr.top + this.spacer.offsetTop', pBcr.top + this.spacer.offsetTop );
+      if (pBcr.top + this.spacer.offsetTop - marginTop < 0) {
+        this.style.top = Math.min((pBcr.top * -1 + marginTop), maxTop) + 'px';
       }
       this.classList.add('detached');
     }

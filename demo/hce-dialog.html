@@ -14,25 +14,28 @@
 <h3>Example</h3>
 
 <script id="js1">
-  const actions = [
-    {
-      text: 'Action Button', 
-      handler: function() { 
-        alert('button clicked') ; 
-        this.close();
-      } 
+// eslint-disable-next-line
+let actions = [
+  {
+    text: 'Action Button',
+    handler: function() {
+      alert('button clicked');
+      this.close();
     }
-  ];
-  function openDialog(id) {
-    document.querySelector('#'+id).open();
   }
+];
+function openDialog(id) {
+  document.querySelector('#'+id).open();
+}
 </script>
 <div id="x1">
   <button onclick="openDialog('dialog-1')">Open Empty Dialog</button>
   <hce-dialog id="dialog-1">
   </hce-dialog>
 </div>
-<script>showCode('x1', 0, 0, /dialog-title|\[actions\]/g)</script>
+<script>
+  showCode('x1', 0, 0, /dialog-title|\[actions\]/g);
+</script>
 
 <div id="x2">
   <button onclick="openDialog('dialog-2')">Open Dialog With Title / Actions</button>
@@ -42,7 +45,9 @@
     <b>This is dialog 2</b>
   </hce-dialog>
 </div>
-<script>showCode('x2', 'js1', 0, /dialog-title|\[actions\]/g)</script>
+<script>
+  showCode('x2', 'js1', 0, /dialog-title|\[actions\]/g);
+</script>
 
 <div id="x3">
   <button onclick="openDialog('dialog-3')">Open Dialog With Your Own Button</button>
@@ -53,4 +58,6 @@
     </div>
   </hce-dialog>
 </div>
-<script>showCode('x3', 0, 0, /dialog-title|\[actions\]/g)</script>
+<script>
+  showCode('x3', 0, 0, /dialog-title|\[actions\]/g);
+</script>

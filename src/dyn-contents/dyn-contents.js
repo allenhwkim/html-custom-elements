@@ -20,8 +20,6 @@ function getRoute(routes, url) {
       return route;
     }
   }
-  const defaultRoute = routes.filter((el) => el.default)[0] || routes[0];
-  return defaultRoute;
 }
 
 function setInnerHTML(elm, html) {
@@ -50,6 +48,9 @@ export class HCEDynamicContents extends HTMLCustomElement {
 
   popStateHandler(event) {
     const route = getRoute(this.routes, window.location.href);
+    console.log (route,this, this.getAttribute('move-to-top') );
+  // const defaultRoute = routes.filter((el) => el.default)[0] || routes[0];
+  // return defaultRoute;
     if (route) {
       window.fetch(route.import).then((response) => {
         if (!response.ok) {
@@ -58,7 +59,9 @@ export class HCEDynamicContents extends HTMLCustomElement {
         return response.text();
       }).then((html) => {
         setInnerHTML(this, html);
-        setTimeout((_) => window.scrollTo(0, 0));
+        if (this.getAttribute('move-to-top')) {
+          setTimeout((_) => window.scrollTo(0, 0));
+        }
       });
     }
   }

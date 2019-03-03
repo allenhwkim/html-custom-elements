@@ -2,13 +2,23 @@
   li[disabled] {opacity: 0.5;}
 
   /* submenu */
-  li > ul { display: none; } /* hide all submenus in default */
-  li:not([disabled]).has-submenu:hover > ul { display: block;}
-  li:not([disabled]).has-submenu:focus > ul { display: block;}
-  li:not([disabled]).has-submenu.submenu-open > ul { display: block;}
+  li > ul { 
+    width: 0;
+    height: 0;
+    opacity: 0;
+    display: block;
+  } /* hide all submenus in default */
+  li:not([disabled]).has-submenu:hover > ul,
+  li:not([disabled]).has-submenu:focus > ul,
+  li:not([disabled]).has-submenu.submenu-open > ul {
+    width: auto;
+    height: auto;
+    opacity: 1;
+    transition: opacity .25s;
+  }
 
   /* basic styles */
-  :root.basic a { transition: all .2s; color: inherit }
+  :root.basic a { transition: all .25s; color: inherit }
   :root.basic a:hover { color: #fff }
   :root.basic ul { margin: 0; padding: 0; list-style: none; background: #333; color: #fff }
   :root.basic li { padding: 8px; position: relative; color: #aaa; }
@@ -20,7 +30,7 @@
   }
   :root.basic > ul > li:not([disabled]):hover:after, 
   :root.basic > ul > li:focus:after { 
-    opacity: 1; transition:all .5s;
+    opacity: 1; transition:all .25s;
   }
   :root.basic > ul > li.selected  { color: #fff; }
   :root.basic li ul{ position: absolute; }  /* submenu items */

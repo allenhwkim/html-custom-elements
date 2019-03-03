@@ -46,8 +46,13 @@ function addArrow(parentEl, pos = 'top-center, vertical, outside') {
   }
 }
 
+export function hideOverlay(el) {
+  const compStyle = window.getComputedStyle(el);
+  el.style.opacity = 0;
+  setTimeout((_) => el.style.display = 'none', 350);
+}
+
 export function showOverlay(el, pos='top-center, vertical, outside', options) {
-  console.log('xxxxxxxxxxxxxxx', el);
   pos =
     (pos === 'top' || pos == 'bottom') ? `${pos}-center, vertical, outside` :
     (pos === 'left' || pos == 'right') ? `center-${pos}, horizontal, outside` : pos;
@@ -59,8 +64,10 @@ export function showOverlay(el, pos='top-center, vertical, outside', options) {
   const calc = `calc(100% + ${distance}px)`;
 
   olcss.position = 'absolute';
-  olcss.display = 'inherit';
-  olcss.transform = '';
+  olcss.display = 'block';
+  olcss.transition = 'opacity .25s';
+  olcss.opacity = 0;
+  setTimeout(_ => olcss.opacity = 1, 20);
 
   if (hv === 'horizontal' && inOut === 'outside') {
     olcss.top = posY === 'top' ? '0' : 'inherit';
@@ -85,7 +92,6 @@ export function showOverlay(el, pos='top-center, vertical, outside', options) {
     olcss.bottom = posY === 'bottom' ? '0' : 'inherit';
     olcss.left = posX === 'left' ? '0' : 'inherit';
     olcss.right = posX === 'right' ? '0' : 'inherit';
-    console.log(olcss.top, olcss.bottom, olcss.left, olcss.right);
     if (posY === 'center') {
       olcss.top = '50%';
       olcss.transform = posX === 'center' ? 'translate(-50%, -50%)' : 'translate(0, -50%)';

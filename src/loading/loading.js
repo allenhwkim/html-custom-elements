@@ -41,7 +41,6 @@ class HCELoading extends HTMLCustomElement {
     this.renderWith(null, css).then( (_) => {
       (!this.innerHTML.trim()) && (this.innerHTML = svg);
       typeof this.loading === 'string' ? this.show() : this.hide();
-      console.log('....................', this.timeout);
     });
   }
 

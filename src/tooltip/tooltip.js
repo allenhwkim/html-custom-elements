@@ -1,4 +1,4 @@
-import {showOverlay} from '../utils/show-overlay';
+import {showOverlay, hideOverlay} from '../utils/show-overlay';
 import {HTMLCustomElement, createCustomEvent} from 'html-custom-element';
 
 const css = `
@@ -30,7 +30,7 @@ class HCETooltip extends HTMLCustomElement {
   }
 
   hide() {
-    this.style.display = 'none';
+    hideOverlay(this);
   }
 }
 

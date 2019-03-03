@@ -31,11 +31,11 @@ export class HCEDialog extends HTMLCustomElement {
         actionsEl.appendChild(buttonEl);
       });
     }
-    this.classList.add('visible');
+    this.appear();
   }
 
   close() {
-    this.classList.remove('visible');
+    this.disappear();
   }
 }
 

@@ -1,0 +1,65 @@
+:root.overlay:before {            /* Needed to check click outside of overlay */
+  content: ' ';
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: transparent;
+}
+.calendar {           /* overlay contents on thetop of blocker */
+  position: relative;
+  background: #fff;
+  min-width: 200px;
+}
+.calendar.shadow {
+  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.14),
+    0px 1px 1px 0px rgba(0, 0, 0, 0.12), 
+    0px 2px 1px -1px rgba(0, 0, 0, .4) ;
+}
+
+.title {              /* e.g. '< Mar 2019 >' */
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  background: #fff;
+}
+.title .month-year {
+  flex: 1;
+  font-weight: bold;
+} 
+.title .prev, .title .next {
+  border: none;
+  background: #fff;
+}
+.title select {        /* Jan, Feb .. */ /* 2017, 2018, ... */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  padding: 0;
+  border: none;
+}
+.days {
+  border-bottom: 1px solid #ccc;
+}
+.days > span {          /* Mon, Tue, Wed ... */
+  display: inline-block;
+  text-align: center;
+  width: calc(100% / 7);
+}
+.dates button {          /* 1, 2, ... 31 */
+  padding: 4px 0;
+  width: calc(100% / 7);
+  border: none;
+  border-radius: 50%;
+  outline: none;
+}
+.dates button.day:hover {
+  background-color: rgba(160, 205, 248, .5);
+}
+.dates button:focus {
+  box-shadow: inset 0 0 2px 1px rgb(160, 205, 248);
+}
+.dates button.leading { 
+  color: #eee; border: none;
+}
+.dates button.trailing {
+  color: #eee; border: none;
+}

@@ -29,7 +29,7 @@ class HCEOverlay extends HTMLCustomElement {
       this.visibleBy && this.setBehaviourOfVisibleBy();
 
       this.addEventListener('click', (event) => {
-        this.isEqualNode(event.target) && (this.style.display = 'none');
+        this.isEqualNode(event.target) && (this.disappear());
       });
     });
   }
@@ -49,10 +49,10 @@ class HCEOverlay extends HTMLCustomElement {
     // hide all overlays
     Array.from(document.querySelectorAll('hce-overlay'))
         .forEach((el) => el.style.display = 'none');
-    this.style.display = 'block';
     this.position = this.getAttribute('position') || 'top';
     this.distance = parseInt(this.getAttribute('distance') || 12);
     this.arrow = this.getAttribute('arrow') !== 'false';
+    this.appear();
     // console.log('......', this.position, this.distance, this.arrow)
     setTimeout( (_) => {
       showOverlay(
@@ -64,8 +64,7 @@ class HCEOverlay extends HTMLCustomElement {
   }
 
   hide() {
-    console.log('xxxxxxxxxxxxxxxxxx');
-    this.style.display = 'none;';
+    this.disappear();
   }
 }
 

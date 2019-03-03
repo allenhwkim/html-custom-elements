@@ -23,6 +23,7 @@
 
   .contents [contents-for] {
     display: none;
+    transition: opacity .25s;
   }
   .contents [contents-for].selected {
     display: block;

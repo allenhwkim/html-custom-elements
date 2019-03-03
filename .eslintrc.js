@@ -13,11 +13,13 @@ module.exports = {
     'sourceType': 'module',
   },
   'rules': {
+    'arrow-parens': 'off',
     'max-len': ['error', { 'code': 140 }],
     'no-unused-vars': 'off',
     'require-jsdoc': 'off',
     'valid-jsdoc': 'off',
     'no-invalid-this': 'off',
-    'guard-for-in': 'off'
+    'guard-for-in': 'off',
+    'comma-dangle': 'off'
   },
 };

@@ -1,5 +1,6 @@
 import {HTMLCustomElement, createCustomEvent} from 'html-custom-element';
 import * as css from './tabs.css';
+import {appear, disappear} from '../utils/animate';
 
 function __select(listEls, indexEl) {
   Array.from(listEls)
@@ -7,25 +8,22 @@ function __select(listEls, indexEl) {
       .forEach((el) => {
         el.classList.remove('selected');
         el.removeAttribute('tabindex');
+        if (el.getAttribute('contents-for')) {
+          el.style.display = 'none';
+        }
       });
 
   indexEl.classList.add('selected');
   indexEl.setAttribute('tabindex', '0');
+  if (indexEl.getAttribute('contents-for')) {
+    appear(indexEl);
+  }
 }
 
 function __keydownHandler(e) {
   const propName =
     e.key === 'ArrowRight' ? 'nextElementSibling' :
     e.key === 'ArrowLeft' ? 'previousElementSibling' : 'N/A';
-
-  // let nextEl = e.target[propName];
-  // while (nextEl) {
-  //   if (nextEl.getAttribute('disabled')) {
-  //     nextEl = nextEl[propName];
-  //   } else {
-  //     break;
-  //   }
-  // }
 
   let nextEl = e.target[propName];
   while (nextEl) {

@@ -1,6 +1,6 @@
 import {HTMLCustomElement, createCustomEvent} from 'html-custom-element';
 import css from './carousel.css';
-
+import {animate} from '../utils/animate';
 
 const html = `
   <div class="prev button-container">
@@ -72,10 +72,13 @@ export class HCECarousel extends HTMLCustomElement {
       scrollToEl = this.listEl.children[this.index];
     }
     this.index = __getIndex(this.listEl.children, scrollToEl);
-    // setTimeout(_ => scrollToEl.scrollIntoView({behavior: 'smooth'}) ); // this moves page to scroll
-    this.listEl.scrollLeft = Math.max(0,
-        scrollToEl.offsetLeft - ((this.listEl.offsetWidth - scrollToEl.offsetWidth) / 2)
-    );
+
+    const startPosition = this.listEl.scrollLeft;
+    const increaseAmount = (Math.max(0, scrollToEl.offsetLeft
+      - ((this.listEl.offsetWidth - scrollToEl.offsetWidth) / 2))
+      - startPosition);
+
+    animate({draw: pct => this.listEl.scrollLeft = startPosition + pct*increaseAmount});
 
     // set shortcuts
     if (this.shortcutsEl.offsetParent) { // if visible

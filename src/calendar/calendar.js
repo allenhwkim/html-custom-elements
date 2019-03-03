@@ -1,5 +1,6 @@
 import {HTMLCustomElement, createCustomEvent} from 'html-custom-element';
 import {time} from '../utils/time';
+import * as css from './calendar.css';
 
 function __getWeekdays(firstDayOfWeek = 0) {
   const ret = [];
@@ -53,7 +54,7 @@ function __getI18n(lang, key, indexes) { // type:week, wk, month, mon
 
 function __getMonthEls(lang, monthNum) {
   const t = time();
-  const months = t.i18n[lang].monthNamesShort;
+  const months = t.i18n[lang].monthNames;
   return months.map( (month, ndx) => {
     const optEl = document.createElement('option');
     optEl.value = ndx;
@@ -80,64 +81,17 @@ function __getYearEls(lang, year, minYear, maxYear) {
 const html = `
   <div class="calendar">
     <div class="title">
-      <button class="prev" (click)="setMonth(-1)">&lt;</button>
-      <div>
+      <div class="month-year">
         <select class="month" (change)="setMonth(event)"></select>
         <select class="year" (change)="setYear(event)"></select>
       </div>
+      <button class="prev" (click)="setMonth(-1)">&lt;</button>
       <button class="next" (click)="setMonth(1)">&gt;</button>
     </div>
     <div class="days"></div>
     <div class="dates" (click)="fireDateSelected(event)"></div>
   </div>
   <div class="blocker"></div>
-`;
-
-const css =`
-  :root.overlay:before {            /* Needed to check click outside of overlay */
-    content: ' ';
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: transparent;
-  }
-  .calendar {           /* overlay contents on thetop of blocker */
-    position: relative;
-    background: #fff;
-  }
-  .calendar.shadow {
-    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.14),
-      0px 1px 1px 0px rgba(0, 0, 0, 0.12), 
-      0px 2px 1px -1px rgba(0, 0, 0, .4) ;
-  }
-
-  .title {              /* e.g. '< Mar 2019 >' */
-    display: flex;
-    justify-content: space-between;
-    position: relative;
-    background: #fff;
-  }
-  .title select {        /* Jan, Feb .. */ /* 2017, 2018, ... */
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    padding: 0;
-    border: none;
-  }
-  .days > span {          /* Mon, Tue, Wed ... */
-    display: inline-block;
-    text-align: center;
-    width: calc(100% / 7);
-  }
-  .dates button {          /* 1, 2, ... 31 */
-    padding: 0;
-    width: calc(100% / 7);
-  }
-  .dates button.leading { 
-    color: #eee; border: none;
-  }
-  .dates button.trailing {
-    color: #eee; border: none;
-  }
 `;
 
 export class HCECalendar extends HTMLCustomElement {
@@ -169,12 +123,12 @@ export class HCECalendar extends HTMLCustomElement {
       this.style.display = 'none';
 
       this.addEventListener('click', (event) => {
-        this.isEqualNode(event.target) && (this.style.display = 'none');
+        this.isEqualNode(event.target) && (this.disappear());
       });
-      inputEl.addEventListener('focus', (_) => this.style.display = 'block');
+      inputEl.addEventListener('focus', (_) => this.appear());
       this.addEventListener('date-selected', (e) => {
         inputEl.value = e.detail;
-        this.style.display = 'none';
+        this.disappear();
       });
     }
   }

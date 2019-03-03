@@ -18,7 +18,7 @@
   }
   .left {float: left;}
   .right {float: right;}
-  .filler { width: 33%; display: inline-block;}
+  .filler { width: calc(100% /3); display: inline-block;}
 </style>
 
 <p>
@@ -30,13 +30,13 @@
 </p>
 
 <div id="x1" class="container">
-  <hce-sticky class="left">sticky1</hce-sticky>
-  <hce-sticky class="right">sticky2</hce-sticky>
+  <hce-sticky class="left" offset="74">sticky1</hce-sticky>
+  <hce-sticky class="right" offset="74">sticky2</hce-sticky>
   <br/>
   <br/>
   <br/>
   <div class="filler">&nbsp;</div>
-  <hce-sticky class="middle">sticky3</hce-sticky>
+  <hce-sticky class="middle" offset="74">sticky3</hce-sticky>
 </div>
 <pre>
 &lt;div id="x1" class="container">
