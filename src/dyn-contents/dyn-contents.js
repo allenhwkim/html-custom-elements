@@ -48,9 +48,9 @@ export class HCEDynamicContents extends HTMLCustomElement {
 
   popStateHandler(event) {
     const route = getRoute(this.routes, window.location.href);
-    console.log (route,this, this.getAttribute('move-to-top') );
-  // const defaultRoute = routes.filter((el) => el.default)[0] || routes[0];
-  // return defaultRoute;
+    console.log(route, this, this.getAttribute('move-to-top') );
+    // const defaultRoute = routes.filter((el) => el.default)[0] || routes[0];
+    // return defaultRoute;
     if (route) {
       window.fetch(route.import).then((response) => {
         if (!response.ok) {
