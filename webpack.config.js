@@ -8,7 +8,7 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 
 let config = {
-  mode: 'production',
+  mode: 'none',
   entry: [
     './src/index.js'
   ],
@@ -43,9 +43,9 @@ let config = {
   ]
 };
 
-if (process.env.NODE_ENV === 'development') {
+if (process.env.ENV === 'demo') {
+  console.log('[webpack-dev-server] mode', process.env.ENV);
   config = Object.assign(config, {
-    mode: 'development',
     entry: {
       app: './demo'
     },

@@ -5,15 +5,14 @@
   li > ul { 
     width: 0;
     height: 0;
-    opacity: 0;
-    display: block;
+    display: none;
   } /* hide all submenus in default */
-  li:not([disabled]).has-submenu:hover > ul,
-  li:not([disabled]).has-submenu:focus > ul,
-  li:not([disabled]).has-submenu.submenu-open > ul {
+  :root:not(.selected) li:not([disabled]).has-submenu:hover > ul,
+  :root:not(.selected) li:not([disabled]).has-submenu:focus > ul,
+  :root:not(.selected) li:not([disabled]).has-submenu.submenu-open > ul {
     width: auto;
     height: auto;
-    opacity: 1;
+    display: block;
     transition: opacity .25s;
   }
 
@@ -32,19 +31,20 @@
   :root.basic > ul > li:focus:after { 
     opacity: 1; transition:all .25s;
   }
+
   :root.basic > ul > li.selected  { color: #fff; }
   :root.basic li ul{ position: absolute; }  /* submenu items */
 
   :root.top > ul { display: flex; justify-content: space-around }
-  :root.top li > ul ul { top: 1px; left: calc(100% + 1px); } /* submenu items */
-  :root.top li > ul { top: calc(100% + 1px); left: 0;}
+  :root.top li > ul ul { top: 1px; left: 100%; } /* submenu items */
+  :root.top li > ul { top: 100%; left: 0;}
 
   :root.bottom > ul { display: flex; justify-content: space-around }
-  :root.bottom li > ul ul { bottom: 0; left: calc(100% + 1px); } /* submenu items */
-  :root.bottom li > ul { bottom: calc(100% + 1px); left: 0;}     /* submenu items */
+  :root.bottom li > ul ul { bottom: 0; left: 100% } /* submenu items */
+  :root.bottom li > ul { bottom: 100%; left: 0;}     /* submenu items */
 
   :root.left > ul { display: inline-block; }       
-  :root.left li > ul {top: 0; left: calc(100% + 1px);}   /* submenu items */
+  :root.left li > ul {top: 0; left: 100%;}   /* submenu items */
 
   :root.right > ul { display: inline-block; }
-  :root.right li > ul {top: 0; right: calc(100% + 1px);} /* submenu items */
+  :root.right li > ul {top: 0; right: 100%;} /* submenu items */

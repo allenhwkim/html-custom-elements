@@ -13,7 +13,8 @@ function getRoutesFromChildren(el) {
   return routes;
 }
 
-function getRoute(routes, url) {
+function getRoute(routes) {
+  const url = window.location.href.replace(window.location.origin, '');
   for (let i=0; i < routes.length; i++) {
     const route = routes[i];
     if (url.match(route.match)) {
@@ -47,10 +48,7 @@ export class HCEDynamicContents extends HTMLCustomElement {
   }
 
   popStateHandler(event) {
-    const route = getRoute(this.routes, window.location.href);
-    console.log(route, this, this.getAttribute('move-to-top') );
-    // const defaultRoute = routes.filter((el) => el.default)[0] || routes[0];
-    // return defaultRoute;
+    const route = getRoute(this.routes);
     if (route) {
       window.fetch(route.import).then((response) => {
         if (!response.ok) {

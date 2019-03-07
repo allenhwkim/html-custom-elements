@@ -30,9 +30,9 @@ hce-calendar .calendar {
 
 <h3> Calendar as a section with min date and max date </h3>
 <script id="s1">
-  document.querySelector('#x1 hce-calendar').addEventListener('date-selected', function(event) {
-    document.querySelector('#x1 .date-chosen').innerHTML = event.detail;
-  })
+document.querySelector('#x1 hce-calendar').addEventListener('date-selected', function(event) {
+  document.querySelector('#x1 .date-chosen').innerHTML = event.detail;
+});
 </script>
 <div id="x1">
   <hce-calendar
@@ -42,7 +42,10 @@ hce-calendar .calendar {
     weekday-format="3-letter"
     date-format="yyyy-mm-dd"></hce-calendar>
   DateSelected: <span class="date-chosen"></span>
-</div><script>showCode('x1', 's1', 0, /hce-calendar|selected|min-date|max-data|date-format|weekday-format/g)</script>
+</div>
+<script>
+  showCode('x1', 's1', 0, /hce-calendar|selected|min-date|max-data|date-format|weekday-format/g);
+</script>
 <hr/>
 
 <h3> Calendar as a dropdown </h3>
@@ -51,5 +54,8 @@ hce-calendar .calendar {
     <input placeholder="Click to see date selector" size="30" />
     <hce-calendar visible-by="#x2 input"></hce-calendar>
   </div>
-</div><script>showCode('x2', 0, 0, /hce-calendar|visible-by/g)</script>
+</div>
+<script>
+  showCode('x2', 0, 0, /hce-calendar|visible-by/g);
+</script>
 <hr/>

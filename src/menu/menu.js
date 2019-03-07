@@ -27,6 +27,10 @@ class HCEMenu extends HTMLCustomElement {
   connectedCallback() {
     this.renderWith(null, css).then( (_) => {
       this.setAccessibility();
+      this.addEventListener('selected', _ => // disappear(disable) dropdown menus
+        this.classList.add('selected'));
+      this.addEventListener('mouseover', _ => //  dropdown menu enabled
+        this.classList.remove('selected'));
     });
   }
 
@@ -46,11 +50,13 @@ class HCEMenu extends HTMLCustomElement {
         liEl.setAttribute('tabindex', 0); // make it as an action item
         const aEls = liEl.querySelectorAll('a');
         // control show/hide by class 'submenu-open'
-        liEl.addEventListener('blur', (_) => liEl.classList.remove('submenu-open'));
+        liEl.addEventListener('blur', _ => liEl.classList.remove('submenu-open'));
         Array.from(aEls).forEach((aEl) => {
-          aEl.addEventListener('focus', (_) => liEl.classList.add('submenu-open'));
-          aEl.addEventListener('blur', (_) => {
-            setTimeout((_) => { // next focus needs time
+          aEl.addEventListener('click', _ =>
+            aEl.dispatchEvent(createCustomEvent('selected', {bubbles: true})));
+          aEl.addEventListener('focus', _ => liEl.classList.add('submenu-open'));
+          aEl.addEventListener('blur', _ => {
+            setTimeout(_ => { // next focus needs time
               const focused = liEl.querySelector(':focus');
               !focused && liEl.classList.remove('submenu-open');
             }, 10);

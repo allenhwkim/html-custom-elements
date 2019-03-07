@@ -7,7 +7,7 @@
     background-image: linear-gradient(rgba(255, 255, 255, 1) 50%, transparent 50%, transparent);
     background-color: rgba(0,255,0, .2);
     background-size: 50px 50px;
-    height: 200px;
+    height: 600px;
     margin: 12px;
   }
   .left, .right, .middle {
@@ -15,10 +15,12 @@
     width: calc(100% /3 );
     background: #333;
     color: #fff; padding: 10px;
+    font-size: 16px;
   }
   .left {float: left;}
   .right {float: right;}
   .filler { width: calc(100% /3); display: inline-block;}
+  #x1 { font-size: 0px; }
 </style>
 
 <p>
@@ -32,9 +34,7 @@
 <div id="x1" class="container">
   <hce-sticky class="left" offset="74">sticky1</hce-sticky>
   <hce-sticky class="right" offset="74">sticky2</hce-sticky>
-  <br/>
-  <br/>
-  <br/>
+  <div style="height: 200px"></div>
   <div class="filler">&nbsp;</div>
   <hce-sticky class="middle" offset="74">sticky3</hce-sticky>
 </div>
@@ -49,39 +49,4 @@
   &lt;hce-sticky class="middle">sticky3&lt;/hce-sticky>
 &lt;/div>
 </pre>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
 
