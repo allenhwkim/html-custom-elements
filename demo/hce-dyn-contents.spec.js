@@ -2,7 +2,7 @@ const puppeteer = require('puppeteer');
 const {HelperI, launch, timeout, baseUrl} = require('./helper-i');
 jest.setTimeout(timeout);
 
-describe('hce-loading', () => {
+describe('hce-dyn-contents', () => {
   let browser;
   let page;
   const errors = [];
@@ -16,20 +16,25 @@ describe('hce-loading', () => {
     page.on('error', err => errors.push(err));
 
     I = new HelperI(page);
-    await page.goto(baseUrl + '/#loading', {waitUntil: 'networkidle2'});
+    await page.goto(baseUrl + '/#dyn-contents', {waitUntil: 'networkidle2'});
     done();
   });
 
-  test('hce-loading', async done => {
-    await page.waitFor('hce-loading', {visible: false});
-    await I.clickText('show loading', '#x1');
-    await page.waitFor('hce-loading', {visible: true});
-    await I.clickText('hide loading', '#x1');
-    await page.waitFor('hce-loading', {visible: false});
+  it('dynamic contents', async done => {
+    await I.see('111111111111111');
+    await I.clickText('contents 1');
+    await I.see('111111111111111');
+    await I.clickText('contents 2');
+    await I.see('222222222222222');
+    await I.dontSee('111111111111111');
+    await I.clickText('contents 3');
+    await I.see('333333333333333');
+    await I.dontSee('222222222222222');
     done();
   });
 
   afterAll(async () => {
+    expect(errors.length).toBe(0);
     browser.close();
   });
 });

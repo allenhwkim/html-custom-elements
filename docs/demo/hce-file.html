@@ -4,20 +4,29 @@
   hce-file allows you to accept a file from user
 </p>
 
+<h3>Events</h3>
+ <ul>
+  <li><b>file-change</b>: Fired when user select a file or files
+</ul> 
+
+<h3>Example</h3>
+
 <script id="s1">
 function filesChanged(event) {
   const files = event.detail;
-  let formData = new FormData();
+  const formData = new FormData();
 
-  console.log('Pretending uploading a file...', files)
-  formData.append("photo", files[0]);
-  // window.fetch('/upload/image', {method: "POST", body: formData});
+  console.log('Pretending uploading a file...', files);
+  formData.append('photo', files[0]);
 }
 </script>
 <div id="x1">
   <hce-file (files-change)="filesChanged(event)">
   </hce-file>
-</div><script>showCode('x1', 's1')</script>
+</div>
+<script>
+  showCode('x1', 's1');
+</script>
 
 <h3>How to upload file?</h3>
 <pre id="upload-example" style="background: #eee; padding: 8px">
@@ -25,5 +34,8 @@ let formData = new FormData();
 
 formData.append("photo", files[0]);
 window.fetch('/upload/image', {method: "POST", body: formData});
-</pre><script>prettify('#upload-example', 'js')</script>
+</pre>
+<script>
+  prettify('#upload-example', 'js');
+</script>
 

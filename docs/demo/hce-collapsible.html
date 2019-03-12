@@ -1,8 +1,17 @@
 <h2>hce-collapsible</h2>
 
-<p>
-  hce-collapsible is a accordion element that expand when clicked on. It allows you to hide content that is not immediately relevant to the user.
-</p>
+<p> hce-collapsible is a accordion element that expand when clicked on. It allows you to hide content that is not immediately relevant to the user. </p> 
+
+<h3>Child Elements</h3>
+<ul>
+  <li> any element. If "expanded" attribute is given, its body will be shown.
+    <ul> 
+      <li><b>hce-header</b> class:  Header element of collapsible. It is always visible.</li> 
+      <li><b>hce-body</b> class:  Collapsible element when header element clicks.</li> 
+    </ul>
+</ul>
+
+<h3>Example</h3>
 
 <div id="x1">
   <hce-collapsible>
@@ -21,7 +30,9 @@
   </hce-collapsible>
 </div>
 <br/>
-<script>showCode('x1', 0, 0, /horizontal|expanded/g)</script>
+<script>
+  showCode('x1', 0, 0, /horizontal|expanded/g);
+</script>
 
 <div id="x2">
   <hce-collapsible class="horizontal">
@@ -40,7 +51,9 @@
   </hce-collapsible>
 </div>
 <br/>
-<script>showCode('x2', 0, 0, /horizontal|expanded/g)</script>
+<script>
+  showCode('x2', 0, 0, /horizontal|expanded/g);
+</script>
 
 <style>
 .contents {padding: 12px;}
@@ -59,4 +72,6 @@
   </hce-collapsible>
 </div>
 <br/>
-<script>showCode('x3', 0, 0, /horizontal|expanded/g)</script>
+<script>
+  showCode('x3', 0, 0, /horizontal|expanded/g);
+</script>

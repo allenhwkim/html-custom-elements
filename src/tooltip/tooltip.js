@@ -17,6 +17,7 @@ class HCETooltip extends HTMLCustomElement {
   connectedCallback() {
     this.renderWith(null, css).then(() => {
       this.position = this.position || 'top';
+      this.parentElement.setAttribute('tabindex', 0);
       this.parentElement.addEventListener('mouseover', this.show.bind(this));
       this.parentElement.addEventListener('mouseout', this.hide.bind(this));
       this.parentElement.addEventListener('focus', this.show.bind(this));

@@ -7,26 +7,46 @@
     background-image: linear-gradient(rgba(255, 255, 255, 1) 50%, transparent 50%, transparent);
     background-color: rgba(0,255,0, .2);
     background-size: 50px 50px;
-    height: 200px;
+    height: 600px;
+    margin: 12px;
   }
-  .left, .right, .middle { width: 50%; background: #333; color: #fff; padding: 10px; }
-  .left  {left: 0;}
-  .right {right: 0;}
-  .middle {left: 25%;}
+  .left, .right, .middle {
+    display: inline-block;
+    width: calc(100% /3 );
+    background: #333;
+    color: #fff; padding: 10px;
+    font-size: 16px;
+  }
+  .left {float: left;}
+  .right {float: right;}
+  .filler { width: calc(100% /3); display: inline-block;}
+  #x1 { font-size: 0px; }
 </style>
 
+<p>
+  A stickily positioned element is an element whose computed position value is sticky. It's treated as relatively positioned until its containing block crosses a specified threshold (such as setting top to value other than auto) within its flow root (or the container it scrolls within), at which point it is treated as "stuck" until meeting the opposite edge of its containing block. (from https://developer.mozilla.org/en-US/docs/Web/CSS/position).
+</p>
+
+<p>
+  If `position:sticky` satisfy your requirements, it is recommended to use it instead.
+</p>
+
 <div id="x1" class="container">
-  <hce-sticky class="left">left</hce-sticky>
-</div><script>showCode('x1')</script>
-
-<div id="x2" class="container">
-  <hce-sticky class="right">right</hce-sticky>
+  <hce-sticky class="left" offset="74">sticky1</hce-sticky>
+  <hce-sticky class="right" offset="74">sticky2</hce-sticky>
+  <div style="height: 200px"></div>
+  <div class="filler">&nbsp;</div>
+  <hce-sticky class="middle" offset="74">sticky3</hce-sticky>
 </div>
-</div><script>showCode('x2')</script>
+<pre>
+&lt;div id="x1" class="container">
+  &lt;hce-sticky class="left">sticky1&lt;/hce-sticky>
+  &lt;hce-sticky class="right">sticky2&lt;/hce-sticky>
+  &lt;br/>
+  &lt;br/>
+  &lt;br/>
+  &lt;div class="filler">&nbsp;&lt;/div>
+  &lt;hce-sticky class="middle">sticky3&lt;/hce-sticky>
+&lt;/div>
+</pre>
 
-<div id="x3" class="container">
-  <hce-sticky class="middle">middle</hce-sticky>
-</div><script>showCode('x3')</script>
-<div style="height: 200px; background: #eee">
-  This section is left blank intentionally for scrolling
-</div>

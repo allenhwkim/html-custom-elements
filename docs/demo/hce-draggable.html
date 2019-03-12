@@ -4,6 +4,18 @@
   hce-overlay let it draggable and movable
 </p>
 
+
+<h3>Attributes</h3>
+ <ul>
+  <li><b>drop-to</b>: CSS selector that this draggable can be dropped. 
+    <br/> If not given, dragging item will be dropped on the document body.
+    <br/> If given, you need to handle drop event.
+    <br/> The specified element will be set with class 'on-dragover', when any dragging element enters.
+  </li>
+</ul> 
+
+<h3>Example</h3>
+
 <style id="s1">
 .draggables, #dropzone1, #dropzone2 {
   width: 45%; 
@@ -21,18 +33,21 @@ hce-draggable { border: 1px outset #333; display: block; width: 200px;}
     <hce-draggable>Drag this around the page</hce-draggable>
     <hce-draggable>Drag this around the page</hce-draggable>
   </div>
-</div><script>showCode('x1', 0, 0)</script>
+</div>
+<script>
+  showCode('x1', 0, 0);
+</script>
 <hr/>
 
 <style id="c2">
 .on-dragover { background: yellow; }
 </style>
 <script id="s2">
-  function myDrop(event) {
-    const id = event.dataTransfer.getData('Text'); // id of dropping element
-    event.target.appendChild(document.getElementById(id));
-    event.target.classList.remove('on-dragover');
-  }
+function myDrop(event) {
+  const id = event.dataTransfer.getData('Text'); // id of dropping element
+  event.target.appendChild(document.getElementById(id));
+  event.target.classList.remove('on-dragover');
+}
 </script>
 <div id="x2">
   <div id="dropzone1" drop-to="#dropzone2"
@@ -47,5 +62,8 @@ hce-draggable { border: 1px outset #333; display: block; width: 200px;}
   <div id="dropzone2" drop-to="#dropzone1" ondrop="myDrop(event)">
     Drop Zone
   </div>
-</div><script>showCode('x2', 's2', 'c2', /drop-to/g)</script>
+</div>
+<script>
+  showCode('x2', 's2', 'c2', /drop-to/g);
+</script>
 <hr/>

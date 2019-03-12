@@ -1,5 +1,6 @@
 const puppeteer = require('puppeteer');
-const HelperI = require('./helper-i');
+const {HelperI, launch, timeout, baseUrl} = require('./helper-i');
+jest.setTimeout(timeout);
 
 describe('hce-calendear', () => {
   let browser;
@@ -8,14 +9,14 @@ describe('hce-calendear', () => {
   let I;
 
   beforeAll(async done => {
-    browser = await puppeteer.launch({headless: true});
+    browser = await puppeteer.launch(launch);
     page = (await browser.pages())[0];
     page.on('console', msg => console.log('[browser console]', msg.type(), msg.text()));
     page.on('pageerror', err => errors.push(err));
     page.on('error', err => errors.push(err));
 
     I = new HelperI(page);
-    await page.goto('http://localhost:8080/#calendar', {waitUntil: 'networkidle0'});
+    await page.goto(baseUrl + '/#calendar', {waitUntil: 'networkidle2'});
     done();
   });
 

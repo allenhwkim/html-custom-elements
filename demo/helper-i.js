@@ -11,7 +11,7 @@ const iSee = function(selector, text, positive = true) {
 // this runs on browser, not on NodeJS
 const iSeeText = function(text, selector) {
   const contextNode = selector ? document.querySelector(selector) : document;
-  const xpath = `//*[contains(text(), '${text}')]`;
+  const xpath = selector ? `.//*[contains(text(), '${text}')]` : `//*[contains(text(), '${text}')]`;
   const nodeType = 9; // XPathResult.FIRST_ORDERED_NODE_TYPE;
   const el = document.evaluate(xpath, contextNode, null, nodeType, null).singleNodeValue;
   return el;
@@ -48,4 +48,12 @@ class HelperI {
   }
 }
 
-module.exports = HelperI;
+const baseUrl = 'http://localhost:8080';
+const launch = {
+  slowMo: process.env.demo ? 100 : undefined,
+  ignoreHTTPSErrors: true,
+  headless: !process.env.demo
+};
+const timeout = process.env.timeout || (process.env.demo && 99000) || 60000;
+
+module.exports = {baseUrl, launch, timeout, HelperI};

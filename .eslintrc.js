@@ -20,6 +20,8 @@ module.exports = {
     'valid-jsdoc': 'off',
     'no-invalid-this': 'off',
     'guard-for-in': 'off',
-    'comma-dangle': 'off'
+    'comma-dangle': 'off',
+    'one-var': 'off',
+    'prefer-const': 'off'
   },
 };

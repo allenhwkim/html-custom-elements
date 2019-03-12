@@ -1,13 +1,15 @@
 <html>
   <head>
+    <link rel="stylesheet" href="demo/normalize.css" />
     <link rel="stylesheet" href="demo/prism.css" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <style>
-      html, body {font-size: 16px; margin: 16px;}
-      input, textarea, select, button {font-size: 0.9em;}
-      .table-of-contents  { margin: 0; }
+      body {padding: 24px;}
+      .header {background: #fff; z-index: 20;}
+      .table-of-contents  { margin: 0; padding: 0;}
       .table-of-contents li { display: inline-block; margin: 0; padding: 0 12px; }
-      .table-of-contents li:not(:first-child) { border-left: 1px solid #ccc;  }
+      .table-of-contents li:not(:last-child) { border-right: 1px solid #ccc;  }
+      hce-sticky.toc { display: block; background: #fff; padding: 12px;}
+      hce-sticky.toc.detached { box-shadow: 0 4px 4px -2px #000000;  z-index: 10;}
       hce-dyn-contents.contents {
         display: block; padding: 12px; min-height: 400px;
       }
@@ -19,30 +21,39 @@
     </script>
   </head>
   <body>
-    <h1>Collection of custom elements</h1>
+    <h1>HTML Custom Elements 
+      <sub>
+        Collection of custom elements
+        <a href="https://github.com/allenhwkim/html-custom-elements" title="source">
+          <svg height="24" class="octicon octicon-mark-github" viewBox="0 0 16 16" version="1.1" width="32" aria-hidden="true"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg>
+        </a>
+      </sub>
+    </h1>
+    <hce-sticky class="toc">
+      <ul class="table-of-contents">
+        <li><a href="#home">home</a></li>
+        <li><a href="#tooltip">tooltip</a></li>
+        <li><a href="#tabs">tabs</a></li>
+        <li><a href="#loading">loading</a></li>
+        <li><a href="#carousel">carousel</a></li>
+        <li><a href="#snackbar">snackbar</a></li>
+        <li><a href="#drawer">drawer</a></li>
+        <li><a href="#dialog">dialog</a></li>
+        <li><a href="#calendar">calendar</a></li>
+        <li><a href="#dyn-list">dyn-list</a></li>
+        <li><a href="#overlay">overlay</a></li>
+        <li><a href="#menu">menu</a></li>
+        <li><a href="#file">file</a></li>
+        <li><a href="#sticky">sticky</a></li>
+        <li><a href="#dyn-contents">dyn-contents</a></li>
+        <li><a href="#draggable">draggable</a></li>
+        <li><a href="#collapsible">collapsible</a></li>
+      </ul>
+    </hce-sticky>
 
-    <ul class="table-of-contents">
-      <li><a href="#home">home</a></li>
-      <li><a href="#tooltip">tooltip</a></li>
-      <li><a href="#tabs">tabs</a></li>
-      <li><a href="#loading">loading</a></li>
-      <li><a href="#carousel">carousel</a></li>
-      <li><a href="#snackbar">snackbar</a></li>
-      <li><a href="#drawer">drawer</a></li>
-      <li><a href="#dialog">dialog</a></li>
-      <li><a href="#calendar">calendar</a></li>
-      <li><a href="#dyn-list">dyn-list</a></li>
-      <li><a href="#overlay">overlay</a></li>
-      <li><a href="#menu">menu</a></li>
-      <li><a href="#file">file</a></li>
-      <li><a href="#sticky">sticky</a></li>
-      <li><a href="#dyn-contents">dyn-contents</a></li>
-      <li><a href="#draggable">draggable</a></li>
-      <li><a href="#collapsible">collapsible</a></li>
-    </ul>
-
-    <hce-dyn-contents class="contents">
-      <div url-match="home" import="demo/home.html" default></div>
+    <hce-dyn-contents class="contents" move-to-top="true">
+      <div url-match="^/$" import="demo/home.html"></div>
+      <div url-match="home" import="demo/home.html"></div>
       <div url-match="tooltip" import="demo/hce-tooltip.html"></div>
       <div url-match="tabs" import="demo/hce-tabs.html"></div>
       <div url-match="loading" import="demo/hce-loading.html"></div>

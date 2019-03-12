@@ -1,5 +1,6 @@
 const puppeteer = require('puppeteer');
-const HelperI = require('./helper-i');
+const {HelperI, launch, timeout, baseUrl} = require('./helper-i');
+jest.setTimeout(timeout);
 
 describe('hce-dialog', () => {
   let browser;
@@ -8,7 +9,7 @@ describe('hce-dialog', () => {
   let I;
 
   beforeAll(async done => {
-    browser = await puppeteer.launch({headless: true});
+    browser = await puppeteer.launch(launch);
     page = (await browser.pages())[0];
     page.on('console', msg => console.log('[browser console]', msg.type(), msg.text()));
     page.on('pageerror', err => errors.push(err));
@@ -16,7 +17,7 @@ describe('hce-dialog', () => {
     page.on('dialog', async dialog => await dialog.dismiss() );
 
     I = new HelperI(page);
-    await page.goto('http://localhost:8080/#dialog', {waitUntil: 'networkidle0'});
+    await page.goto(baseUrl + '/#dialog', {waitUntil: 'networkidle2'});
     done();
   });
 

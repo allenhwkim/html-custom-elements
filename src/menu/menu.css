@@ -6,6 +6,7 @@
     width: 0;
     height: 0;
     display: none;
+    border: 1px solid transparent;
   } /* hide all submenus in default */
   :root:not(.selected) li:not([disabled]).has-submenu:hover > ul,
   :root:not(.selected) li:not([disabled]).has-submenu:focus > ul,
