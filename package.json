@@ -8,6 +8,7 @@
   "scripts": {
     "prepublishOnly": "npm run build",
     "start": "kill-port 8080 && ENV=demo webpack-dev-server --port 8080 2>&1 | tee .server.log &",
+    "stop": "kill-port 8080",
     "test": "wait-port 8080 && npm start && jest && npm stop",
     "eslint": "eslint . --fix",
     "build": "npm-run-all build:prod build:demo",

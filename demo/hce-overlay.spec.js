@@ -44,4 +44,3 @@ describe('hce-overlay', () => {
     browser.close();
   });
 });
-``
