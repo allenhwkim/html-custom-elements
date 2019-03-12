@@ -63,7 +63,7 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "45bb63e8f4358ecf8731";
+/******/ 	var hotCurrentHash = "a6c84d00e4a6a699bc79";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -3454,7 +3454,7 @@ HCELoading.define('hce-loading', HCELoading);
 /***/ "./src/menu/menu.css":
 /***/ (function(module, exports) {
 
-module.exports = "  a { text-decoration: none; white-space: nowrap; text-transform: uppercase }\n  li[disabled] {opacity: 0.5;}\n\n  /* submenu */\n  li > ul { \n    width: 0;\n    height: 0;\n    display: none;\n  } /* hide all submenus in default */\n  :root:not(.selected) li:not([disabled]).has-submenu:hover > ul,\n  :root:not(.selected) li:not([disabled]).has-submenu:focus > ul,\n  :root:not(.selected) li:not([disabled]).has-submenu.submenu-open > ul {\n    width: auto;\n    height: auto;\n    display: block;\n    transition: opacity .25s;\n  }\n\n  /* basic styles */\n  :root.basic a { transition: all .25s; color: inherit }\n  :root.basic a:hover { color: #fff }\n  :root.basic ul { margin: 0; padding: 0; list-style: none; background: #333; color: #fff }\n  :root.basic li { padding: 8px; position: relative; color: #aaa; }\n\n  :root.basic > ul > li { padding: 15px; }   \n  :root.basic > ul > li:after, :root.basic > ul > li:after { \n    content: ' '; display: block; position: absolute; bottom: 4px; left: 0;\n    width: 100%; height: 2px; opacity: 0; background: #0FF; \n  }\n  :root.basic > ul > li:not([disabled]):hover:after, \n  :root.basic > ul > li:focus:after { \n    opacity: 1; transition:all .25s;\n  }\n\n  :root.basic > ul > li.selected  { color: #fff; }\n  :root.basic li ul{ position: absolute; }  /* submenu items */\n\n  :root.top > ul { display: flex; justify-content: space-around }\n  :root.top li > ul ul { top: 1px; left: 100%; } /* submenu items */\n  :root.top li > ul { top: 100%; left: 0;}\n\n  :root.bottom > ul { display: flex; justify-content: space-around }\n  :root.bottom li > ul ul { bottom: 0; left: 100% } /* submenu items */\n  :root.bottom li > ul { bottom: 100%; left: 0;}     /* submenu items */\n\n  :root.left > ul { display: inline-block; }       \n  :root.left li > ul {top: 0; left: 100%;}   /* submenu items */\n\n  :root.right > ul { display: inline-block; }\n  :root.right li > ul {top: 0; right: 100%;} /* submenu items */"
+module.exports = "  a { text-decoration: none; white-space: nowrap; text-transform: uppercase }\n  li[disabled] {opacity: 0.5;}\n\n  /* submenu */\n  li > ul { \n    width: 0;\n    height: 0;\n    display: none;\n    border: 1px solid transparent;\n  } /* hide all submenus in default */\n  :root:not(.selected) li:not([disabled]).has-submenu:hover > ul,\n  :root:not(.selected) li:not([disabled]).has-submenu:focus > ul,\n  :root:not(.selected) li:not([disabled]).has-submenu.submenu-open > ul {\n    width: auto;\n    height: auto;\n    display: block;\n    transition: opacity .25s;\n  }\n\n  /* basic styles */\n  :root.basic a { transition: all .25s; color: inherit }\n  :root.basic a:hover { color: #fff }\n  :root.basic ul { margin: 0; padding: 0; list-style: none; background: #333; color: #fff }\n  :root.basic li { padding: 8px; position: relative; color: #aaa; }\n\n  :root.basic > ul > li { padding: 15px; }   \n  :root.basic > ul > li:after, :root.basic > ul > li:after { \n    content: ' '; display: block; position: absolute; bottom: 4px; left: 0;\n    width: 100%; height: 2px; opacity: 0; background: #0FF; \n  }\n  :root.basic > ul > li:not([disabled]):hover:after, \n  :root.basic > ul > li:focus:after { \n    opacity: 1; transition:all .25s;\n  }\n\n  :root.basic > ul > li.selected  { color: #fff; }\n  :root.basic li ul{ position: absolute; }  /* submenu items */\n\n  :root.top > ul { display: flex; justify-content: space-around }\n  :root.top li > ul ul { top: 1px; left: 100%; } /* submenu items */\n  :root.top li > ul { top: 100%; left: 0;}\n\n  :root.bottom > ul { display: flex; justify-content: space-around }\n  :root.bottom li > ul ul { bottom: 0; left: 100% } /* submenu items */\n  :root.bottom li > ul { bottom: 100%; left: 0;}     /* submenu items */\n\n  :root.left > ul { display: inline-block; }       \n  :root.left li > ul {top: 0; left: 100%;}   /* submenu items */\n\n  :root.right > ul { display: inline-block; }\n  :root.right li > ul {top: 0; right: 100%;} /* submenu items */"
 
 /***/ }),
 
@@ -4065,6 +4065,8 @@ function (_HTMLCustomElement) {
 
       this.renderWith(null, css).then(function () {
         _this.position = _this.position || 'top';
+
+        _this.parentElement.setAttribute('tabindex', 0);
 
         _this.parentElement.addEventListener('mouseover', _this.show.bind(_this));
 
