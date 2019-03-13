@@ -10,6 +10,9 @@ notifications:
 cache:
   directories:
     - node_modules
+before_script:
+  - export TZ=America/Toronto
+  - date
 # allow headful tests
 before_install:
   # Enable user namespace cloning
