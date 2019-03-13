@@ -7,9 +7,10 @@
   "main": "dist/html-custom-elements.umd.js",
   "scripts": {
     "prepublishOnly": "npm run build",
-    "start": "kill-port 8080 && ENV=demo webpack-dev-server --port 8080 2>&1 | tee .server.log &",
+    "start": "npm-run-all stop serve",
     "stop": "kill-port 8080",
-    "test": "wait-port 8080 && npm start && jest && npm stop",
+    "test": "npm start && wait-on tcp:8080 && jest && npm stop",
+    "serve": "ENV=demo webpack-dev-server --port 8080 &",
     "eslint": "eslint . --fix",
     "build": "npm-run-all build:prod build:demo",
     "build:prod": "webpack --progress --hide-modules",
@@ -51,10 +52,11 @@
     "raw-loader": "^0.5.1",
     "regenerator-runtime": "^0.13.1",
     "uglifyjs-webpack-plugin": "^2.1.1",
-    "wait-port": "^0.2.2",
+    "wait-on": "^3.2.0",
     "webpack": "^4.28.4",
     "webpack-cli": "^3.2.1",
     "webpack-dev-server": "^3.1.14",
     "whatwg-fetch": "^2.0.4"
-  }
+  },
+  "dependencies": {}
 }

@@ -2,24 +2,6 @@ import {HTMLCustomElement, createCustomEvent} from 'html-custom-element';
 import * as css from './tabs.css';
 import {appear, disappear} from '../utils/animate';
 
-function __select(listEls, indexEl) {
-  Array.from(listEls)
-      .filter((el) => !el.isEqualNode(indexEl))
-      .forEach((el) => {
-        el.classList.remove('selected');
-        el.removeAttribute('tabindex');
-        if (el.getAttribute('contents-for')) {
-          el.style.display = 'none';
-        }
-      });
-
-  indexEl.classList.add('selected');
-  indexEl.setAttribute('tabindex', '0');
-  if (indexEl.getAttribute('contents-for')) {
-    appear(indexEl);
-  }
-}
-
 function __keydownHandler(e) {
   const propName =
     e.key === 'ArrowRight' ? 'nextElementSibling' :
@@ -32,23 +14,23 @@ function __keydownHandler(e) {
   }
 
   if (nextEl) {
-    const tabId = nextEl.getAttribute('tab-for');
+    const tabId = nextEl.getAttribute('tab');
     this.select(tabId); // select tab and contents
   }
 }
 
 function __clickHandler(e) {
-  const tabId = e.target.getAttribute('tab-for');
+  const tabId = e.target.getAttribute('tab');
   this.select(tabId); // select tab and contents
 }
 
 class HCETabs extends HTMLCustomElement {
-  // tabEls: tab index elements with attribute 'tab-for'
-  // contentEls: tab contents elements with attribute 'contents-for'
+  // tabEls: tab index elements with attribute 'tab'
+  // contentEls: tab contents elements with attribute 'tab'
 
   connectedCallback() {
-    this.tabEls = this.querySelectorAll('[tab-for]');
-    this.contentEls = this.querySelectorAll('[contents-for]');
+    this.tabEls = this.querySelectorAll('.hce-tabs [tab]');
+    this.contentEls = this.querySelectorAll('.hce-contents [tab]');
 
     this.renderWith(null, css).then(() => {
       this.select();
@@ -60,18 +42,41 @@ class HCETabs extends HTMLCustomElement {
   }
 
   select(tabId) {
-    if (!tabId) {
-      const tabEl = this.querySelector('[tab-for].selected') || this.tabEls[0];
-      tabId = tabEl.getAttribute('tab-for');
-    }
+    const tabEl =
+      (tabId && this.querySelector(`.hce-tabs [tab=${tabId}]`)) ||
+      this.querySelector('.hce-tabs [tab].selected') ||
+      this.tabEls[0];
 
-    const tabEl = this.querySelector(`[tab-for=${tabId}]`);
     if (tabEl.getAttribute('disabled') === null) {
-      const contentEl = this.querySelector(`[contents-for=${tabId}]`);
-      __select(this.tabEls, tabEl);
-      tabEl.focus();
-      __select(this.contentEls, contentEl);
+      const selectedTabId = tabEl.getAttribute('tab');
+      this.selectTab(selectedTabId);
+      this.selectContent(selectedTabId);
     }
+  }
+
+  selectTab(tabId) {
+    const selectedOne = this.querySelector(`.hce-tabs [tab=${tabId}]`) || this.tabsEls[0];
+    Array.from(this.tabEls).filter((el) => !el.isEqualNode(selectedOne)).forEach((el) => {
+      el.classList.remove('selected');
+      el.removeAttribute('tabindex');
+    });
+
+    selectedOne.classList.add('selected');
+    selectedOne.setAttribute('tabindex', '0');
+    selectedOne.focus();
+  }
+
+  selectContent(tabId) {
+    const selectedOne = this.querySelector(`.hce-contents [tab=${tabId}]`) || this.contentsEls[0];
+    Array.from(this.contentEls).filter((el) => !el.isEqualNode(selectedOne)).forEach((el) => {
+      el.classList.remove('selected');
+      el.removeAttribute('tabindex');
+      el.style.display = 'none';
+    });
+
+    selectedOne.classList.add('selected');
+    selectedOne.setAttribute('tabindex', '0');
+    appear(selectedOne);
   }
 }
 

@@ -1,27 +1,27 @@
 <h2>hce-tabs</h2>
 <style id="css1">
-  hce-tabs.custom .tabs {
+  hce-tabs.custom .hce-tabs {
     border-top: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
     padding: 6px 20px 0 20px;
     display: flex;
     justify-content: space-between;
   }
-  hce-tabs.custom .tabs [tab-for] {
+  hce-tabs.custom .hce-tabs [tab] {
     border-bottom: 4px solid transparent;
     border: none;
     background: #fff;
     position: inherit;
     font-size: 18px;
   }
-  hce-tabs.custom .tabs [tab-for].selected {
+  hce-tabs.custom .hce-tabs [tab].selected {
     color: red;
     border-bottom: 4px solid red;
   }
-  hce-tabs.custom .tab-contents {
+  hce-tabs.custom .hce-contents {
     height: auto;
   }
-  hce-tabs.code .contents {min-height: 200px;}
+  hce-tabs.code .hce-contents {min-height: 200px;}
 </style>
 
 <p>
@@ -35,15 +35,15 @@
 
 <h3>Child Elements</h3>
 <ul>
-  <li><b>"tabs" class</b> in any element: Tab indicator section. 
+  <li><b>"hce-tabs" class</b> in any element: Tab indicator section. 
     <ul>
-      <li><b>"tab-for" attribute</b>: Tab identifier. String value. e.g., "tab1"</li>
+      <li><b>"tab" attribute</b>: Tab identifier. String value. e.g., "tab1"</li>
       <li><b>"disabled" attribute</b>: If defined, this won't be selected</li>
     </ul>
   </li>
-  <li><b>"contents" class</b> in any element: Contents section
+  <li><b>"hce-contents" class</b> in any element: Contents section
     <ul>
-      <li><b>"contents-for" attribute</b>: Contents identifier. String value. e.g., "tab1"</li>
+      <li><b>"tab" attribute</b>: Contents identifier. String value. e.g., "tab1"</li>
     </ul>
   </li>
 </ul>
@@ -51,30 +51,30 @@
 <p>
   To use hce-tabs;
   <ul>
-    <li> Provide two sections with class 'tabs' and 'contents'
-    <li> within 'tabs' section, declare tab with attribute 'tab-for'
-    <li> within 'contents' section, declare mathing content with attribute 'contents-for'
+    <li> Provide two sections with class 'hce-tabs' and 'hce-contents'
+    <li> within 'hce-tabs' section, declare tab with attribute 'tab'
+    <li> within 'hce-contents' section, declare mathing content with attribute 'tab'
   </ul>
 </p>
 <h3>Normal Tab</h3>
 <hce-tabs id="x1" class="first" selected="css"> <!-- this makes all tab  possible -->
-  <div class="tabs"> <!-- class as 'tabs' -->
-    <div tab-for="html">html</div>
-    <div tab-for="na1" disabled>disabled</div>
-    <div tab-for="na2" disabled>disabled</div>
-    <div tab-for="js">js</div>
-    <div tab-for="css">css</div>
-    <div tab-for="na3" disabled>disabled</div>
+  <div class="hce-tabs"> <!-- class as 'hce-tabs' -->
+    <div tab="html">html</div>
+    <div tab="na1" disabled>disabled</div>
+    <div tab="na2" disabled>disabled</div>
+    <div tab="js">js</div>
+    <div tab="css">css</div>
+    <div tab="na3" disabled>disabled</div>
   </div>
-  <div class="contents"> <!-- class as 'contents' -->
-    <div contents-for="html">HTML5 </div>
-    <div contents-for="js">Javascript </div>
-    <div contents-for="css">Cascading Style Sheet </div>
+  <div class="hce-contents"> <!-- class as 'hce-contents' -->
+    <div tab="html">HTML5 </div>
+    <div tab="js">Javascript </div>
+    <div tab="css">Cascading Style Sheet </div>
   </div>
 </hce-tabs>
 <br/>
 <script>
-  showCode('x1', 0, 0, /selected|tab-for|contents-for|tabs|contents/g);
+  showCode('x1', 0, 0, /selected|tab|hce-tabs|hce-contents/g);
 </script>
 
 
@@ -84,20 +84,20 @@
   Please check css tabs for detail.
 </p>
 <hce-tabs id="x2" class="custom" selected="details">
-  <div class="tabs">
-    <div tab-for="value">Value</div>
-    <div tab-for="details">Details</div>
-    <div tab-for="how-to">How to</div>
-    <div tab-for="eligiliity">Eligibility</div>
+  <div class="hce-tabs">
+    <div tab="value">Value</div>
+    <div tab="details">Details</div>
+    <div tab="how-to">How to</div>
+    <div tab="eligiliity">Eligibility</div>
   </div>
-  <div class="contents">
-    <div contents-for="value">Value</div>
-    <div contents-for="details">Details </div>
-    <div contents-for="how-to">How to </div>
-    <div contents-for="eligiliity">Eligibility</div>
+  <div class="hce-contents">
+    <div tab="value">Value</div>
+    <div tab="details">Details </div>
+    <div tab="how-to">How to </div>
+    <div tab="eligiliity">Eligibility</div>
   </div>
 </hce-tabs>
 <br/>
 <script>
-  showCode('x1', null, 'css1', /selected|tab-for|contents-for|tabs|contents/g);
+  showCode('x1', null, 'css1', /selected|tab|hce-tabs|hce-contents/g);
 </script>

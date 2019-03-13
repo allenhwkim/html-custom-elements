@@ -21,13 +21,13 @@ describe('hce-tabs', () => {
   });
 
   test('hce-tabs', async done => {
-    await I.click('[tab-for=css]', '#x1');
+    await I.click('.hce-tabs [tab=css]', '#x1');
     await I.see('Cascading Style Sheet', '#x1');
     await I.dontSee('HTML5', '#x1');
-    await I.click('[tab-for=js]', '#x1');
+    await I.click('.hce-tabs [tab=js]', '#x1');
     await I.dontSee('Cascading Style Sheet', '#x1');
     await I.see('Javascript', '#x1');
-    await I.click('[tab-for=html]', '#x1');
+    await I.click('.hce-tabs [tab=html]', '#x1');
     await I.see('HTML5', '#x1');
     await I.dontSee('Javascript', '#x1');
     done();
