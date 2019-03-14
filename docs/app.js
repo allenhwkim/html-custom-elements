@@ -63,7 +63,7 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "a6c84d00e4a6a699bc79";
+/******/ 	var hotCurrentHash = "72b913029dbd423b5031";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -815,7 +815,7 @@ window.prettify = function (selector, type, highlight) {
 
 window.showCode = function (htmlId, jsId, cssId, highlight) {
   var el = document.createElement('div');
-  el.insertAdjacentHTML('beforeend', "\n    <hce-tabs class=\"code\">\n      <div class=\"tabs\">\n        <i tab-for=\"html\">html</i>\n        <i tab-for=\"js\">js</i>\n        <i tab-for=\"css\">css</i>\n      </div>\n      <div class=\"contents\" style=\"background:#f8f8f8\"> \n        <div contents-for=\"html\"><pre></pre></div>\n        <div contents-for=\"js\"><pre></pre></div>\n        <div contents-for=\"css\"><pre></pre></div>\n      </div>\n    </hce-tabs>");
+  el.insertAdjacentHTML('beforeend', "\n    <hce-tabs class=\"code\">\n      <div class=\"hce-tabs\">\n        <i tab=\"html\">html</i>\n        <i tab=\"js\">js</i>\n        <i tab=\"css\">css</i>\n      </div>\n      <div class=\"hce-contents\" style=\"background:#f8f8f8\"> \n        <div tab=\"html\"><pre></pre></div>\n        <div tab=\"js\"><pre></pre></div>\n        <div tab=\"css\"><pre></pre></div>\n      </div>\n    </hce-tabs>");
   document.currentScript.insertAdjacentElement('afterend', el);
 
   function fillCode(id, type) {
@@ -825,7 +825,7 @@ window.showCode = function (htmlId, jsId, cssId, highlight) {
 
     if (id) {
       srcEl = document.getElementById(id);
-      dstEl = el.querySelector("[contents-for=".concat(type, "] pre"));
+      dstEl = el.querySelector(".hce-contents [tab=".concat(type, "] pre"));
       var lang = type === 'js' ? 'javascript' : type;
       html = prismjs__WEBPACK_IMPORTED_MODULE_1___default.a.highlight(srcEl.innerHTML.replace(/^\n(\s+)/, '$1'), prismjs__WEBPACK_IMPORTED_MODULE_1___default.a.languages[lang], lang);
       html = html.replace(/hce-[\w-]+/g, function ($0) {
@@ -836,8 +836,8 @@ window.showCode = function (htmlId, jsId, cssId, highlight) {
       }));
       dstEl.innerHTML = html;
     } else {
-      el.querySelector("[tab-for=".concat(type, "]")).remove();
-      el.querySelector("[contents-for=".concat(type, "]")).remove();
+      el.querySelector(".hce-tabs [tab=".concat(type, "]")).remove();
+      el.querySelector(".hce-contents [tab=".concat(type, "]")).remove();
     }
   }
 
@@ -3889,7 +3889,7 @@ HCESticky.define('hce-sticky', HCESticky);
 /***/ "./src/tabs/tabs.css":
 /***/ (function(module, exports) {
 
-module.exports = "  :root {\n    display: block\n  }\n  .tabs {\n    border-bottom: 1px solid #999;\n    display: flex;\n  }\n  .tabs [tab-for] {\n    border: 1px solid #999;\n    background: #EEE;\n    padding: 4px 12px;\n    border-radius: 4px 4px 0 0;\n    position: relative;\n    top: 1px;\n  }\n  .tabs [tab-for].selected {\n    background: #FFF;\n    border-bottom: 1px solid transparent;\n  }\n  .tabs [tab-for][disabled] {\n    opacity: 0.5;\n  }\n\n  .contents [contents-for] {\n    display: none;\n    transition: opacity .25s;\n  }\n  .contents [contents-for].selected {\n    display: block;\n  }"
+module.exports = "  :root {\n    display: block\n  }\n  .hce-tabs {\n    border-bottom: 1px solid #999;\n    display: flex;\n  }\n  .hce-tabs [tab] {\n    border: 1px solid #999;\n    background: #EEE;\n    padding: 4px 12px;\n    border-radius: 4px 4px 0 0;\n    position: relative;\n    top: 1px;\n  }\n  .hce-tabs [tab].selected {\n    background: #FFF;\n    border-bottom: 1px solid transparent;\n  }\n  .hce-tabs [tab][disabled] {\n    opacity: 0.5;\n  }\n\n  .hce-contents [tab] {\n    display: none;\n    transition: opacity .25s;\n  }\n  .hce-contents [tab].selected {\n    display: block;\n  }"
 
 /***/ }),
 
@@ -3922,25 +3922,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function __select(listEls, indexEl) {
-  Array.from(listEls).filter(function (el) {
-    return !el.isEqualNode(indexEl);
-  }).forEach(function (el) {
-    el.classList.remove('selected');
-    el.removeAttribute('tabindex');
-
-    if (el.getAttribute('contents-for')) {
-      el.style.display = 'none';
-    }
-  });
-  indexEl.classList.add('selected');
-  indexEl.setAttribute('tabindex', '0');
-
-  if (indexEl.getAttribute('contents-for')) {
-    Object(_utils_animate__WEBPACK_IMPORTED_MODULE_7__["appear"])(indexEl);
-  }
-}
-
 function __keydownHandler(e) {
   var propName = e.key === 'ArrowRight' ? 'nextElementSibling' : e.key === 'ArrowLeft' ? 'previousElementSibling' : 'N/A';
   var nextEl = e.target[propName];
@@ -3951,13 +3932,13 @@ function __keydownHandler(e) {
   }
 
   if (nextEl) {
-    var tabId = nextEl.getAttribute('tab-for');
+    var tabId = nextEl.getAttribute('tab');
     this.select(tabId); // select tab and contents
   }
 }
 
 function __clickHandler(e) {
-  var tabId = e.target.getAttribute('tab-for');
+  var tabId = e.target.getAttribute('tab');
   this.select(tabId); // select tab and contents
 }
 
@@ -3974,13 +3955,13 @@ function (_HTMLCustomElement) {
 
   _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(HCETabs, [{
     key: "connectedCallback",
-    // tabEls: tab index elements with attribute 'tab-for'
-    // contentEls: tab contents elements with attribute 'contents-for'
+    // tabEls: tab index elements with attribute 'tab'
+    // contentEls: tab contents elements with attribute 'tab'
     value: function connectedCallback() {
       var _this = this;
 
-      this.tabEls = this.querySelectorAll('[tab-for]');
-      this.contentEls = this.querySelectorAll('[contents-for]');
+      this.tabEls = this.querySelectorAll('.hce-tabs [tab]');
+      this.contentEls = this.querySelectorAll('.hce-contents [tab]');
       this.renderWith(null, _tabs_css__WEBPACK_IMPORTED_MODULE_6__).then(function () {
         _this.select();
 
@@ -3993,23 +3974,42 @@ function (_HTMLCustomElement) {
   }, {
     key: "select",
     value: function select(tabId) {
-      if (!tabId) {
-        var _tabEl = this.querySelector('[tab-for].selected') || this.tabEls[0];
-
-        tabId = _tabEl.getAttribute('tab-for');
-      }
-
-      var tabEl = this.querySelector("[tab-for=".concat(tabId, "]"));
+      var tabEl = tabId && this.querySelector(".hce-tabs [tab=".concat(tabId, "]")) || this.querySelector('.hce-tabs [tab].selected') || this.tabEls[0];
 
       if (tabEl.getAttribute('disabled') === null) {
-        var contentEl = this.querySelector("[contents-for=".concat(tabId, "]"));
-
-        __select(this.tabEls, tabEl);
-
-        tabEl.focus();
-
-        __select(this.contentEls, contentEl);
+        var selectedTabId = tabEl.getAttribute('tab');
+        this.selectTab(selectedTabId);
+        this.selectContent(selectedTabId);
       }
+    }
+  }, {
+    key: "selectTab",
+    value: function selectTab(tabId) {
+      var selectedOne = this.querySelector(".hce-tabs [tab=".concat(tabId, "]")) || this.tabsEls[0];
+      Array.from(this.tabEls).filter(function (el) {
+        return !el.isEqualNode(selectedOne);
+      }).forEach(function (el) {
+        el.classList.remove('selected');
+        el.removeAttribute('tabindex');
+      });
+      selectedOne.classList.add('selected');
+      selectedOne.setAttribute('tabindex', '0');
+      selectedOne.focus();
+    }
+  }, {
+    key: "selectContent",
+    value: function selectContent(tabId) {
+      var selectedOne = this.querySelector(".hce-contents [tab=".concat(tabId, "]")) || this.contentsEls[0];
+      Array.from(this.contentEls).filter(function (el) {
+        return !el.isEqualNode(selectedOne);
+      }).forEach(function (el) {
+        el.classList.remove('selected');
+        el.removeAttribute('tabindex');
+        el.style.display = 'none';
+      });
+      selectedOne.classList.add('selected');
+      selectedOne.setAttribute('tabindex', '0');
+      Object(_utils_animate__WEBPACK_IMPORTED_MODULE_7__["appear"])(selectedOne);
     }
   }]);
 
