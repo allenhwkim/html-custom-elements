@@ -63,7 +63,7 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "020e4df274b1dad5b69c";
+/******/ 	var hotCurrentHash = "72b913029dbd423b5031";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -2045,7 +2045,7 @@ module.exports = g;
 /***/ "./src/calendar/calendar.css":
 /***/ (function(module, exports) {
 
-module.exports = ":root.overlay:before {            /* Needed to check click outside of overlay */\n  content: ' ';\n  position: fixed;\n  top: 0; left: 0; right: 0; bottom: 0;\n  background: transparent;\n}\n.calendar {           /* overlay contents on thetop of blocker */\n  position: relative;\n  background: #fff;\n  min-width: 200px;\n}\n.calendar.shadow {\n  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.14),\n    0px 1px 1px 0px rgba(0, 0, 0, 0.12), \n    0px 2px 1px -1px rgba(0, 0, 0, .4) ;\n}\n\n.title {              /* e.g. '< Mar 2019 >' */\n  display: flex;\n  justify-content: space-between;\n  position: relative;\n  background: #fff;\n}\n.title .month-year {\n  flex: 1;\n  font-weight: bold;\n} \n.title .prev, .title .next {\n  border: none;\n  background: #fff;\n}\n.title select {        /* Jan, Feb .. */ /* 2017, 2018, ... */\n  -webkit-appearance: none;\n  -moz-appearance: none;\n  appearance: none;\n  padding: 0;\n  border: none;\n}\n.days {\n  border-bottom: 1px solid #ccc;\n}\n.days > span {          /* Mon, Tue, Wed ... */\n  display: inline-block;\n  text-align: center;\n  width: calc(100% / 7);\n}\n.dates button {          /* 1, 2, ... 31 */\n  padding: 4px 0;\n  width: calc(100% / 7);\n  border: none;\n  outline: none;\n}\n.dates button.day:hover {\n  background-color: rgba(160, 205, 248, .5);*/\n}\n.dates button:focus {\n  box-shadow: inset 0 0 2px 1px rgb(160, 205, 248);\n}\n.dates button.leading { \n  color: #eee; border: none;\n}\n.dates button.trailing {\n  color: #eee; border: none;\n}"
+module.exports = ":root.overlay:before {            /* Needed to check click outside of overlay */\n  content: ' ';\n  position: fixed;\n  top: 0; left: 0; right: 0; bottom: 0;\n  background: transparent;\n}\n.calendar {           /* overlay contents on thetop of blocker */\n  position: relative;\n  background: #fff;\n  min-width: 200px;\n}\n.calendar.shadow {\n  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.14),\n    0px 1px 1px 0px rgba(0, 0, 0, 0.12), \n    0px 2px 1px -1px rgba(0, 0, 0, .4) ;\n}\n\n.title {              /* e.g. '< Mar 2019 >' */\n  display: flex;\n  justify-content: space-between;\n  position: relative;\n  background: #fff;\n}\n.title .month-year {\n  flex: 1;\n  font-weight: bold;\n} \n.title .prev, .title .next {\n  border: none;\n  background: #fff;\n}\n.title select {        /* Jan, Feb .. */ /* 2017, 2018, ... */\n  -webkit-appearance: none;\n  -moz-appearance: none;\n  appearance: none;\n  padding: 0;\n  border: none;\n}\n.days {\n  border-bottom: 1px solid #ccc;\n}\n.days > span {          /* Mon, Tue, Wed ... */\n  display: inline-block;\n  text-align: center;\n  width: calc(100% / 7);\n}\n.dates button {          /* 1, 2, ... 31 */\n  padding: 4px 0;\n  width: calc(100% / 7);\n  border: none;\n  border-radius: 50%;\n  outline: none;\n}\n.dates button.day:hover {\n  background-color: rgba(160, 205, 248, .5);\n}\n.dates button:focus {\n  box-shadow: inset 0 0 2px 1px rgb(160, 205, 248);\n}\n.dates button.leading { \n  color: #eee; border: none;\n}\n.dates button.trailing {\n  color: #eee; border: none;\n}"
 
 /***/ }),
 
