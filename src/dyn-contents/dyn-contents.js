@@ -32,7 +32,11 @@ function setInnerHTML(elm, html) {
     });
 
     newEl.appendChild(document.createTextNode(el.innerHTML));
-    el.parentNode.replaceChild(newEl, el);
+    try {
+      el.parentNode.replaceChild(newEl, el);
+    } catch (e) {
+      console.error('Invalid Javascript error with '+el.innerHTML, e);
+    }
   });
 }
 

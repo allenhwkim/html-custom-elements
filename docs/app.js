@@ -63,7 +63,7 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "72b913029dbd423b5031";
+/******/ 	var hotCurrentHash = "6fa6960b9a3ac85a28c4";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -2941,7 +2941,12 @@ function setInnerHTML(elm, html) {
       newEl.setAttribute(el.name, el.value);
     });
     newEl.appendChild(document.createTextNode(el.innerHTML));
-    el.parentNode.replaceChild(newEl, el);
+
+    try {
+      el.parentNode.replaceChild(newEl, el);
+    } catch (e) {
+      console.error('Invalid Javascript error with ' + el.innerHTML, e);
+    }
   });
 }
 
