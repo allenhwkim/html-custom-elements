@@ -54,25 +54,9 @@
       </hce-routes>
     </hce-sticky>
 
-    <hce-routes class="contents" move-to-top="true">
-      <div route-match="^/$" import="demo/home.html"></div>
+    <hce-routes src="demo/home.html" class="contents" move-to-top="true">
       <div route-match="home" import="demo/home.html"></div>
-      <div route-match="tooltip" import="demo/hce-tooltip.html"></div>
-      <div route-match="tabs" import="demo/hce-tabs.html"></div>
-      <div route-match="loading" import="demo/hce-loading.html"></div>
-      <div route-match="carousel" import="demo/hce-carousel.html"></div>
-      <div route-match="snackbar" import="demo/hce-snackbar.html"></div>
-      <div route-match="drawer" import="demo/hce-drawer.html"></div>
-      <div route-match="dialog" import="demo/hce-dialog.html"></div>
-      <div route-match="calendar" import="demo/hce-calendar.html"></div>
-      <div route-match="list" import="demo/hce-list.html"></div>
-      <div route-match="overlay" import="demo/hce-overlay.html"></div>
-      <div route-match="menu" import="demo/hce-menu.html"></div>
-      <div route-match="file" import="demo/hce-file.html"></div>
-      <div route-match="sticky" import="demo/hce-sticky.html"></div>
-      <div route-match="routes" import="demo/hce-routes.html"></div>
-      <div route-match="draggable" import="demo/hce-draggable.html"></div>
-      <div route-match="collapsible" import="demo/hce-collapsible.html"></div>
+      <div route-match="/#([a-z]+)$" import="demo/hce-{{1}}.html"></div>
     </hce-routes>
     
   </body>

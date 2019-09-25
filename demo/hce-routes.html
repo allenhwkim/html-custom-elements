@@ -6,11 +6,15 @@
   This is very useful when you need to build a very simple single page application without a framework router.
 </p>
 
-<h3>Child Elements</h3>
+<h3>Attributes</h3>
 <ul>
-  <li><b>route-match</b> attribute: When the current url matches to this string, ...
-  <li><b>import</b> attribute: Import the given html file here.
-  <li><b>default</b> attribute: When the current url does not match any, use this block to import html file.
+  <li><b>src</b> Default url to import. e.g., 'home.html'
+</ul>
+
+<h3>Child Element Attributes</h3>
+<ul>
+  <li><b>route-match</b> Regular expression matching to the current url. e.g. 'home', '/#([a-z]+)$'
+  <li><b>import</b> Import the given html file here. e.g. home.html, {{1}}.html
 </ul>
 
 <h3>Example</h3>
@@ -26,13 +30,11 @@
     <li><a href="#x1-contents/1">contents 1</a></li>
     <li><a href="#x1-contents/2">contents 2</a></li>
     <li><a href="#x1-contents/3">contents 3</a></li>
+    <li><a href="#x1-contents/9">error page</a></li>
   </ul>
 
-  <hce-routes class="contents small">
-    <div route-match="routes" import="demo/hce-routes-1.html"></div>
-    <div route-match="x1-contents/1" import="demo/hce-routes-1.html"></div>
-    <div route-match="x1-contents/2" import="demo/hce-routes-2.html"></div>
-    <div route-match="x1-contents/3" import="demo/hce-routes-3.html"></div>
+  <hce-routes src="demo/hce-routes-1.html" class="contents small">
+    <div route-match="x1-contents/([0-9])" import="demo/hce-routes-{{1}}.html"></div>
   </hce-routes>
 </div>
 <br/>
