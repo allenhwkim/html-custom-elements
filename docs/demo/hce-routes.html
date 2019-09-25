@@ -1,0 +1,41 @@
+<h2>hce-routes</h2>
+<p>
+  hce-routes replace its contents by the current url match.
+</p>
+<p>
+  This is very useful when you need to build a very simple single page application without a framework router.
+</p>
+
+<h3>Child Elements</h3>
+<ul>
+  <li><b>route-match</b> attribute: When the current url matches to this string, ...
+  <li><b>import</b> attribute: Import the given html file here.
+  <li><b>default</b> attribute: When the current url does not match any, use this block to import html file.
+</ul>
+
+<h3>Example</h3>
+
+<style>
+#x1 { display: flex; }
+#x1 .table-of-contents {display :flex; flex-direction: column}
+.contents.small { min-height: inherit; border: 1px dashed #ccc; }
+</style>
+
+<div id="x1">
+  <ul class="table-of-contents">
+    <li><a href="#x1-contents/1">contents 1</a></li>
+    <li><a href="#x1-contents/2">contents 2</a></li>
+    <li><a href="#x1-contents/3">contents 3</a></li>
+  </ul>
+
+  <hce-routes class="contents small">
+    <div route-match="routes" import="demo/hce-routes-1.html"></div>
+    <div route-match="x1-contents/1" import="demo/hce-routes-1.html"></div>
+    <div route-match="x1-contents/2" import="demo/hce-routes-2.html"></div>
+    <div route-match="x1-contents/3" import="demo/hce-routes-3.html"></div>
+  </hce-routes>
+</div>
+<br/>
+<script>
+  showCode('x1', 0, 0, /route-match|import/g);
+</script>

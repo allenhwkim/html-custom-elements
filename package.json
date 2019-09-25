@@ -10,7 +10,7 @@
     "start": "npm-run-all stop serve",
     "stop": "kill-port 8080",
     "test": "npm start && wait-on tcp:8080 && jest && npm stop",
-    "serve": "ENV=demo webpack-dev-server --port 8080 &",
+    "serve": "ENV=demo webpack-dev-server --port 8080",
     "eslint": "eslint . --fix",
     "build": "npm-run-all build:prod build:demo",
     "build:prod": "webpack --progress --hide-modules",

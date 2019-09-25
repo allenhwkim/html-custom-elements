@@ -1,0 +1,139 @@
+<style>
+hce-list {z-index: 1; border: 1px solid #ccc; display: inline-block;}
+hce-list li {list-style: none; margin: 0; padding: 0;}
+hce-list li {min-width: 200px; max-width: 400px;}
+hce-list li:hover { background: #eee; }
+pre {padding: 12px; background: #eee; margin: 0 ;}
+</style>
+<h2>hce-list</h2>
+
+<p>
+  hce-list changes its contents by the given source.
+  It also provides autocomplte feature of an input box.
+</p>
+
+<h3>Attributes</h3>
+ <ul>
+  <li><b>[source]</b>: When this is set, this selectable list changes dynamically.
+    Types of source are; array, object, or a Promise that returns array or object.
+  </li>
+  <li><b>(selected)</b>: Event handler as a function to process selected object.</li>
+  <li><b>visible-by</b>: Selector as string pointing to an input element.
+     The list will be only displayed when the element is focused or typed.
+   </li>
+</ul> 
+
+<h3>Auto Complete</h3>
+You can use hce-list as an autocomplete by providing source function that returns a promise.
+<div id="x0">
+  <input id="keyword" placeholder="Type to search"/>
+  <br/>
+  <hce-list [source]="getAutoComplete()" 
+    (selected)="selected0(event)"
+    visible-by="#keyword">
+    <li>{{name.first}} {{name.last}}</li>
+  </hce-list>
+  <pre class="data-selected">Autocomplete input to see the selected data object.</pre>
+</div>
+<script id="s0">
+function getAutoComplete() {
+  const keyword = document.querySelector('#x0 #keyword').value;
+  return new Promise(function(resolve, reject) {
+    setTimeout( _ => {
+      return resolve({
+        1: {name: {first: keyword + ' John', last: 'Doe'}},
+        2: {name: {first: keyword + ' Jane', last: 'Dorothy'}},
+        3: {name: {first: keyword + ' Third', last: 'Man'}}
+      });
+    }, 200);
+  });
+}
+function selected0(event) {
+  document.querySelector('#keyword').value =
+    event.detail.name.first + ' ' + event.detail.name.last;
+  document.querySelector('#x0 .data-selected').innerHTML = JSON.stringify(event.detail, null, ' ');
+}
+</script>
+<script>
+  showCode('x0', 's0', 0, /hce-list|source|selected|visible-by/g);
+</script>
+<hr/>
+
+<h3>Source As an Array</h3>
+When you set the source as an array, the list automatically changes.
+<div id="x1">
+  <hce-list class="hdl" [source]="srcInArray1" (selected)="selected1(event)">
+    <li>{{name.first}} {{name.last}}</li>
+  </hce-list>
+  <button onclick="dynList1.source=srcInArray1">set source1</button>
+  <button onclick="dynList1.source=srcInArray2">set source2</button>
+  <pre class="data-selected">Select one of the list to see the selected object.</pre>
+</div>
+<script id="s1">
+/* eslint-disable no-var */
+var dynList1 = document.querySelector('#x1 .hdl');
+var srcInArray1 = [{name: {first: 'Array 1', last: 'Doe'}}, {name: {first: 'Array 1', last: 'Dorothy'}}];
+var srcInArray2 = [{name: {first: 'Array 2', last: 'Doe'}}, {name: {first: 'Array 2', last: 'Dorothy'}}];
+function selected1(event) {
+  document.querySelector('#x1 .data-selected').innerHTML = JSON.stringify(event.detail, null, '  ');
+}
+</script>
+<script>
+  showCode('x1', 's1', 0, /hce-list|\[source\]|\(selected\)|visible-by/g);
+</script>
+<hr/>
+
+<h3>Source As a Object</h3>
+When you set the source as a object, the list automatically changes.
+<div id="x2">
+  <hce-list class="hdl" [source]="srcInObject1" (selected)="selected2(event)">
+    <li>{{key}} {{name.first}} {{name.last}}</li>
+  </hce-list>
+  <button onclick="dynList2.source=srcInObject1">set source1</button>
+  <button onclick="dynList2.source=srcInObject2">set source2</button>
+  <pre class="data-selected">Select one of the list to see the selected object.</pre>
+</div>
+<script id="s2">
+/* eslint-disable no-var */
+var dynList2 = document.querySelector('#x2 .hdl');
+var srcInObject1 = {1: {name: {first: 'Object 1', last: 'Doe'}}, 2: {name: {first: 'Object 1', last: 'Dorothy'}}};
+var srcInObject2 = {1: {name: {first: 'Object 2', last: 'Doe'}}, 2: {name: {first: 'Object 2', last: 'Dorothy'}}};
+function selected2(event) {
+  document.querySelector('#x2 .data-selected').innerHTML = JSON.stringify(event.detail, null, '  ');
+}
+</script>
+<script>
+  showCode('x2', 's2', 0, /hce-list|\[source\]|\(selected\)|visible-by/g);
+</script>
+<hr/>
+
+<h3>Source As a Promise</h3>
+When you set the source as a Promise that returns an array or a object, the list automatically changes.
+<div id="x3">
+  <hce-list class="hdl" [source]="srcInPromiseArray" (selected)="selectedx3(event)">
+    <li>{{name.first}} {{name.last}}</li>
+  </hce-list>
+  <button onclick="dynList3.source=srcInPromiseArray">set source1</button>
+  <button onclick="dynList3.source=srcInPromiseObject">set source2</button>
+  <pre class="data-selected">Select one of the list to see the selected object.</pre>
+</div>
+<script id="s3">
+/* eslint-disable no-var */
+var dynList3 = document.querySelector('#x3 .hdl');
+var srcInPromiseArray = Promise.resolve({
+  1: {name: {first: 'Promise 1 John', last: 'Doe'}},
+  2: {name: {first: 'Promise 1 Jane', last: 'Dorothy'}}
+});
+var srcInPromiseObject = Promise.resolve([
+  {name: {first: 'Promise 2 John', last: 'Doe'}},
+  {name: {first: 'Promise 2 Jane', last: 'Dorothy'}}
+]);
+function selectedx3(event) {
+  document.querySelector('#x3 .data-selected').innerHTML = JSON.stringify(event.detail, null, '  ');
+}
+</script>
+<script>
+  showCode('x3', 's3', 0, /hce-list|\[source\]|\(selected\)|visible-by/g);
+</script>
+<hr/>
+
