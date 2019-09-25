@@ -32,7 +32,7 @@ const css = `
   }
 `;
 
-export class HCEDynList extends HTMLCustomElement {
+export class HCEList extends HTMLCustomElement {
   get source() {
     return this.__source;
   }
@@ -61,7 +61,7 @@ export class HCEDynList extends HTMLCustomElement {
 
   setBehaviourOfVisibleBy(visibleBy) {
     if (visibleBy && !document.querySelector(visibleBy)) {
-      console.error('[hce-dyn-list] element not found by selector', visibleBy);
+      console.error('[hce-list] element not found by selector', visibleBy);
       return false;
     }
     const inputEl = document.querySelector(visibleBy);
@@ -118,4 +118,4 @@ export class HCEDynList extends HTMLCustomElement {
   }
 }
 
-HCEDynList.define('hce-dyn-list', HCEDynList);
+HCEList.define('hce-list', HCEList);

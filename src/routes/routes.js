@@ -3,7 +3,7 @@ import {HTMLCustomElement, createCustomEvent} from 'html-custom-element';
 function getRoutesFromChildren(el) {
   const routes = [];
   Array.from(el.children).forEach((child) => {
-    const match = child.getAttribute('url-match');
+    const match = child.getAttribute('route-match');
     const url = child.getAttribute('import');
     const isDefault = child.getAttribute('default') !== null;
     if (match && url) {
@@ -40,23 +40,33 @@ function setInnerHTML(elm, html) {
   });
 }
 
-export class HCEDynamicContents extends HTMLCustomElement {
+export class HCERoutes extends HTMLCustomElement {
   connectedCallback() {
-    this.routes = getRoutesFromChildren(this);
-
     const supportsPopState = window.navigator.userAgent.indexOf('Trident') === -1;
     const popstate = supportsPopState ? 'popstate' : 'hashchange';
 
-    this.popStateHandler(); // load the contents
-    window.addEventListener(popstate, this.popStateHandler.bind(this));
+    this.routes = getRoutesFromChildren(this);
+    this.popStateHandler = this.routes.length ?
+      this.replaceContentsHandler.bind(this) : this.setActiveLinksHandler.bind(this);
+
+    this.popStateHandler(); // load the contents or set active links
+    window.addEventListener(popstate, this.popStateHandler);
   }
 
-  popStateHandler(event) {
+  disconnectedCallback() {
+    const supportsPopState = window.navigator.userAgent.indexOf('Trident') === -1;
+    const popstate = supportsPopState ? 'popstate' : 'hashchange';
+    console.log('[hce-route] removing popstate handler', this.popStateHandler);
+    window.removeEventListener(popState, this.popStateHandler);
+  }
+
+  replaceContentsHandler(event) {
     const route = getRoute(this.routes);
+    console.log('[hce-route] replaceContentsHandler', 'event', event, 'routes', this.route, 'route', route);
     if (route) {
       window.fetch(route.import).then((response) => {
         if (!response.ok) {
-          throw Error(`[hce-dyn-contents] import url: ${route.import}, status: ${response.statusText}`);
+          throw Error(`[hce-routes] import url: ${route.import}, status: ${response.statusText}`);
         }
         return response.text();
       }).then((html) => {
@@ -67,6 +77,18 @@ export class HCEDynamicContents extends HTMLCustomElement {
       });
     }
   }
+
+  setActiveLinksHandler(event) {
+    Array.from(this.querySelectorAll('[href')).forEach(hrefEl => {
+      if (hrefEl.href === window.location.href) {
+        hrefEl.classList.add('active');
+      } else {
+        hrefEl.classList.remove('active');
+        !hrefEl.className && hrefEl.removeAttribute('class');
+      }
+    });
+  }
+
 }
 
-HTMLCustomElement.define('hce-dyn-contents', HCEDynamicContents);
+HTMLCustomElement.define('hce-routes', HCERoutes);

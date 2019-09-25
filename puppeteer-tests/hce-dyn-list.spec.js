@@ -2,7 +2,7 @@ const puppeteer = require('puppeteer');
 const {HelperI, launch, timeout, baseUrl} = require('./helper-i');
 jest.setTimeout(timeout);
 
-describe('hce-dyn-list', () => {
+describe('hce-list', () => {
   let browser;
   let page;
   const errors = [];
@@ -16,7 +16,7 @@ describe('hce-dyn-list', () => {
     page.on('error', err => errors.push(err));
 
     I = new HelperI(page);
-    await page.goto(baseUrl + '/#dyn-list', {waitUntil: 'networkidle2'});
+    await page.goto(baseUrl + '/#list', {waitUntil: 'networkidle2'});
     done();
   });
 

@@ -10,7 +10,7 @@
       .table-of-contents li:not(:last-child) { border-right: 1px solid #ccc;  }
       hce-sticky.toc { display: block; background: #fff; padding: 12px;}
       hce-sticky.toc.detached { box-shadow: 0 4px 4px -2px #000000;  z-index: 10;}
-      hce-dyn-contents.contents {
+      hce-routes.contents {
         display: block; padding: 12px; min-height: 400px;
       }
       hce-tabs {padding: 24px;} 
@@ -30,47 +30,49 @@
       </sub>
     </h1>
     <hce-sticky class="toc">
-      <ul class="table-of-contents">
-        <li><a href="#home">home</a></li>
-        <li><a href="#tooltip">tooltip</a></li>
-        <li><a href="#tabs">tabs</a></li>
-        <li><a href="#loading">loading</a></li>
-        <li><a href="#carousel">carousel</a></li>
-        <li><a href="#snackbar">snackbar</a></li>
-        <li><a href="#drawer">drawer</a></li>
-        <li><a href="#dialog">dialog</a></li>
-        <li><a href="#calendar">calendar</a></li>
-        <li><a href="#dyn-list">dyn-list</a></li>
-        <li><a href="#overlay">overlay</a></li>
-        <li><a href="#menu">menu</a></li>
-        <li><a href="#file">file</a></li>
-        <li><a href="#sticky">sticky</a></li>
-        <li><a href="#dyn-contents">dyn-contents</a></li>
-        <li><a href="#draggable">draggable</a></li>
-        <li><a href="#collapsible">collapsible</a></li>
-      </ul>
+      <hce-routes>
+        <ul class="table-of-contents">
+          <li><a href="#home">home</a></li>
+          <li><a href="#tooltip">tooltip</a></li>
+          <li><a href="#tabs">tabs</a></li>
+          <li><a href="#loading">loading</a></li>
+          <li><a href="#carousel">carousel</a></li>
+          <li><a href="#snackbar">snackbar</a></li>
+          <li><a href="#drawer">drawer</a></li>
+          <li><a href="#dialog">dialog</a></li>
+          <li><a href="#calendar">calendar</a></li>
+          <li><a href="#list">list</a></li>
+          <li><a href="#overlay">overlay</a></li>
+          <li><a href="#menu">menu</a></li>
+          <li><a href="#file">file</a></li>
+          <li><a href="#sticky">sticky</a></li>
+          <li><a href="#routes">routes</a></li>
+          <li><a href="#draggable">draggable</a></li>
+          <li><a href="#collapsible">collapsible</a></li>
+        </ul>
+      </hce-routes>
     </hce-sticky>
 
-    <hce-dyn-contents class="contents" move-to-top="true">
-      <div url-match="^/$" import="demo/home.html"></div>
-      <div url-match="home" import="demo/home.html"></div>
-      <div url-match="tooltip" import="demo/hce-tooltip.html"></div>
-      <div url-match="tabs" import="demo/hce-tabs.html"></div>
-      <div url-match="loading" import="demo/hce-loading.html"></div>
-      <div url-match="carousel" import="demo/hce-carousel.html"></div>
-      <div url-match="snackbar" import="demo/hce-snackbar.html"></div>
-      <div url-match="drawer" import="demo/hce-drawer.html"></div>
-      <div url-match="dialog" import="demo/hce-dialog.html"></div>
-      <div url-match="calendar" import="demo/hce-calendar.html"></div>
-      <div url-match="dyn-list" import="demo/hce-dyn-list.html"></div>
-      <div url-match="overlay" import="demo/hce-overlay.html"></div>
-      <div url-match="menu" import="demo/hce-menu.html"></div>
-      <div url-match="file" import="demo/hce-file.html"></div>
-      <div url-match="sticky" import="demo/hce-sticky.html"></div>
-      <div url-match="dyn-contents" import="demo/hce-dyn-contents.html"></div>
-      <div url-match="draggable" import="demo/hce-draggable.html"></div>
-      <div url-match="collapsible" import="demo/hce-collapsible.html"></div>
-    </hce-dyn-contents>
+    <hce-routes class="contents" move-to-top="true">
+      <div route-match="^/$" import="demo/home.html"></div>
+      <div route-match="home" import="demo/home.html"></div>
+      <div route-match="tooltip" import="demo/hce-tooltip.html"></div>
+      <div route-match="tabs" import="demo/hce-tabs.html"></div>
+      <div route-match="loading" import="demo/hce-loading.html"></div>
+      <div route-match="carousel" import="demo/hce-carousel.html"></div>
+      <div route-match="snackbar" import="demo/hce-snackbar.html"></div>
+      <div route-match="drawer" import="demo/hce-drawer.html"></div>
+      <div route-match="dialog" import="demo/hce-dialog.html"></div>
+      <div route-match="calendar" import="demo/hce-calendar.html"></div>
+      <div route-match="list" import="demo/hce-list.html"></div>
+      <div route-match="overlay" import="demo/hce-overlay.html"></div>
+      <div route-match="menu" import="demo/hce-menu.html"></div>
+      <div route-match="file" import="demo/hce-file.html"></div>
+      <div route-match="sticky" import="demo/hce-sticky.html"></div>
+      <div route-match="routes" import="demo/hce-routes.html"></div>
+      <div route-match="draggable" import="demo/hce-draggable.html"></div>
+      <div route-match="collapsible" import="demo/hce-collapsible.html"></div>
+    </hce-routes>
     
   </body>
 </html>

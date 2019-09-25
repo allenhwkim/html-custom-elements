@@ -1,4 +1,4 @@
-import './dyn-contents/dyn-contents';
+import './routes/routes';
 import './tooltip/tooltip';
 import './tabs/tabs';
 import './loading/loading';
@@ -7,7 +7,7 @@ import './snackbar/snackbar';
 import './drawer/drawer';
 import './dialog/dialog';
 import './calendar/calendar';
-import './dyn-list/dyn-list';
+import './list/list';
 import './overlay/overlay';
 import './menu/menu';
 import './file/file';

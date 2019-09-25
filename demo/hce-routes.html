@@ -1,6 +1,6 @@
-<h2>hce-dyn-contents</h2>
+<h2>hce-routes</h2>
 <p>
-  hce-dyn-contents replace its contents by the current url match.
+  hce-routes replace its contents by the current url match.
 </p>
 <p>
   This is very useful when you need to build a very simple single page application without a framework router.
@@ -8,7 +8,7 @@
 
 <h3>Child Elements</h3>
 <ul>
-  <li><b>url-match</b> attribute: When the current url matches to this string, ...
+  <li><b>route-match</b> attribute: When the current url matches to this string, ...
   <li><b>import</b> attribute: Import the given html file here.
   <li><b>default</b> attribute: When the current url does not match any, use this block to import html file.
 </ul>
@@ -28,14 +28,14 @@
     <li><a href="#x1-contents/3">contents 3</a></li>
   </ul>
 
-  <hce-dyn-contents class="contents small">
-    <div url-match="dyn-contents" import="demo/hce-dyn-contents-1.html"></div>
-    <div url-match="x1-contents/1" import="demo/hce-dyn-contents-1.html"></div>
-    <div url-match="x1-contents/2" import="demo/hce-dyn-contents-2.html"></div>
-    <div url-match="x1-contents/3" import="demo/hce-dyn-contents-3.html"></div>
-  </hce-dyn-contents>
+  <hce-routes class="contents small">
+    <div route-match="routes" import="demo/hce-routes-1.html"></div>
+    <div route-match="x1-contents/1" import="demo/hce-routes-1.html"></div>
+    <div route-match="x1-contents/2" import="demo/hce-routes-2.html"></div>
+    <div route-match="x1-contents/3" import="demo/hce-routes-3.html"></div>
+  </hce-routes>
 </div>
 <br/>
 <script>
-  showCode('x1', 0, 0, /url-match|import/g);
+  showCode('x1', 0, 0, /route-match|import/g);
 </script>

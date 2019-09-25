@@ -1,14 +1,14 @@
 <style>
-hce-dyn-list {z-index: 1; border: 1px solid #ccc; display: inline-block;}
-hce-dyn-list li {list-style: none; margin: 0; padding: 0;}
-hce-dyn-list li {min-width: 200px; max-width: 400px;}
-hce-dyn-list li:hover { background: #eee; }
+hce-list {z-index: 1; border: 1px solid #ccc; display: inline-block;}
+hce-list li {list-style: none; margin: 0; padding: 0;}
+hce-list li {min-width: 200px; max-width: 400px;}
+hce-list li:hover { background: #eee; }
 pre {padding: 12px; background: #eee; margin: 0 ;}
 </style>
-<h2>hce-dyn-list</h2>
+<h2>hce-list</h2>
 
 <p>
-  hce-dyn-list changes its contents by the given source.
+  hce-list changes its contents by the given source.
   It also provides autocomplte feature of an input box.
 </p>
 
@@ -24,15 +24,15 @@ pre {padding: 12px; background: #eee; margin: 0 ;}
 </ul> 
 
 <h3>Auto Complete</h3>
-You can use hce-dyn-list as an autocomplete by providing source function that returns a promise.
+You can use hce-list as an autocomplete by providing source function that returns a promise.
 <div id="x0">
   <input id="keyword" placeholder="Type to search"/>
   <br/>
-  <hce-dyn-list [source]="getAutoComplete()" 
+  <hce-list [source]="getAutoComplete()" 
     (selected)="selected0(event)"
     visible-by="#keyword">
     <li>{{name.first}} {{name.last}}</li>
-  </hce-dyn-list>
+  </hce-list>
   <pre class="data-selected">Autocomplete input to see the selected data object.</pre>
 </div>
 <script id="s0">
@@ -55,16 +55,16 @@ function selected0(event) {
 }
 </script>
 <script>
-  showCode('x0', 's0', 0, /hce-dyn-list|source|selected|visible-by/g);
+  showCode('x0', 's0', 0, /hce-list|source|selected|visible-by/g);
 </script>
 <hr/>
 
 <h3>Source As an Array</h3>
 When you set the source as an array, the list automatically changes.
 <div id="x1">
-  <hce-dyn-list class="hdl" [source]="srcInArray1" (selected)="selected1(event)">
+  <hce-list class="hdl" [source]="srcInArray1" (selected)="selected1(event)">
     <li>{{name.first}} {{name.last}}</li>
-  </hce-dyn-list>
+  </hce-list>
   <button onclick="dynList1.source=srcInArray1">set source1</button>
   <button onclick="dynList1.source=srcInArray2">set source2</button>
   <pre class="data-selected">Select one of the list to see the selected object.</pre>
@@ -79,16 +79,16 @@ function selected1(event) {
 }
 </script>
 <script>
-  showCode('x1', 's1', 0, /hce-dyn-list|\[source\]|\(selected\)|visible-by/g);
+  showCode('x1', 's1', 0, /hce-list|\[source\]|\(selected\)|visible-by/g);
 </script>
 <hr/>
 
 <h3>Source As a Object</h3>
 When you set the source as a object, the list automatically changes.
 <div id="x2">
-  <hce-dyn-list class="hdl" [source]="srcInObject1" (selected)="selected2(event)">
+  <hce-list class="hdl" [source]="srcInObject1" (selected)="selected2(event)">
     <li>{{key}} {{name.first}} {{name.last}}</li>
-  </hce-dyn-list>
+  </hce-list>
   <button onclick="dynList2.source=srcInObject1">set source1</button>
   <button onclick="dynList2.source=srcInObject2">set source2</button>
   <pre class="data-selected">Select one of the list to see the selected object.</pre>
@@ -103,16 +103,16 @@ function selected2(event) {
 }
 </script>
 <script>
-  showCode('x2', 's2', 0, /hce-dyn-list|\[source\]|\(selected\)|visible-by/g);
+  showCode('x2', 's2', 0, /hce-list|\[source\]|\(selected\)|visible-by/g);
 </script>
 <hr/>
 
 <h3>Source As a Promise</h3>
 When you set the source as a Promise that returns an array or a object, the list automatically changes.
 <div id="x3">
-  <hce-dyn-list class="hdl" [source]="srcInPromiseArray" (selected)="selectedx3(event)">
+  <hce-list class="hdl" [source]="srcInPromiseArray" (selected)="selectedx3(event)">
     <li>{{name.first}} {{name.last}}</li>
-  </hce-dyn-list>
+  </hce-list>
   <button onclick="dynList3.source=srcInPromiseArray">set source1</button>
   <button onclick="dynList3.source=srcInPromiseObject">set source2</button>
   <pre class="data-selected">Select one of the list to see the selected object.</pre>
@@ -133,7 +133,7 @@ function selectedx3(event) {
 }
 </script>
 <script>
-  showCode('x3', 's3', 0, /hce-dyn-list|\[source\]|\(selected\)|visible-by/g);
+  showCode('x3', 's3', 0, /hce-list|\[source\]|\(selected\)|visible-by/g);
 </script>
 <hr/>
 
