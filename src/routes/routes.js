@@ -88,7 +88,6 @@ export class HCERoutes extends HTMLCustomElement {
       }
     });
   }
-
 }
 
 HTMLCustomElement.define('hce-routes', HCERoutes);
