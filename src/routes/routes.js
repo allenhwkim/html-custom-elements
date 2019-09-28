@@ -19,34 +19,36 @@ export class HCERoutes extends HTMLCustomElement {
     const popstate = supportsPopState ? 'popstate' : 'hashchange';
 
     this.routes = getRoutesFromEl(this);
-    this.popStateHandler = this.routes.length ?
-      this.replaceContentsHandler.bind(this) : this.setActiveLinksHandler.bind(this);
+    this.popStateListener = this.popStateHandler.bind(this);
+    window.addEventListener(popstate, this.popStateListener);
 
-    this.popStateHandler(); // load the contents or set active links
-    window.addEventListener(popstate, this.popStateHandler);
+    const matchingRoute = this.getMatchingRoute();
+    const src = this.getAttribute('src');
+
+    this.setContentsFromUrl(matchingRoute || src);
   }
 
   // delete window popstate listener
   disconnectedCallback() {
     const supportsPopState = window.navigator.userAgent.indexOf('Trident') === -1;
     const popstate = supportsPopState ? 'popstate' : 'hashchange';
-    window.removeEventListener(popstate, this.popStateHandler);
+    window.removeEventListener(popstate, this.popStateListener);
   }
 
-  // window popstate listener
-  replaceContentsHandler(event) {
+  getMatchingRoute() {
     const locationHref = window.location.href.replace(window.location.origin, '');
     const route = this.routes.filter(route => locationHref.match(route.match))[0];
 
-    let src;
     if (route) {
       const [m0, m1, m2] = locationHref.match(route.match);
-      src = route.import.replace(/\{\{1\}\}/g, m1).replace(/\{\{2\}\}/g, m2);
+      return route.import.replace(/\{\{1\}\}/g, m1).replace(/\{\{2\}\}/g, m2);
     }
-    src = src || this.getAttribute('src');
-    console.log('[hce-route] replaceContentsHandler', this, {route, src, routes: this.routes});
+  }
 
-    return this.setContentsFromUrl(src);
+  // window popstate listener
+  popStateHandler(event) {
+    const src = this.getMatchingRoute();
+    src && this.setContentsFromUrl(src);
   }
 
   setContentsFromUrl(url) {
@@ -67,18 +69,6 @@ export class HCERoutes extends HTMLCustomElement {
       this.setAttribute('src', url);
       setInnerHTML(this, html);
       setTimeout(_ => this.getAttribute('move-to-top') && window.scrollTo(0, 0));
-    });
-  }
-
-  // window popstate listener
-  setActiveLinksHandler(event) {
-    Array.from(this.querySelectorAll('[href')).forEach(hrefEl => {
-      if (hrefEl.href === window.location.href) {
-        hrefEl.classList.add('active');
-      } else {
-        hrefEl.classList.remove('active');
-        !hrefEl.className && hrefEl.removeAttribute('class');
-      }
     });
   }
 }
