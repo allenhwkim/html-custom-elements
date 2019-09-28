@@ -13,7 +13,6 @@ function getRoutesFromEl(el) {
 }
 
 export class HCERoutes extends HTMLCustomElement {
-
   connectedCallback() {
     const supportsPopState = window.navigator.userAgent.indexOf('Trident') === -1;
     const popstate = supportsPopState ? 'popstate' : 'hashchange';
