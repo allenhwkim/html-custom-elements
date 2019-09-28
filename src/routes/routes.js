@@ -1,4 +1,5 @@
 import {HTMLCustomElement, createCustomEvent} from 'html-custom-element';
+import {setInnerHTML} from '../utils';
 
 function getRoutesFromEl(el) {
   const routes = [];
@@ -11,26 +12,7 @@ function getRoutesFromEl(el) {
   return routes;
 }
 
-function setInnerHTML(elm, html) {
-  elm.innerHTML = html;
-  Array.from(elm.querySelectorAll('script')).forEach(function(el) {
-    const newEl = document.createElement('script');
-    Array.from(el.attributes).forEach(function(el) {
-      newEl.setAttribute(el.name, el.value);
-    });
-
-    newEl.appendChild(document.createTextNode(el.innerHTML));
-    try {
-      el.parentNode.replaceChild(newEl, el);
-    } catch (e) {
-      console.error('Invalid Javascript error with '+el.innerHTML, e);
-    }
-  });
-}
-
 export class HCERoutes extends HTMLCustomElement {
-  // routes
-  // popStateHandler
 
   connectedCallback() {
     const supportsPopState = window.navigator.userAgent.indexOf('Trident') === -1;
@@ -64,15 +46,25 @@ export class HCERoutes extends HTMLCustomElement {
     src = src || this.getAttribute('src');
     console.log('[hce-route] replaceContentsHandler', this, {route, src, routes: this.routes});
 
-    window.fetch(src).then((response) => {
+    return this.setContentsFromUrl(src);
+  }
+
+  setContentsFromUrl(url) {
+    if ((new Date).getTime() - (this.lastCall || 0) < 500) {
+      return;
+    } else {
+      this.lastCall = (new Date).getTime();
+    }
+
+    return window.fetch(url).then((response) => {
       if (!response.ok) {
-        const err = new Error(`[hce-routes] import url: ${src}, status: ${response.statusText}`);
+        const err = new Error(`[hce-routes] import url: ${url}, status: ${response.statusText}`);
         setInnerHTML(this, err);
         throw err;
       }
       return response.text();
     }).then(html => {
-      this.setAttribute('src', src);
+      this.setAttribute('src', url);
       setInnerHTML(this, html);
       setTimeout(_ => this.getAttribute('move-to-top') && window.scrollTo(0, 0));
     });
