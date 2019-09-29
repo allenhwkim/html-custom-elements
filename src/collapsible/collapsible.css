@@ -7,20 +7,21 @@
 
 /* header/body up-down accordion collapsibles */
 .hce-header {
-  padding: 12px;
   cursor: pointer;
   color: #FFF;
-  background: #333;
+  background: #CCC;
+}
+.hce-body {
+  overflow: hidden;
+  /*transition: all .5s ease;*/
+}
+:not(.expanded) .hce-body {
+  height: 0;
+  transform: translateY(-100%)
 }
 .expanded .hce-body {
   min-height: 120px;
-  padding: 12px;
-}
-:not(.expanded) .hce-body {
-  width: 0;
-  height: 0;
-  padding: 0;
-  overflow: hidden;
+  transform: translateY(0)
 }
 
 /* header/body left-right accordion collapsibles */
@@ -34,17 +35,18 @@
 }
 :root.horizontal .hce-header {
   word-wrap: break-word;
-  padding: 12px;
   writing-mode: vertical-rl;
   text-orientation: upright;
 }
 :root.horizontal .hce-header:empty {
   padding: 4px;
 }
+
+:root.horizontal :not(.expanded) .hce-body {
+  width: 0;
+  transform: translateX(-100%)
+}
 :root.horizontal .expanded .hce-body {
   min-width: 240px;
-}
-
-/* body/header left-right accordion collapsibles */
-:root.horizontal .sidebar {
+  transform: translateX(0)
 }
