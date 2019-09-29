@@ -46,16 +46,18 @@ export class HCEList extends HTMLCustomElement {
   }
 
   connectedCallback() {
-    const templateEl = this.children[0];
-    this.template = templateEl && templateEl.outerHTML;
-    templateEl.style.display = 'none';
-    this.renderWith(html, css).then((_) => {
-      if (this.visibleBy) {
-        const source = this.getAttribute('[source]') || this.getAttribute('source');
-        const expression = source.match(/[^\(]+/)[0];
-        this.sourceFunc = new Function(`return ${expression};`);
-      }
-      this.visibleBy && this.setBehaviourOfVisibleBy(this.visibleBy, this);
+    setTimeout( _ => {
+      const templateEl = this.children[0];
+      this.template = templateEl && templateEl.outerHTML;
+      templateEl.style.display = 'none';
+      this.renderWith(html, css).then((_) => {
+        if (this.visibleBy) {
+          const source = this.getAttribute('[source]') || this.getAttribute('source');
+          const expression = source.match(/[^\(]+/)[0];
+          this.sourceFunc = new Function(`return ${expression};`);
+        }
+        this.visibleBy && this.setBehaviourOfVisibleBy(this.visibleBy, this);
+      });
     });
   }
 
