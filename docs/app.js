@@ -63,7 +63,7 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "9adcbeb5b96c1152215a";
+/******/ 	var hotCurrentHash = "b845d48f57a7df21e8cc";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -2633,7 +2633,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var html = "\n  <div class=\"page-blocker\" (click)=\"close()\"></div>\n\n  <div class=\"dialog\">\n    <button class=\"close\" (click)=\"close()\">&times;</button>\n    <div class=\"title\">{{title}}</div>\n    <hce-content></hce-content>\n    <div class=\"actions\"></div>\n  </div>\n";
+var html = "\n  <div class=\"page-blocker\" (click)=\"close()\"></div>\n\n  <div class=\"dialog\">\n    <button class=\"close\" (click)=\"close()\">&times;</button>\n    <div class=\"title\">{{title}}</div>\n    <div class=\"body\">\n      <hce-content></hce-content>\n    </div>\n    <div class=\"actions\"></div>\n  </div>\n";
 var HCEDialog =
 /*#__PURE__*/
 function (_HTMLCustomElement) {
@@ -2647,16 +2647,27 @@ function (_HTMLCustomElement) {
 
   _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(HCEDialog, [{
     key: "connectedCallback",
+    // dialogTitle
+    // actions
+    // contentHTML
     value: function connectedCallback() {
       this.renderWith(html, _dialog_css__WEBPACK_IMPORTED_MODULE_6___default.a).then(function (_) {// console.log(this.title, this.options);
       });
     }
   }, {
     key: "open",
-    value: function open() {
+    value: function open(options) {
       var _this = this;
 
-      this.querySelector('.title').innerHTML = this.dialogTitle || '';
+      if (options && options.title) {
+        this.dialogTitle = options.title;
+        this.querySelector('.title').innerHTML = this.dialogTitle;
+      }
+
+      if (options && options.body) {
+        this.contentHTML = options.body;
+        this.querySelector('.body').innerHTML = this.contentHTML;
+      }
 
       if (this.actions !== undefined) {
         var actionsEl = this.querySelector('.actions');
@@ -3646,19 +3657,26 @@ function (_HTMLCustomElement) {
   _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2___default()(HCERoutes, [{
     key: "connectedCallback",
     value: function connectedCallback() {
+      var _this = this;
+
       var supportsPopState = window.navigator.userAgent.indexOf('Trident') === -1;
       var popstate = supportsPopState ? 'popstate' : 'hashchange';
-      this.routes = getRoutesFromEl(this);
-      this.popStateListener = this.popStateHandler.bind(this);
-      window.addEventListener(popstate, this.popStateListener);
-      var matchingRoute = this.getMatchingRoute();
-      var src = this.getAttribute('src');
-      this.setContentsFromUrl(matchingRoute || src);
+      this.renderWith().then(function (_) {
+        _this.routes = getRoutesFromEl(_this);
+        _this.popStateListener = _this.popStateHandler.bind(_this);
+        window.addEventListener(popstate, _this.popStateListener);
+
+        var matchingRoute = _this.getMatchingRoute();
+
+        var src = _this.getAttribute('src');
+
+        _this.setContentsFromUrl(matchingRoute || src);
+      });
     }
   }, {
     key: "attributeChangedCallback",
     value: function attributeChangedCallback(name, oldValue, newValue) {
-      if (oldValue !== newValue) {
+      if (oldValue && oldValue !== newValue) {
         // console.log('>>>>>>>>>>>>>>>>>>>>>> attribute changed to ', oldValue, newValue);
         this.setContentsFromUrl(newValue);
       }
@@ -3699,7 +3717,7 @@ function (_HTMLCustomElement) {
   }, {
     key: "setContentsFromUrl",
     value: function setContentsFromUrl(url) {
-      var _this = this;
+      var _this2 = this;
 
       if (new Date().getTime() - (this.lastCall || 0) < 500) {
         return;
@@ -3710,15 +3728,15 @@ function (_HTMLCustomElement) {
       return window.fetch(url).then(function (response) {
         if (!response.ok) {
           var err = new Error("[hce-routes] import url: ".concat(url, ", status: ").concat(response.statusText));
-          Object(_utils__WEBPACK_IMPORTED_MODULE_7__["setInnerHTML"])(_this, err);
+          Object(_utils__WEBPACK_IMPORTED_MODULE_7__["setInnerHTML"])(_this2, err);
           throw err;
         }
 
         return response.text();
       }).then(function (html) {
-        Object(_utils__WEBPACK_IMPORTED_MODULE_7__["setInnerHTML"])(_this, html);
+        Object(_utils__WEBPACK_IMPORTED_MODULE_7__["setInnerHTML"])(_this2, html);
         setTimeout(function (_) {
-          return _this.getAttribute('move-to-top') && window.scrollTo(0, 0);
+          return _this2.getAttribute('move-to-top') && window.scrollTo(0, 0);
         });
       });
     }

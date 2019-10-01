@@ -20,19 +20,20 @@ export class HCERoutes extends HTMLCustomElement {
   connectedCallback() {
     const supportsPopState = window.navigator.userAgent.indexOf('Trident') === -1;
     const popstate = supportsPopState ? 'popstate' : 'hashchange';
+    this.renderWith().then(_ => {
+      this.routes = getRoutesFromEl(this);
+      this.popStateListener = this.popStateHandler.bind(this);
+      window.addEventListener(popstate, this.popStateListener);
 
-    this.routes = getRoutesFromEl(this);
-    this.popStateListener = this.popStateHandler.bind(this);
-    window.addEventListener(popstate, this.popStateListener);
+      const matchingRoute = this.getMatchingRoute();
+      const src = this.getAttribute('src');
 
-    const matchingRoute = this.getMatchingRoute();
-    const src = this.getAttribute('src');
-
-    this.setContentsFromUrl(matchingRoute || src);
+      this.setContentsFromUrl(matchingRoute || src);
+    });
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
-    if (oldValue !== newValue) {
+    if (oldValue && oldValue !== newValue) {
       // console.log('>>>>>>>>>>>>>>>>>>>>>> attribute changed to ', oldValue, newValue);
       this.setContentsFromUrl(newValue);
     }

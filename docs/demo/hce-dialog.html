@@ -23,8 +23,8 @@ var actions = [ // eslint-disable-line
     }
   }
 ];
-function openDialog(id) {
-  document.querySelector('#'+id).open();
+function openDialog(id, options) {
+  document.querySelector('#'+id).open(options);
 }
 </script>
 <div id="x1">
@@ -59,4 +59,14 @@ function openDialog(id) {
 </div>
 <script>
   showCode('x3', 0, 0, /dialog-title|\[actions\]/g);
+</script>
+
+<div id="x4">
+  <button onclick="openDialog('dialog-4', {title: 'My Title', body: '<b>My Body</b>'})">
+    Open Dialog With Title/Body
+  </button>
+  <hce-dialog id="dialog-4"></hce-dialog>
+</div>
+<script>
+  showCode('x4', 0, 0, /dialog-title|\[actions\]/g);
 </script>
