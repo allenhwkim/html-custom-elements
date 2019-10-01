@@ -98,9 +98,10 @@ export class HCEList extends HTMLCustomElement {
   __setList() {
     const promise = this.source.then ? this.source : Promise.resolve(this.source);
     promise.then((src) => {
+      // console.log('[hce-list] src', src);
       src = src instanceof Array ? src : __objectToArray(src);
       src.forEach((item) => {
-        const html = this.template.replace(/{{(.*?)}}/g, ($0, expr) => {
+        const html = this.template.replace(/[\[\{]{2}(.*?)[\]\}]{2}/g, ($0, expr) => {
           const func = (new Function(`return this.${expr}`)).bind(item);
           return func();
         });

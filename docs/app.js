@@ -63,7 +63,7 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "56860c3da0492a159068";
+/******/ 	var hotCurrentHash = "bb80cb1168105e9259e3";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -3149,18 +3149,21 @@ function (_HTMLCustomElement) {
     value: function connectedCallback() {
       var _this = this;
 
-      var templateEl = this.children[0];
-      this.template = templateEl && templateEl.outerHTML;
-      templateEl.style.display = 'none';
-      this.renderWith(html, css).then(function (_) {
-        if (_this.visibleBy) {
-          var source = _this.getAttribute('[source]') || _this.getAttribute('source');
+      setTimeout(function (_) {
+        var templateEl = _this.children[0];
+        _this.template = templateEl && templateEl.outerHTML;
+        templateEl.style.display = 'none';
 
-          var expression = source.match(/[^\(]+/)[0];
-          _this.sourceFunc = new Function("return ".concat(expression, ";"));
-        }
+        _this.renderWith(html, css).then(function (_) {
+          if (_this.visibleBy) {
+            var source = _this.getAttribute('[source]') || _this.getAttribute('source');
 
-        _this.visibleBy && _this.setBehaviourOfVisibleBy(_this.visibleBy, _this);
+            var expression = source.match(/[^\(]+/)[0];
+            _this.sourceFunc = new Function("return ".concat(expression, ";"));
+          }
+
+          _this.visibleBy && _this.setBehaviourOfVisibleBy(_this.visibleBy, _this);
+        });
       });
     }
   }, {
@@ -3208,9 +3211,10 @@ function (_HTMLCustomElement) {
 
       var promise = this.source.then ? this.source : Promise.resolve(this.source);
       promise.then(function (src) {
+        // console.log('[hce-list] src', src);
         src = src instanceof Array ? src : __objectToArray(src);
         src.forEach(function (item) {
-          var html = _this3.template.replace(/{{(.*?)}}/g, function ($0, expr) {
+          var html = _this3.template.replace(/[\[\{]{2}(.*?)[\]\}]{2}/g, function ($0, expr) {
             var func = new Function("return this.".concat(expr)).bind(item);
             return func();
           });
