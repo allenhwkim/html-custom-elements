@@ -7,20 +7,34 @@ const html = `
   <div class="dialog">
     <button class="close" (click)="close()">&times;</button>
     <div class="title">{{title}}</div>
-    <hce-content></hce-content>
+    <div class="body">
+      <hce-content></hce-content>
+    </div>
     <div class="actions"></div>
   </div>
 `;
 
 export class HCEDialog extends HTMLCustomElement {
+  // dialogTitle
+  // actions
+  // contentHTML
   connectedCallback() {
     this.renderWith(html, css).then((_) => {
       // console.log(this.title, this.options);
     });
   }
 
-  open() {
-    this.querySelector('.title').innerHTML = this.dialogTitle || '';
+  open(options) {
+    if (options && options.title) {
+      this.dialogTitle = options.title;
+      this.querySelector('.title').innerHTML = this.dialogTitle;
+    }
+
+    if (options && options.body) {
+      this.contentHTML = options.body;
+      this.querySelector('.body').innerHTML = this.contentHTML;
+    }
+
     if (this.actions !== undefined) {
       const actionsEl = this.querySelector('.actions');
       actionsEl.innerHTML = '';
