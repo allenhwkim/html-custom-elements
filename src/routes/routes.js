@@ -13,6 +13,10 @@ function getRoutesFromEl(el) {
 }
 
 export class HCERoutes extends HTMLCustomElement {
+  static get observedAttributes() {
+    return ['src'];
+  }
+
   connectedCallback() {
     const supportsPopState = window.navigator.userAgent.indexOf('Trident') === -1;
     const popstate = supportsPopState ? 'popstate' : 'hashchange';
@@ -25,6 +29,13 @@ export class HCERoutes extends HTMLCustomElement {
     const src = this.getAttribute('src');
 
     this.setContentsFromUrl(matchingRoute || src);
+  }
+
+  attributeChangedCallback(name, oldValue, newValue) {
+    if (oldValue !== newValue) {
+      // console.log('>>>>>>>>>>>>>>>>>>>>>> attribute changed to ', oldValue, newValue);
+      this.setContentsFromUrl(newValue);
+    }
   }
 
   // delete window popstate listener
@@ -47,7 +58,7 @@ export class HCERoutes extends HTMLCustomElement {
   // window popstate listener
   popStateHandler(event) {
     const src = this.getMatchingRoute();
-    src && this.setContentsFromUrl(src);
+    src && this.setAttribute('src', src);
   }
 
   setContentsFromUrl(url) {
@@ -65,7 +76,6 @@ export class HCERoutes extends HTMLCustomElement {
       }
       return response.text();
     }).then(html => {
-      this.setAttribute('src', url);
       setInnerHTML(this, html);
       setTimeout(_ => this.getAttribute('move-to-top') && window.scrollTo(0, 0));
     });
