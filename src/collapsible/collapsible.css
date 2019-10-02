@@ -17,11 +17,9 @@
 }
 :not(.expanded) .hce-body {
   height: 0;
-  transform: translateY(-100%)
 }
 .expanded .hce-body {
   min-height: 120px;
-  transform: translateY(0)
 }
 
 /* header/body left-right accordion collapsibles */
@@ -44,9 +42,7 @@
 
 :root.horizontal :not(.expanded) .hce-body {
   width: 0;
-  transform: translateX(-100%)
 }
 :root.horizontal .expanded .hce-body {
   min-width: 240px;
-  transform: translateX(0)
 }
