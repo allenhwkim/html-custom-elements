@@ -63,7 +63,7 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "b845d48f57a7df21e8cc";
+/******/ 	var hotCurrentHash = "5f83ac741721b456e9de";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -2511,7 +2511,7 @@ HCECarousel.define('hce-carousel', HCECarousel);
 /***/ "./src/collapsible/collapsible.css":
 /***/ (function(module, exports) {
 
-module.exports = ":root {\n  display: block;\n}\n:root * {\n  box-sizing: border-box;\n}\n\n/* header/body up-down accordion collapsibles */\n.hce-header {\n  cursor: pointer;\n  color: #FFF;\n  background: #CCC;\n}\n.hce-body {\n  overflow: hidden;\n  /*transition: all .5s ease;*/\n}\n:not(.expanded) .hce-body {\n  height: 0;\n  transform: translateY(-100%)\n}\n.expanded .hce-body {\n  min-height: 120px;\n  transform: translateY(0)\n}\n\n/* header/body left-right accordion collapsibles */\n:root.horizontal {\n  display: flex;\n  align-items: stretch;\n}\n:root.horizontal > * {\n  display: flex;\n  align-items: stretch;\n}\n:root.horizontal .hce-header {\n  word-wrap: break-word;\n  writing-mode: vertical-rl;\n  text-orientation: upright;\n}\n:root.horizontal .hce-header:empty {\n  padding: 4px;\n}\n\n:root.horizontal :not(.expanded) .hce-body {\n  width: 0;\n  transform: translateX(-100%)\n}\n:root.horizontal .expanded .hce-body {\n  min-width: 240px;\n  transform: translateX(0)\n}\n"
+module.exports = ":root {\n  display: block;\n}\n:root * {\n  box-sizing: border-box;\n}\n\n/* header/body up-down accordion collapsibles */\n.hce-header {\n  cursor: pointer;\n  color: #FFF;\n  background: #CCC;\n}\n.hce-body {\n  overflow: hidden;\n  /*transition: all .5s ease;*/\n}\n:not(.expanded) .hce-body {\n  height: 0;\n}\n.expanded .hce-body {\n  min-height: 120px;\n}\n\n/* header/body left-right accordion collapsibles */\n:root.horizontal {\n  display: flex;\n  align-items: stretch;\n}\n:root.horizontal > * {\n  display: flex;\n  align-items: stretch;\n}\n:root.horizontal .hce-header {\n  word-wrap: break-word;\n  writing-mode: vertical-rl;\n  text-orientation: upright;\n}\n:root.horizontal .hce-header:empty {\n  padding: 4px;\n}\n\n:root.horizontal :not(.expanded) .hce-body {\n  width: 0;\n}\n:root.horizontal .expanded .hce-body {\n  min-width: 240px;\n}\n"
 
 /***/ }),
 

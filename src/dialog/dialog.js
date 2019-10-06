@@ -21,6 +21,7 @@ export class HCEDialog extends HTMLCustomElement {
   connectedCallback() {
     this.renderWith(html, css).then((_) => {
       // console.log(this.title, this.options);
+      this.querySelector('.title').innerHTML = this.dialogTitle;
     });
   }
 
@@ -45,11 +46,13 @@ export class HCEDialog extends HTMLCustomElement {
         actionsEl.appendChild(buttonEl);
       });
     }
-    this.appear();
+    this.classList.add('visible');
+    document.body.style.overflow = 'hidden';
   }
 
   close() {
-    this.disappear();
+    this.classList.remove('visible');
+    document.body.style.overflow = 'initial';
   }
 }
 
