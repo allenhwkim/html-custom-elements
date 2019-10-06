@@ -1,7 +1,7 @@
 {
   "name": "html-custom-elements",
   "description": "Collection of custom elements",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "author": "Allen Kim <allenhwkim@gmail.com>",
   "license": "MIT",
   "main": "dist/html-custom-elements.umd.js",
